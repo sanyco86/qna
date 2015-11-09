@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
 
-  validates :title, :body, presence: true
-
   has_many :answers, dependent: :destroy
   belongs_to :user
+
+  validates :title, :body, :user_id, presence: true
 end
