@@ -9,10 +9,9 @@ feature 'User sign in', %q{
   given(:user) { create(:user) }
 
   scenario 'Registered user try to sign in' do
-
     sign_in(user)
 
-    expect(page).to have_content 'Вход в систему выполнен.'
+    expect(page).to have_content 'successfully'
     expect(current_path).to eq root_path
   end
 
@@ -21,7 +20,8 @@ feature 'User sign in', %q{
     fill_in 'Email', with: 'wrong@user.com'
     fill_in 'Password', with: '12345'
     click_on 'Log in'
-    expect(page).to have_content 'Неверный email или пароль.'
+
+    expect(page).to have_content 'Invalid email or password.'
     expect(current_path).to eq new_user_session_path
   end
 end
