@@ -24,7 +24,7 @@ module Qna
     config.active_record.raise_in_transactional_callbacks = true
     config.generators do |g|
       g.test_framework :rspec,
-                       fixtures: true,
+                       features: true,
                        view_spec: false,
                        helper_specs: false,
                        routing_specs: false,

@@ -20,12 +20,13 @@ end
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.include Capybara::DSL
   config.include Devise::TestHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
-  config.include AcceptanceHelper, type: :feature
+  config.include FeatureMacros, type: :feature
 
 
-  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.fixture_path = "#{::Rails.root}/spec/features"
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
 end
