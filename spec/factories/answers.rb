@@ -3,11 +3,9 @@ FactoryGirl.define do
     body 'Answer body'
     question
     user
-  end
 
-  factory :invalid_answer, class: Answer do
-    body nil
-    question
-    user
+    trait :invalid do
+      body nil
+    end
   end
 end

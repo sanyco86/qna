@@ -9,16 +9,15 @@ RSpec.feature 'Answers', type: :feature do
 
   describe 'authenticated user' do
     before do
-      sign_in user
+      sign_in(user)
     end
 
-    scenario 'creates an answer' do
+    scenario 'creates an answer', js: true do
       visit question_path(question)
 
       fill_in 'Answer', with: answer_params.body
       click_on 'Create'
 
-      expect(page).to have_content 'Answer was successfully created'
       expect(page).to have_content answer_params.body
     end
 

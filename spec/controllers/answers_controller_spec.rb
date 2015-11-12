@@ -11,19 +11,19 @@ describe AnswersController do
 
       it 'creates new answer' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:answer)
+          post :create, question_id: question, answer: attributes_for(:answer), format: :js
         }.to change(question.answers, :count).by 1
       end
 
       it 'correctly assigns user' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:answer)
+          post :create, question_id: question, answer: attributes_for(:answer), format: :js
         }.to change(@user.answers, :count).by 1
       end
 
-      it 'redirects to question#show' do
-        post :create, question_id: question, answer: attributes_for(:answer)
-        expect(response).to redirect_to question_path(answer.question)
+      it 'renders create template' do
+        post :create, question_id: question, answer: attributes_for(:answer), format: :js
+        expect(response).to render_template :create
       end
     end
 
@@ -32,7 +32,7 @@ describe AnswersController do
 
       it 'does not create new answer' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:invalid_answer)
+          post :create, question_id: question, answer: attributes_for(:answer, :invalid), format: :js
         }.to_not change(Answer, :count)
       end
     end
