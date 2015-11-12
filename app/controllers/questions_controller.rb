@@ -54,7 +54,7 @@ class QuestionsController < ApplicationController
   end
 
   def load_own_question
-    @question = Question.find params[:id]
+    load_question
     unless @question.user == current_user
       redirect_to root_url
     end
