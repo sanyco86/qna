@@ -17,7 +17,7 @@ describe AnswersController do
 
       it 'correctly assigns user' do
         post :create, question_id: question, answer: attributes_for(:answer)
-        expect(question.answers.last.user).to eq @user
+        expect(answer.user_id).to eq @user.id
       end
 
       it 'redirects to question#show' do

@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user, only: :destroy
+  before_action :load_own_answer, only: :destroy
 
   def create
     @question = Question.find(params[:question_id])
@@ -23,9 +23,11 @@ class AnswersController < ApplicationController
 
   private
 
-  def authorize_user
+  def load_own_answer
     @answer = Answer.find params[:id]
-    redirect_to root_url unless @answer.user == current_user
+    unless @answer.user == current_user
+      redirect_to root_url
+    end
   end
 
   def answer_params

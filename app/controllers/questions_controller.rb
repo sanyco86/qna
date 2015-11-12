@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :authorize_user, only: :destroy
+  before_action :load_own_question, only: :destroy
   before_action :load_question, only: [:show, :edit, :update]
 
   def index
@@ -53,8 +53,10 @@ class QuestionsController < ApplicationController
     params.require(:question).permit(:title, :body)
   end
 
-  def authorize_user
+  def load_own_question
     @question = Question.find params[:id]
-    redirect_to root_url unless @question.user == current_user
+    unless @question.user == current_user
+      redirect_to root_url
+    end
   end
 end
