@@ -3,11 +3,10 @@ FactoryGirl.define do
     title 'MyString'
     body 'MyText'
     user
-  end
 
-  factory :invalid_question, class: 'Question' do
-    title nil
-    body nil
-    user
+    trait :invalid do
+      title nil
+      body nil
+    end
   end
 end

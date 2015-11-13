@@ -5,12 +5,12 @@ describe QuestionsController do
   let(:anothers_question) { create(:question) }
 
   describe 'GET #index' do
-    let(:questions) { create_list(:question, 2) }
+    let!(:questions) { create_list(:question, 2) }
 
     before { get :index }
 
     it 'returns array of all questions' do
-      expect(assigns(:questions)).to match_array questions
+      expect(assigns(:questions)).to match_array Question.all
     end
 
     it 'renders questions#index view' do
@@ -27,6 +27,10 @@ describe QuestionsController do
 
     it 'renders questions#show view' do
       expect(response).to render_template :show
+    end
+
+    it 'assigns new answer to @answer' do
+      expect(assigns(:answer)).to be_a_new(Answer)
     end
   end
 
@@ -77,12 +81,12 @@ describe QuestionsController do
     context 'with invalid attributes' do
       it 'doesnt create a new question' do
         expect {
-          post :create, question: attributes_for(:invalid_question)
+          post :create, question: attributes_for(:question, :invalid)
         }.to_not change(Question, :count)
       end
 
       it 'renders questions#new view' do
-        post :create, question: attributes_for(:invalid_question)
+        post :create, question: attributes_for(:question, :invalid)
         expect(response).to render_template :new
       end
     end
