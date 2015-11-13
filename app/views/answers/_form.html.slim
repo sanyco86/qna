@@ -3,5 +3,6 @@
   = form_for [question, answer], remote: true do |f|
     .form-group
       = f.label :body, 'Answer'
+      .answer-errors
       = f.text_area :body, class: 'form-control', rows: 5
     = f.submit 'Create', class: 'btn btn-default'
