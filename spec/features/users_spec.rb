@@ -1,7 +1,6 @@
-require 'rails_helper'
+require_relative 'feature_helper'
 
 RSpec.feature 'Users', type: :feature do
-  #let(:user) { create(:user) }
   given(:user) { create(:user) }
   let(:n_user) { build(:user) }
 

@@ -11,7 +11,7 @@ class AnswersController < ApplicationController
 
   def destroy
     if @answer.destroy
-      flash[:notice] = 'Answer was successfully destroyed'
+      flash[:success] = 'Answer was successfully destroyed'
       redirect_to @answer.question
     end
   end
