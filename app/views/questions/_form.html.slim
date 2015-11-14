@@ -1,5 +1,6 @@
 .col-lg-4
-  = form_for question do |f|
+  = form_for question, remote: remote do |f|
+    .question-errors
     .form-group
       = f.label :title
       = f.text_field :title, class: 'form-control'

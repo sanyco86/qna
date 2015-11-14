@@ -1,8 +1,10 @@
 .row
-  .col-md-6
+  .col-md-6.question__wrapper id="#{dom_id(@question)}"
     h2 = @question.title
     p = @question.body
-    p = link_to 'Destroy', @question, method: :delete if user_authorized_for(@question)
+    - if user_authorized_for @question
+      p = link_to 'Edit', edit_question_path(@question), class: 'question__edit-link'
+      p = link_to 'Destroy', @question, method: :delete
 hr
 .row#answers
   = render @question.answers
