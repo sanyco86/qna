@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_own_answer, only: [:make_best, :destroy]
+  before_action :load_own_answer, only: :destroy
 
   def create
     @question = Question.find(params[:question_id])
@@ -16,8 +16,9 @@ class AnswersController < ApplicationController
   end
 
   def make_best
-    @answer.make_best
+    @answer = Answer.find params[:id]
     @question = @answer.question
+    @answer.make_best if @question.user_id == current_user.id
   end
 
   def destroy

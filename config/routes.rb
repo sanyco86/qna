@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :questions do
     resources :answers do
-      member { patch :make_best }
+      patch :make_best, on: :member
     end
   end
 end

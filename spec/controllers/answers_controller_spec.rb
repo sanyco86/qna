@@ -101,19 +101,33 @@ describe AnswersController do
   end
 
   describe 'PATCH #make_best' do
-    sign_in_user
+    context 'correct user' do
+      sign_in_user
 
-    before do
-      patch :make_best, id: answer, question_id: question, format: :js
+      before do
+        question.update(user: @user)
+        patch :make_best, id: answer, question_id: question, format: :js
+      end
+
+      it 'sets #best to true' do
+        answer.reload
+        expect(answer).to be_best
+      end
+
+      it 'renders #make_best template' do
+        expect(response).to render_template :make_best
+      end
     end
 
-    it 'sets #best to true' do
-      answer.reload
-      expect(answer).to be_best
-    end
+    context 'incorrect user' do
+      sign_in_user
 
-    it 'renders #make_best template' do
-      expect(response).to render_template :make_best
+      it 'doesnt change #best' do
+        expect{
+          patch :make_best, id: answer, question_id: question, format: :js
+          answer.reload
+        }.to_not change(answer, :best)
+      end
     end
   end
 end

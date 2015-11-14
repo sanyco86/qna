@@ -3,7 +3,7 @@
   - if answer.best
     p The Best Answer
   p = answer.body
-  - if current_user == answer.question.user && !answer.best
+  - if user_signed_in? && current_user.id == answer.question.user_id && !answer.best
     p = link_to 'Best answer', make_best_question_answer_path(answer.question, answer), method: :patch, remote: true
   - if user_authorized_for(answer)
     p = link_to 'Edit', '#', class: 'answer__edit-link', data: { answer_id: answer.id }
