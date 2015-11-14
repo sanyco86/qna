@@ -99,4 +99,21 @@ describe AnswersController do
       end
     end
   end
+
+  describe 'PATCH #make_best' do
+    sign_in_user
+
+    before do
+      patch :make_best, id: answer, question_id: question, format: :js
+    end
+
+    it 'sets #best to true' do
+      answer.reload
+      expect(answer).to be_best
+    end
+
+    it 'renders #make_best template' do
+      expect(response).to render_template :make_best
+    end
+  end
 end

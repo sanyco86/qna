@@ -3,7 +3,7 @@ require_relative 'feature_helper'
 RSpec.feature 'Answers', type: :feature do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-  let(:question) { create(:question) }
+  let(:question) { create(:question, user: user) }
   let(:answer_params) { build(:answer, body: 'Random text') }
   let!(:answer) { create(:answer, question: question, user: user) }
 
@@ -45,6 +45,13 @@ RSpec.feature 'Answers', type: :feature do
         expect(page).to_not have_selector 'textarea'
       end
     end
+
+    scenario 'choose best answer', js: true do
+      within "#answer_#{answer.id}" do
+        click_on 'Best answer'
+        expect(page).to have_content 'The Best Answer'
+      end
+    end
   end
 
   describe 'any user' do
@@ -63,6 +70,10 @@ RSpec.feature 'Answers', type: :feature do
       within "#answer_#{answer.id}" do
         expect(page).to_not have_link 'Destroy'
       end
+    end
+
+    scenario 'cannot chose best answer for anothers question' do
+      expect(page).to_not have_link 'Best answer'
     end
   end
 

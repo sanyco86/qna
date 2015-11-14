@@ -1,6 +1,10 @@
 .col-md-12 id=dom_id(answer)
   p = answer.user.try(:email)
+  - if answer.best
+    p The Best Answer
   p = answer.body
+  - if current_user == answer.question.user && !answer.best
+    p = link_to 'Best answer', make_best_question_answer_path(answer.question, answer), method: :patch, remote: true
   - if user_authorized_for(answer)
     p = link_to 'Edit', '#', class: 'answer__edit-link', data: { answer_id: answer.id }
     = form_for [answer.question, answer], remote: true, html: {class: 'answer__edit-form', id: "edit-#{dom_id(answer)}"} do |f|
