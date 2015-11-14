@@ -1,6 +1,6 @@
 require_relative 'feature_helper'
 
-RSpec.feature "Answers", type: :feature do
+RSpec.feature 'Answers', type: :feature do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
   let(:question) { create(:question) }
@@ -20,23 +20,22 @@ RSpec.feature "Answers", type: :feature do
       expect(page).to have_content answer_params.body
     end
 
-    scenario 'deletes an answer' do
-      within "#answers" do
+    scenario 'deletes an answer', js: true do
+      within "#answer_#{answer.id}" do
         click_on 'Destroy'
       end
 
-      expect(page).to have_content 'Answer was successfully destroyed'
       expect(page).to_not have_content answer.body
     end
 
     scenario 'sees Edit link' do
-      within "#answers" do
+      within "#answer_#{answer.id}" do
         expect(page).to have_link 'Edit'
       end
     end
 
     scenario 'can edit his answer', js: true do
-      within "#answers" do
+      within "#answer_#{answer.id}" do
         click_on 'Edit'
         fill_in 'Answer', with: 'updated'
         click_on 'Save'
@@ -55,13 +54,13 @@ RSpec.feature "Answers", type: :feature do
     end
 
     scenario 'cannot edit not his answer' do
-      within "#answers" do
+      within "#answer_#{answer.id}" do
         expect(page).to_not have_link 'Edit'
       end
     end
 
     scenario "cannot delete another's answer" do
-      within "#answers" do
+      within "#answer_#{answer.id}" do
         expect(page).to_not have_link 'Destroy'
       end
     end

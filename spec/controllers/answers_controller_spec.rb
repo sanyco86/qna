@@ -76,13 +76,13 @@ describe AnswersController do
     context 'own answer' do
       it 'deletes answer' do
         expect {
-          delete :destroy, id: answer, question_id: question
+          delete :destroy, id: answer, question_id: question, format: :js
         }.to change(Answer, :count).by(-1)
       end
 
       it 'redirects to answer question path' do
-        delete :destroy, id: answer, question_id: question
-        expect(response).to redirect_to answer.question
+        delete :destroy, id: answer, question_id: question, format: :js
+        expect(response).to render_template :destroy
       end
     end
 

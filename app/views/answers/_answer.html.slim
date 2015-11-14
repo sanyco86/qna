@@ -1,8 +1,9 @@
-p = answer.user.try(:email)
-p = answer.body
-- if user_authorized_for(answer)
-  p = link_to 'Edit', '', class: 'edit-answer-link', data: { answer_id: answer.id }
-  = form_for [@question, answer], remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
-    = f.text_area :body
-    = f.submit 'Save'
-  p = link_to 'Destroy', question_answer_path(answer.question, answer), method: :delete
+.col-md-12 id=dom_id(answer)
+  p = answer.user.try(:email)
+  p = answer.body
+  - if user_authorized_for(answer)
+    p = link_to 'Edit', '#', class: 'answer__edit-link', data: { answer_id: answer.id }
+    = form_for [answer.question, answer], remote: true, html: {class: 'answer__edit-form', id: "edit-#{dom_id(answer)}"} do |f|
+      = f.text_area :body
+      = f.submit 'Save'
+    p = link_to 'Destroy', question_answer_path(answer.question, answer), method: :delete, remote: true
