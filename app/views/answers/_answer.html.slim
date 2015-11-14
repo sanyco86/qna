@@ -4,10 +4,10 @@
     p The Best Answer
   p = answer.body
   - if user_signed_in? && current_user.id == answer.question.user_id && !answer.best
-    p = link_to 'Best answer', make_best_question_answer_path(answer.question, answer), method: :patch, remote: true
+    p = link_to 'Best answer', make_best_answer_path(answer), method: :patch, remote: true
   - if user_authorized_for(answer)
     p = link_to 'Edit', '#', class: 'answer__edit-link', data: { answer_id: answer.id }
-    = form_for [answer.question, answer], remote: true, html: {class: 'answer__edit-form', id: "edit-#{dom_id(answer)}"} do |f|
+    = form_for answer, remote: true, html: {class: 'answer__edit-form', id: "edit-#{dom_id(answer)}"} do |f|
       = f.text_area :body
       = f.submit 'Save'
-    p = link_to 'Destroy', question_answer_path(answer.question, answer), method: :delete, remote: true
+    p = link_to 'Destroy', answer_path(answer), method: :delete, remote: true
