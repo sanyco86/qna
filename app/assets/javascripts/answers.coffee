@@ -1,5 +1,5 @@
 $ ->
-  $('.answer_edit-link').click (e) ->
+  $('#answers').on 'click', '.answer_edit-link', (e) ->
     e.preventDefault()
     $(this).hide()
     answer_id = $(this).data('answerId')

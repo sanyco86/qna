@@ -4,10 +4,4 @@
     <% end %>
 <% else %>
     $('div#<%= dom_id(@answer) %>').html('<%= j render partial: 'answer', locals: { answer: @answer } %>');
-    $('.answer_edit-link').click(function(e) {
-        e.preventDefault();
-        $(this).hide();
-        answer_id = $(this).data('answerId');
-        $('form#edit-answer_' + answer_id).show();
-    });
 <% end %>
