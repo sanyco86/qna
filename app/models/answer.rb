@@ -10,7 +10,7 @@ class Answer < ActiveRecord::Base
   def make_best
     ActiveRecord::Base.transaction do
       self.question.answers.update_all(best: false)
-      raise ActiveRecord::Rollback unless self.update(best: true)
+      update!(best: true)
     end
   end
 end
