@@ -45,6 +45,26 @@ describe AnswersController do
     end
   end
 
+  describe 'PATCH #update' do
+    sign_in_user
+
+    it 'assigns requested answer to @answer' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      expect(assigns(:answer)).to eq answer
+    end
+
+    it 'changes answer attributes' do
+      patch :update, id: answer, question_id: question, answer: { body: 'updated' }, format: :js
+      answer.reload
+      expect(answer.body).to eq 'updated'
+    end
+
+    it 'renders edit action' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      expect(response).to render_template :update
+    end
+  end
+
   describe 'DELETE #destroy' do
     sign_in_user
 
@@ -56,13 +76,13 @@ describe AnswersController do
     context 'own answer' do
       it 'deletes answer' do
         expect {
-          delete :destroy, id: answer, question_id: question
+          delete :destroy, id: answer, question_id: question, format: :js
         }.to change(Answer, :count).by(-1)
       end
 
       it 'redirects to answer question path' do
-        delete :destroy, id: answer, question_id: question
-        expect(response).to redirect_to answer.question
+        delete :destroy, id: answer, question_id: question, format: :js
+        expect(response).to render_template :destroy
       end
     end
 
@@ -76,6 +96,37 @@ describe AnswersController do
       it 'redirects to root_path' do
         delete :destroy, id: anothers_answer, question_id: question
         expect(response).to redirect_to root_path
+      end
+    end
+  end
+
+  describe 'PATCH #make_best' do
+    context 'correct user' do
+      sign_in_user
+
+      before do
+        question.update(user: @user)
+        patch :make_best, id: answer, question_id: question, format: :js
+      end
+
+      it 'sets #best to true' do
+        answer.reload
+        expect(answer).to be_best
+      end
+
+      it 'renders #make_best template' do
+        expect(response).to render_template :make_best
+      end
+    end
+
+    context 'incorrect user' do
+      sign_in_user
+
+      it 'doesnt change #best' do
+        expect{
+          patch :make_best, id: answer, question_id: question, format: :js
+          answer.reload
+        }.to_not change(answer, :best)
       end
     end
   end

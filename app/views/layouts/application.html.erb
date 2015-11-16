@@ -7,11 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-    <%= render 'layouts/header' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <div class="container">
-      <%= yield %>
+<%= render 'layouts/header' %>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>" role="alert">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong><%= value %></strong>
+            </div>
+        <% end %>
+      </div>
     </div>
+  </div>
+</div>
+<div class="container">
+  <%= yield %>
+</div>
 </body>
 </html>

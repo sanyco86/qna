@@ -8,7 +8,6 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'capybara/rspec'
 
-Capybara.javascript_driver = :webkit
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -30,27 +29,8 @@ RSpec.configure do |config|
 
 
   config.fixture_path = "#{::Rails.root}/spec/features"
-  config.use_transactional_fixtures = false
+
   config.infer_spec_type_from_file_location!
 
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-    FactoryGirl.lint
-  end
 
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
 end

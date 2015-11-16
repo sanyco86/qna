@@ -1,9 +1,9 @@
-require 'rails_helper'
+require_relative 'feature_helper'
 
 RSpec.feature 'Questions', type: :feature do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
-  let(:question) { create(:question, user: user) }
+  let!(:question) { create(:question, user: user, title: 'Question') }
 
   describe 'authenticated user' do
     let(:question_params) { build(:question, title: 'MyString', body: 'MyText') }
@@ -25,13 +25,18 @@ RSpec.feature 'Questions', type: :feature do
       expect(page).to have_content question_params.body
     end
 
-    scenario 'can delete his question' do
-      visit question_path(question)
+    scenario 'can edit his question from show page' do
+      visit edit_question_path(question)
 
-      click_on 'Destroy'
+      fill_in 'Title', with: 'updated title'
+      fill_in 'Body', with: 'updated body'
+      click_on 'Create'
 
-      expect(page).to have_content 'Answer was successfully destroyed.'
+      expect(page).to have_content 'Answer was successfully updated.'
+      expect(page).to have_content 'updated title'
+      expect(page).to have_content 'updated body'
       expect(page).to_not have_content question.title
+      expect(page).to_not have_content question.body
     end
   end
 
@@ -55,7 +60,13 @@ RSpec.feature 'Questions', type: :feature do
       sign_in another_user
 
       visit question_path(question)
+      expect(page).to_not have_link 'Edit'
+    end
 
+    scenario "cannot delete another's question" do
+      sign_in another_user
+
+      visit question_path(question)
       expect(page).to_not have_link 'Destroy'
     end
   end
