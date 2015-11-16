@@ -3,7 +3,7 @@
         $('.edit-errors').html('<%= j message %>');
     <% end %>
 <% else %>
-    $('#answers').html('<%= j render @question.answers %>');
+    $('div#<%= dom_id(@answer) %>').html('<%= j render partial: 'answer', locals: { answer: @answer } %>');
     $('.answer_edit-link').click(function(e) {
         e.preventDefault();
         $(this).hide();
