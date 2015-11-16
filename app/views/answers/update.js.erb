@@ -1,10 +1,10 @@
 <% if @answer.errors.present? %>
     <% @answer.errors.full_messages.each do |message| %>
-        $('.answer-errors').html('<%= j message %>');
+        $('.edit-errors').html('<%= j message %>');
     <% end %>
 <% else %>
     $('#answers').html('<%= j render @question.answers %>');
-    $('.answer__edit-link').click(function(e) {
+    $('.answer_edit-link').click(function(e) {
         e.preventDefault();
         $(this).hide();
         answer_id = $(this).data('answerId');

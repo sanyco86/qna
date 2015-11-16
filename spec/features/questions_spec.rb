@@ -38,41 +38,6 @@ RSpec.feature 'Questions', type: :feature do
       expect(page).to_not have_content question.title
       expect(page).to_not have_content question.body
     end
-
-    scenario 'can edit his question from index page', js: true do
-      visit root_path
-
-      within "#question_#{question.id}" do
-        click_on 'Edit'
-
-        fill_in 'Title', with: 'updated title'
-        fill_in 'Body', with: 'updated body'
-        click_on 'Create'
-
-        expect(page).to have_content 'updated title'
-        expect(page).to_not have_selector 'input'
-        expect(page).to_not have_selector 'textarea'
-        expect(page).to_not have_content question.title
-      end
-    end
-
-    scenario 'can delete his question' do
-      visit question_path(question)
-
-      click_on 'Destroy'
-
-      expect(page).to have_content 'Answer was successfully destroyed.'
-      expect(page).to_not have_content question.title
-    end
-
-    scenario 'can delete his question from index page', js: true do
-      visit root_path
-
-      within "#question_#{question.id}" do
-        click_on 'Destroy'
-      end
-      expect(page).to_not have_content question.title
-    end
   end
 
   describe 'non-authenticated user' do

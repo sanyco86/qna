@@ -29,23 +29,18 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Answer was successfully updated.' }
-        format.js
-      else
-        format.html { render :edit }
-        format.js
-      end
+    if @question.update(question_params)
+      flash[:success] = 'Answer was successfully updated.'
+          redirect_to @question
+    else
+      render :edit
     end
   end
 
   def destroy
     if @question.destroy
-      respond_to do |format|
-        format.html { redirect_to questions_path, notice: 'Answer was successfully destroyed.' }
-        format.js
-      end
+      flash[:success] = 'Answer was successfully destroyed.'
+      redirect_to questions_path
     end
   end
 
