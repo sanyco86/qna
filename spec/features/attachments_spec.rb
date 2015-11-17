@@ -16,7 +16,7 @@ RSpec.feature 'Attachments', type: :feature do
       fill_in 'Body', with: 'question body'
       attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
 
-      click_on 'Submit'
+      click_on 'Create'
 
       expect(page).to have_link 'spec_helper.rb', href: "/uploads/attachment/file/#{Attachment.last.id}/spec_helper.rb"
     end
@@ -26,7 +26,7 @@ RSpec.feature 'Attachments', type: :feature do
       fill_in 'Answer', with: 'body'
       attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
 
-      click_on 'Submit'
+      click_on 'Create'
 
       within '#answers' do
         expect(page).to have_link 'spec_helper.rb', href: "/uploads/attachment/file/#{Attachment.last.id}/spec_helper.rb"
