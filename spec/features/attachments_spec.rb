@@ -24,8 +24,8 @@ RSpec.feature 'Attachments', type: :feature do
       click_on 'Create'
 
       expect(page).to have_content 'Question was successfully created.'
-      expect(page).to have_link 'spec_helper.rb', href: "/uploads/attachment/file/#{Attachment.last(2).first.id}/spec_helper.rb"
-      expect(page).to have_link 'rails_helper.rb', href: "/uploads/attachment/file/#{Attachment.last(2).last.id}/rails_helper.rb"
+      expect(page).to have_link 'spec_helper.rb'
+      expect(page).to have_link 'rails_helper.rb'
     end
 
     scenario 'removes file from question', js: true do
@@ -46,8 +46,8 @@ RSpec.feature 'Attachments', type: :feature do
       click_on 'Create'
 
       within '#answers' do
-        expect(page).to have_link 'spec_helper.rb', href: "/uploads/attachment/file/#{Attachment.last(2).first.id}/spec_helper.rb"
-        expect(page).to have_link 'rails_helper.rb', href: "/uploads/attachment/file/#{Attachment.last(2).last.id}/rails_helper.rb"
+        expect(page).to have_link 'spec_helper.rb'
+        expect(page).to have_link 'rails_helper.rb'
       end
     end
 
