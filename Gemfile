@@ -16,6 +16,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'slim-rails'
 gem 'thin'
+gem 'carrierwave'
+gem 'remotipart'
+gem 'nested_form'
 
 group :development, :test do
   gem 'rspec-rails'
