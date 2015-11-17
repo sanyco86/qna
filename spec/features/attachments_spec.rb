@@ -28,6 +28,29 @@ RSpec.feature 'Attachments', type: :feature do
       expect(page).to have_link 'rails_helper.rb'
     end
 
+    scenario 'update files to question', js: true do
+      visit edit_question_path(question)
+
+      fill_in 'Title', with: 'updated title'
+      fill_in 'Body', with: 'updated body'
+      click_on 'Add attachment'
+      attach_file 'File', "#{Rails.root}/spec/models/answer_spec.rb"
+      click_on 'Add attachment'
+      all('input[type="file"]')[1].set "#{Rails.root}/spec/models/question_spec.rb"
+
+      click_on 'Create'
+
+      expect(page).to have_content 'Question was successfully updated.'
+      expect(page).to have_link 'answer_spec.rb'
+      expect(page).to have_link 'question_spec.rb'
+      expect(page).to_not have_link 'spec_helper.rb'
+      expect(page).to_not have_link 'rails_helper.rb'
+      expect(page).to have_content 'updated title'
+      expect(page).to have_content 'updated body'
+      expect(page).to_not have_content question.title
+      expect(page).to_not have_content question.body
+    end
+
     scenario 'removes file from question', js: true do
       visit edit_question_path(question_with_attachment)
       click_on 'Remove this file'
@@ -49,6 +72,28 @@ RSpec.feature 'Attachments', type: :feature do
         expect(page).to have_link 'spec_helper.rb'
         expect(page).to have_link 'rails_helper.rb'
       end
+    end
+
+    scenario 'update files to answer', js: true do
+      visit question_path(answer_with_attachment.question)
+
+      within "#answer_#{answer_with_attachment.id}" do
+        click_on 'Edit'
+        fill_in 'Answer', with: 'updated'
+        attach_file 'File', "#{Rails.root}/spec/models/answer_spec.rb"
+        click_on 'Add attachment'
+        all('input[type="file"]')[1].set "#{Rails.root}/spec/models/question_spec.rb"
+        click_on 'Save'
+
+        expect(page).to have_link 'answer_spec.rb'
+        expect(page).to have_link 'question_spec.rb'
+        expect(page).to_not have_link 'spec_helper.rb'
+        expect(page).to_not have_link 'rails_helper.rb'
+        expect(page).to have_content 'updated'
+        expect(page).to_not have_content answer_with_attachment.body
+      end
+
+
     end
 
     scenario 'removes file from answer', js: true do
