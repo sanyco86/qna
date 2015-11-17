@@ -115,6 +115,8 @@ GEM
       mini_portile (~> 0.6.0)
     orm_adapter (0.5.0)
     pg (0.18.4)
+    quiet_assets (1.1.0)
+      railties (>= 3.1, < 5.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -235,6 +237,7 @@ DEPENDENCIES
   launchy
   nested_form
   pg
+  quiet_assets
   rails (= 4.2.1)
   remotipart
   rspec-rails

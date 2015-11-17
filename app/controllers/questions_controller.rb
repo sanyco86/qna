@@ -9,12 +9,10 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = Answer.new
-    @answer.attachments.new
   end
 
   def new
     @question = Question.new
-    @question.attachments.new
   end
 
   def edit
@@ -32,8 +30,8 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
-      flash[:success] = 'Answer was successfully updated.'
-          redirect_to @question
+      flash[:success] = 'Question was successfully updated.'
+      redirect_to @question
     else
       render :edit
     end
@@ -53,11 +51,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(
-                                      :title,
-                                      :body,
-                                      attachments_attributes: [:file]
-    )
+    params.require(:question).permit(:title, :body, attachments_attributes: [:file, :id, :_destroy])
   end
 
   def load_own_question

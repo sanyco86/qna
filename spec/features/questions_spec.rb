@@ -32,11 +32,11 @@ RSpec.feature 'Questions', type: :feature do
       fill_in 'Body', with: 'updated body'
       click_on 'Create'
 
-      expect(page).to have_content 'Answer was successfully updated.'
+      expect(page).to have_content 'Question was successfully updated.'
       expect(page).to have_content 'updated title'
       expect(page).to have_content 'updated body'
-      expect(page).to_not have_content question.title
-      expect(page).to_not have_content question.body
+      expect(page).to_not have_content question_params.title
+      expect(page).to_not have_content question_params.body
     end
   end
 
