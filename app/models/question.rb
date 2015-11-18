@@ -1,7 +1,10 @@
 class Question < ActiveRecord::Base
 
+  include Attachmentable
+  include HasUser
+
   has_many :answers, dependent: :destroy
-  belongs_to :user
 
   validates :title, :body, presence: true
+
 end

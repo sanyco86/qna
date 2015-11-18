@@ -5,4 +5,6 @@
 <% else %>
     $('#answers').append('<%= j render 'answer', answer: @answer %>');
     $('.form-control#answer_body').val('');
+    $(".form-group#attachments").find("input").val('');
+    $(".form-group#attachments .fields:not(:first)").remove();
 <% end %>

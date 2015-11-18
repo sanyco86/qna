@@ -3,12 +3,20 @@
   - if answer.best
     p The Best Answer
   p = answer.body
+  - if answer.attachments.any?
+    p Attachments
+    ul
+      - answer.attachments.each do |a|
+        li = link_to a.file.identifier, a.file.url
+
   - if user_signed_in? && current_user.id == answer.question.user_id && !answer.best
     p = link_to 'Best answer', make_best_answer_path(answer), method: :patch, remote: true
   - if user_authorized_for(answer)
     p = link_to 'Edit', '#', class: 'answer_edit-link', data: { answer_id: answer.id }
-    = form_for answer, remote: true, html: {class: 'answer_edit-form', id: "edit-#{dom_id(answer)}"} do |f|
+    = nested_form_for answer, remote: true, html: {class: 'answer_edit-form', id: "edit-#{dom_id(answer)}"} do |f|
       .edit-errors
         = f.text_area :body
       = f.submit 'Save'
+      .form-group
+        = render 'shared/attachment_fields', f: f
     p = link_to 'Destroy', answer_path(answer), method: :delete, remote: true

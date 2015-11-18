@@ -1,5 +1,5 @@
 .col-lg-4
-  = form_for question, remote: remote do |f|
+  = nested_form_for question, remote: remote do |f|
     .question-errors
     .form-group
       = f.label :title
@@ -7,4 +7,6 @@
     .form-group
       = f.label :body
       = f.text_area :body, class: 'form-control', rows: 5
+    .form-group
+      = render 'shared/attachment_fields', f: f
     = f.submit 'Create', class: 'btn btn-default'

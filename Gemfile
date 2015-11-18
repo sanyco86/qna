@@ -16,13 +16,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'slim-rails'
 gem 'thin'
+gem 'carrierwave'
+gem 'remotipart'
+gem 'nested_form'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
-  gem 'spring'
+  gem 'quiet_assets'
 end
 
 group :test do
