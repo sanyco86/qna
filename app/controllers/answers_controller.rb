@@ -1,12 +1,19 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_own_answer, only: [:update, :make_best, :destroy]
+  before_action :load_own_answer, only: [:show, :update, :make_best, :destroy]
+
+  def show
+  end
 
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
-    @answer.save
+    if @answer.save
+      render json: render_to_string(template: 'answers/show.json.jbuilder')
+    else
+      render json: @answer.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   def update

@@ -2,7 +2,7 @@
   p = answer.user.try(:email)
   - if answer.best
     p The Best Answer
-  p = answer.body
+  p.answer_body = answer.body
   - if answer.attachments.any?
     p Attachments
     ul

@@ -13,7 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.remotipart
+//= require skim
 //= require jquery_nested_form
 //= require bootstrap
 //= require turbolinks
+//= require_tree ./templates
 //= require_tree .

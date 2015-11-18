@@ -23,7 +23,7 @@ describe AnswersController do
 
       it 'renders create template' do
         post :create, question_id: question, answer: attributes_for(:answer), format: :js
-        expect(response).to render_template :create
+        expect(response).to render_template 'answers/show.json.jbuilder'
       end
     end
 
