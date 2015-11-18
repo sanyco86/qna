@@ -9,9 +9,19 @@ $ ->
     answer = $.parseJSON(xhr.responseText)
     $('#answers').append(JST["templates/answer"]({answer: answer}))
     $('.form-control#answer_body').val('')
-
   .bind 'ajax:error', (e, xhr, status, error) ->
     errors = $.parseJSON(xhr.responseText)
     $('.answer-errors').html('')
     $.each errors, (index, value) ->
       $('.answer-errors').append value
+
+  $('form.answer_edit-form').bind 'ajax:success', (e, data, status, xhr) ->
+    answer = $.parseJSON(xhr.responseText)
+    $('.answer_edit-form').hide()
+    $('#answer_' + answer.id).replaceWith(JST["templates/answer"]({answer: answer}))
+    $('.answer_edit-link').show()
+  .bind 'ajax:error', (e, xhr, status, error) ->
+    errors = $.parseJSON(xhr.responseText)
+    for value in errors
+      $(this).prev().remove("p.error")
+      $(this).before '<p class="error">' + value + '</p>'

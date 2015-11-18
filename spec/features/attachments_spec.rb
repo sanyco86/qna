@@ -5,7 +5,7 @@ RSpec.feature 'Attachments', type: :feature do
   describe 'user' do
     let(:user) { create(:user) }
     let(:question) { create(:question) }
-    let(:question_with_attachment) { create(:question, :with_attachment) }
+    let(:question_with_attachment) { create(:question, :with_attachment, user: user) }
     let(:answer_with_attachment) { create(:answer, :with_attachment, user: user) }
 
     before do
