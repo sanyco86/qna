@@ -1,6 +1,8 @@
 class AnswersController < ApplicationController
+  include Votable
   before_action :authenticate_user!
-  before_action :load_own_answer, only: [:show, :update, :make_best, :destroy]
+  before_action :load_own_answer, only: [:update, :destroy]
+  before_action :load_answer, only: [:show, :make_best, :upvote, :downvote, :unvote]
 
   def show
   end
@@ -17,12 +19,12 @@ class AnswersController < ApplicationController
   end
 
   def update
+    @question = @answer.question
     if @answer.update(answer_params)
       render :show
     else
       render json: @answer.errors.full_messages, status: :unprocessable_entity
     end
-    @question = @answer.question
   end
 
   def make_best
@@ -36,11 +38,14 @@ class AnswersController < ApplicationController
 
   private
 
-  def load_own_answer
+  def load_answer
     @answer = Answer.find params[:id]
-    unless @answer.user == current_user
-      redirect_to root_url
-    end
+    @resource = @answer
+  end
+
+  def load_own_answer
+    load_answer
+    redirect_to root_url unless @answer.user == current_user
   end
 
   def answer_params

@@ -25,3 +25,7 @@ $ ->
     for value in errors
       $(this).prev().remove("p.error")
       $(this).before '<p class="error">' + value + '</p>'
+
+  $('.answer_wrapper').bind 'ajax:success', (e, data, status, xhr) ->
+    answer = $.parseJSON(xhr.responseText)
+    $("#answer_#{answer.id} .answer_votes").html(JST["templates/votes_bar"]({object: answer}))

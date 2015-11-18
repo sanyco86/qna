@@ -18,8 +18,7 @@ div id="answer_#{@answer.id}"
   form.answer_edit-form id="edit-answer_#{@answer.id}" action=@answer.update_url data-remote="true" method="post"
     input name="utf8" type="hidden" value="&#x2713;"
     input name="_method" type="hidden" value="patch"
-    .edit-errors
-      textarea#answer_body name="answer[body]" = @answer.body
+    textarea#answer_body name="answer[body]" = @answer.body
     input name="commit" type="submit" value="Save"
     .form-group
       a.add_nested_fields data-association="attachments" data-blueprint-id="attachments_fields_blueprint" href="javascript:void(0)"  Add attachment

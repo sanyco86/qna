@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
+  include Votable
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_own_question, only: :destroy
-  before_action :load_question, only: [:show, :edit, :update]
+  before_action :load_own_question, only: [:update, :edit, :destroy]
+  before_action :load_question, only: [:show, :upvote, :downvote, :unvote]
 
   def index
     @questions = Question.all
@@ -48,6 +49,7 @@ class QuestionsController < ApplicationController
 
   def load_question
     @question = Question.find(params[:id])
+    @resource = @question
   end
 
   def question_params
@@ -56,8 +58,6 @@ class QuestionsController < ApplicationController
 
   def load_own_question
     load_question
-    unless @question.user == current_user
-      redirect_to root_url
-    end
+    redirect_to root_url unless @question.user == current_user
   end
 end

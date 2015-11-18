@@ -130,4 +130,31 @@ describe AnswersController do
       end
     end
   end
+
+  describe 'PATCH #upvote' do
+    sign_in_user
+
+    it 'renders answer/vote.json.jbuilder' do
+      patch :upvote, id: answer, format: :json
+      expect(response).to render_template :vote
+    end
+  end
+
+  describe 'PATCH #downvote' do
+    sign_in_user
+
+    it 'renders answer/vote.json.jbuilder' do
+      patch :downvote, id: answer, format: :json
+      expect(response).to render_template :vote
+    end
+  end
+
+  describe 'PATCH #unvote' do
+    sign_in_user
+
+    it 'renders answer/vote' do
+      patch :unvote, id: answer, format: :json
+      expect(response).to render_template :vote
+    end
+  end
 end
