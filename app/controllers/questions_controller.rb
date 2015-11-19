@@ -1,8 +1,9 @@
 class QuestionsController < ApplicationController
-  include Votable
+
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_own_question, only: [:update, :edit, :destroy]
-  before_action :load_question, only: [:show, :upvote, :downvote, :unvote]
+  before_action :load_question, only: [:show]
+  include Votable
 
   def index
     @questions = Question.all
@@ -49,7 +50,6 @@ class QuestionsController < ApplicationController
 
   def load_question
     @question = Question.find(params[:id])
-    @resource = @question
   end
 
   def question_params

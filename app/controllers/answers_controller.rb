@@ -1,8 +1,9 @@
 class AnswersController < ApplicationController
-  include Votable
+
   before_action :authenticate_user!
   before_action :load_own_answer, only: [:update, :destroy]
-  before_action :load_answer, only: [:show, :make_best, :upvote, :downvote, :unvote]
+  before_action :load_answer, only: [:show, :make_best]
+  include Votable
 
   def show
   end
@@ -40,7 +41,6 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.find params[:id]
-    @resource = @answer
   end
 
   def load_own_answer
