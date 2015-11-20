@@ -166,6 +166,15 @@ describe QuestionsController do
       patch :upvote, id: question, format: :json
       expect(response).to render_template :vote
     end
+
+    it 'save/delete upvote' do
+      expect {
+        patch :upvote, id: question, format: :json
+      }.to change(question.votes.upvotes, :count).by 1
+      expect {
+        patch :unvote, id: question, format: :json
+      }.to change(question.votes.upvotes, :count).by -1
+    end
   end
 
   describe 'PATCH #downvote' do
@@ -174,6 +183,15 @@ describe QuestionsController do
     it 'renders question/vote.json.jbuilder' do
       patch :downvote, id: question, format: :json
       expect(response).to render_template :vote
+    end
+
+    it 'save/delete  downvote' do
+      expect {
+        patch :downvote, id: question, format: :json
+      }.to change(question.votes.downvotes, :count).by 1
+      expect {
+        patch :unvote, id: question, format: :json
+      }.to change(question.votes.downvotes, :count).by -1
     end
   end
 
