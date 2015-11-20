@@ -2,7 +2,7 @@ class Answer < ActiveRecord::Base
 
   include Attachmentable
   include HasUser
-  has_many :votes, as: :votable, dependent: :destroy
+  include HasVotable
 
   belongs_to :question
 

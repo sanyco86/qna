@@ -92,11 +92,6 @@ describe AnswersController do
           delete :destroy, id: anothers_answer, question_id: question
         }.to_not change(Answer, :count)
       end
-
-      it 'redirects to root_path' do
-        delete :destroy, id: anothers_answer, question_id: question
-        expect(response).to redirect_to root_path
-      end
     end
   end
 

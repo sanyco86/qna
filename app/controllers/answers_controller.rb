@@ -3,7 +3,7 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_own_answer, only: [:update, :destroy]
   before_action :load_answer, only: [:show, :make_best]
-  include Votable
+  include Voted
 
   def show
   end
@@ -45,7 +45,9 @@ class AnswersController < ApplicationController
 
   def load_own_answer
     load_answer
-    redirect_to root_url unless @answer.user == current_user
+    unless @answer.user == current_user
+      render text: 'You do not have permission to modify this answer.', status: 403
+    end
   end
 
   def answer_params

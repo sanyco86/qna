@@ -156,11 +156,6 @@ describe QuestionsController do
           delete :destroy, id: anothers_question
         }.to_not change(Question, :count)
       end
-
-      it 'redirects to questions#index' do
-        delete :destroy, id: anothers_question
-        expect(response).to redirect_to root_path
-      end
     end
   end
 

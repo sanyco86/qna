@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_own_question, only: [:update, :edit, :destroy]
   before_action :load_question, only: [:show]
-  include Votable
+  include Voted
 
   def index
     @questions = Question.all
@@ -58,6 +58,8 @@ class QuestionsController < ApplicationController
 
   def load_own_question
     load_question
-    redirect_to root_url unless @question.user == current_user
+    unless @question.user == current_user
+      render text: 'You do not have permission to modify this question.', status: 403
+    end
   end
 end
