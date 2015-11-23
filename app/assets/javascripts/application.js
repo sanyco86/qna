@@ -17,6 +17,7 @@
 //= require skim
 //= require jquery_nested_form
 //= require bootstrap
+//= require jquery.turbolinks
 //= require turbolinks
 //= require_tree ./templates
 //= require_tree .
