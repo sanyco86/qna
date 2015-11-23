@@ -13,7 +13,7 @@ RSpec.feature 'Comments', type: :feature do
 
     context 'question' do
       scenario 'posts comment for question', js: true do
-        within '.question__wrapper' do
+        within '.question_wrapper' do
           fill_in 'comment_body', with: 'dats my comment'
           click_on 'Create Comment'
           expect(page).to have_content "dats my comment by #{user.email}"

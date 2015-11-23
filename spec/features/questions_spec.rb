@@ -9,7 +9,7 @@ RSpec.feature 'Questions', type: :feature do
     let(:question_params) { build(:question, title: 'MyString', body: 'MyText') }
 
     before do
-      sign_in(user)
+      sign_in user
     end
 
     scenario 'can create question' do
