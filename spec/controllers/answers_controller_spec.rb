@@ -11,19 +11,19 @@ describe AnswersController do
 
       it 'creates new answer' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:answer), format: :js
+          post :create, question_id: question, answer: attributes_for(:answer), format: :json
         }.to change(question.answers, :count).by 1
       end
 
       it 'correctly assigns user' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:answer), format: :js
+          post :create, question_id: question, answer: attributes_for(:answer), format: :json
         }.to change(@user.answers, :count).by 1
       end
 
-      it 'renders create template' do
-        post :create, question_id: question, answer: attributes_for(:answer), format: :js
-        expect(response).to render_template :create
+      it 'renders show template' do
+        post :create, question_id: question, answer: attributes_for(:answer), format: :json
+        expect(response).to render_template :show
       end
     end
 
@@ -32,7 +32,7 @@ describe AnswersController do
 
       it 'does not create new answer' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:answer, :invalid), format: :js
+          post :create, question_id: question, answer: attributes_for(:answer, :invalid), format: :json
         }.to_not change(Answer, :count)
       end
     end
@@ -49,19 +49,19 @@ describe AnswersController do
     sign_in_user
 
     it 'assigns requested answer to @answer' do
-      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :json
       expect(assigns(:answer)).to eq answer
     end
 
     it 'changes answer attributes' do
-      patch :update, id: answer, question_id: question, answer: { body: 'updated' }, format: :js
+      patch :update, id: answer, question_id: question, answer: { body: 'updated' }, format: :json
       answer.reload
       expect(answer.body).to eq 'updated'
     end
 
-    it 'renders edit action' do
-      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :js
-      expect(response).to render_template :update
+    it 'renders show template' do
+      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :json
+      expect(response).to render_template :show
     end
   end
 
@@ -91,11 +91,6 @@ describe AnswersController do
         expect {
           delete :destroy, id: anothers_answer, question_id: question
         }.to_not change(Answer, :count)
-      end
-
-      it 'redirects to root_path' do
-        delete :destroy, id: anothers_answer, question_id: question
-        expect(response).to redirect_to root_path
       end
     end
   end
@@ -128,6 +123,51 @@ describe AnswersController do
           answer.reload
         }.to_not change(answer, :best)
       end
+    end
+  end
+
+  describe 'PATCH #upvote' do
+    sign_in_user
+
+    it 'renders answer/vote.json.jbuilder' do
+      patch :upvote, id: answer, format: :json
+      expect(response).to render_template :vote
+    end
+
+    it 'save/delete upvote' do
+      expect {
+        patch :upvote, id: answer, format: :json
+      }.to change(answer.votes.upvotes, :count).by 1
+      expect {
+        patch :unvote, id: answer, format: :json
+      }.to change(answer.votes.upvotes, :count).by -1
+    end
+  end
+
+  describe 'PATCH #downvote' do
+    sign_in_user
+
+    it 'renders answer/vote.json.jbuilder' do
+      patch :downvote, id: answer, format: :json
+      expect(response).to render_template :vote
+    end
+
+    it 'save/delete  downvote' do
+      expect {
+        patch :downvote, id: answer, format: :json
+      }.to change(answer.votes.downvotes, :count).by 1
+      expect {
+        patch :unvote, id: answer, format: :json
+      }.to change(answer.votes.downvotes, :count).by -1
+    end
+  end
+
+  describe 'PATCH #unvote' do
+    sign_in_user
+
+    it 'renders answer/vote' do
+      patch :unvote, id: answer, format: :json
+      expect(response).to render_template :vote
     end
   end
 end

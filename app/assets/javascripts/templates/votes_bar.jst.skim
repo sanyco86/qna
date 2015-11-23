@@ -1,0 +1,16 @@
+p
+  | Votes:
+p
+  span.upvotes_count= @object.upvotes
+  | |
+  span.downvotes_count= @object.downvotes
+p
+  | Rating:
+  span.votes_count= @object.rating
+p
+  - if @object.voted
+    a.vote-btn href=@object.unvote_url data-method="patch" data-remote="true" Unvote
+  - else
+    a.vote-btn href=@object.upvote_url data-method="patch" data-remote="true" Upvote
+    |
+    a.vote-btn href=@object.downvote_url data-method="patch" data-remote="true" Downvote

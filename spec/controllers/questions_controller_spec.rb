@@ -156,11 +156,51 @@ describe QuestionsController do
           delete :destroy, id: anothers_question
         }.to_not change(Question, :count)
       end
+    end
+  end
 
-      it 'redirects to questions#index' do
-        delete :destroy, id: anothers_question
-        expect(response).to redirect_to root_path
-      end
+  describe 'PATCH #upvote' do
+    sign_in_user
+
+    it 'renders question/vote.json.jbuilder' do
+      patch :upvote, id: question, format: :json
+      expect(response).to render_template :vote
+    end
+
+    it 'save/delete upvote' do
+      expect {
+        patch :upvote, id: question, format: :json
+      }.to change(question.votes.upvotes, :count).by 1
+      expect {
+        patch :unvote, id: question, format: :json
+      }.to change(question.votes.upvotes, :count).by -1
+    end
+  end
+
+  describe 'PATCH #downvote' do
+    sign_in_user
+
+    it 'renders question/vote.json.jbuilder' do
+      patch :downvote, id: question, format: :json
+      expect(response).to render_template :vote
+    end
+
+    it 'save/delete  downvote' do
+      expect {
+        patch :downvote, id: question, format: :json
+      }.to change(question.votes.downvotes, :count).by 1
+      expect {
+        patch :unvote, id: question, format: :json
+      }.to change(question.votes.downvotes, :count).by -1
+    end
+  end
+
+  describe 'PATCH #unvote' do
+    sign_in_user
+
+    it 'renders question/vote.json.jbuilder' do
+      patch :unvote, id: question, format: :json
+      expect(response).to render_template :vote
     end
   end
 end

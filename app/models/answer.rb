@@ -2,6 +2,7 @@ class Answer < ActiveRecord::Base
 
   include Attachmentable
   include HasUser
+  include HasVotable
 
   belongs_to :question
 

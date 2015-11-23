@@ -1,5 +1,5 @@
 .row
-  .col-md-6.question__wrapper id="#{dom_id(@question)}"
+  .col-md-6.question_wrapper id="#{dom_id(@question)}"
     h2 = @question.title
     p = @question.body
     - if @question.attachments.any?
@@ -7,6 +7,8 @@
       ul
         - @question.attachments.each do |a|
           li = link_to a.file.identifier, a.file.url
+    .question_votes
+      = render 'shared/votes_bar', object: @question
     - if user_authorized_for @question
       p = link_to 'Edit', edit_question_path(@question), class: 'question_edit-link'
       p = link_to 'Destroy', @question, method: :delete

@@ -1,14 +1,16 @@
-.div id=dom_id(answer)
+.col-md-12.answer_wrapper id=dom_id(answer)
   p = answer.user.try(:email)
   - if answer.best
     p The Best Answer
-  p = answer.body
+  p.answer_body = answer.body
   - if answer.attachments.any?
     p Attachments
     ul
       - answer.attachments.each do |a|
         li = link_to a.file.identifier, a.file.url
 
+  .answer_votes
+    = render 'shared/votes_bar', object: answer
   - if user_signed_in? && current_user.id == answer.question.user_id && !answer.best
     p = link_to 'Best answer', make_best_answer_path(answer), method: :patch, remote: true
   - if user_authorized_for(answer)
