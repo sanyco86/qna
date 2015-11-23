@@ -14,7 +14,7 @@
 /public/images
 /public/system
 /public/uploads
-/config/private_pub.yml
+private_pub.yml
 database.yml
 secrets.yml
 doc/
