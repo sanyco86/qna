@@ -1,3 +1,6 @@
 .row
-  h3.text-left.questions-index_title Latest questions
-= render @questions
+  h3.text-left.questions-index__title Latest questions
+#questions
+  = render @questions
+
+= subscribe_to "/questions"

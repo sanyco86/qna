@@ -27,10 +27,12 @@ $ ->
     $("#answer_#{answer.id} .answer_votes").html(JST["templates/votes_bar"]({object: answer}))
 
   questionId = $('#answers').data('questionId')
+  currentUserId = $('body').data('currentUserId')
+
   PrivatePub.subscribe '/questions/' + questionId + '/answers', (data, channel) ->
     answer = $.parseJSON(data['answer'])
     answers_container = $('.answers_list')
-    answers_container.append(JST["templates/answer"]({answer: answer}))
-    answers_container.removeClass 'hidden'
+    answers_container.append(JST["templates/answer"]({answer: answer, current_user_id: currentUserId}))
+    $("#answers").removeClass 'hidden'
     $('.form-control#answer_body').val('')
     $('.answer-errors').html('')
