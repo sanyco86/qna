@@ -1,0 +1,17 @@
+.row.question_container id="#{dom_id(question)}"
+  .col-md-1.question_votes-count
+    = question.votes.count
+    br
+    ' votes
+  .col-md-1.question_answers-count
+    = question.answers.count
+    br
+    ' answers
+  .col-md-8
+    h3.question_title
+      = link_to question.title, question
+    - if user_authorized_for question
+      small
+        = link_to 'Edit', edit_question_path(question), class: 'question_edit-link', remote: true
+        '
+        = link_to 'Destroy', question, method: :delete, remote: true

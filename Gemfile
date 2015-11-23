@@ -21,6 +21,7 @@ gem 'thin'
 gem 'carrierwave'
 gem 'remotipart'
 gem 'nested_form'
+gem 'private_pub'
 
 group :development, :test do
   gem 'rspec-rails'

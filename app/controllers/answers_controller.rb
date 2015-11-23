@@ -13,7 +13,8 @@ class AnswersController < ApplicationController
     @answer = @question.answers.new(answer_params)
     @answer.user = current_user
     if @answer.save
-      render :show
+      PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: render_to_string(template: 'answers/show')
+      render nothing: true
     else
       render json: @answer.errors.full_messages, status: :unprocessable_entity
     end

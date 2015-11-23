@@ -64,6 +64,7 @@ RSpec.feature 'Attachments', type: :feature do
       click_on 'Add attachment'
       all('input[type="file"]')[1].set "#{Rails.root}/spec/rails_helper.rb"
       click_on 'Create'
+      page.execute_script("$('#answers').removeClass('hidden')")
 
       within '#answers' do
         expect(page).to have_link 'spec_helper.rb'
