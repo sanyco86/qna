@@ -3,6 +3,38 @@ require_relative 'feature_helper'
 RSpec.feature 'Votes', type: :feature, js: true do
   let(:question) { create(:question) }
 
+  describe 'voted multiple users' do
+    let(:user) { create(:user) }
+    let(:user2) { create(:user) }
+    let(:answer) { create(:answer, question: question) }
+    let(:vote_answer) { create(:vote, votable: answer, user: user) }
+    let(:vote_question) { create(:vote, votable: question, user: user) }
+
+    before do
+      sign_in user2
+    end
+
+    context 'upvotes' do
+      scenario 'a question' do
+        visit question_path(vote_question.votable)
+        within "#question_#{question.id}" do
+          click_on 'Upvote'
+          expect(page).to have_selector 'span.upvotes_count', text: 2
+          expect(page).to have_selector 'span.votes_count', text: 2
+        end
+      end
+
+      scenario 'an answer' do
+        visit question_path(vote_answer.votable.question)
+        within "#answer_#{answer.id}" do
+          click_on 'Upvote'
+          expect(page).to have_selector 'span.upvotes_count', text: 2
+          expect(page).to have_selector 'span.votes_count', text: 2
+        end
+      end
+    end
+  end
+
   describe 'authenticated user' do
     let(:user) { create(:user) }
     let(:own_question) { create(:question, user: user) }
