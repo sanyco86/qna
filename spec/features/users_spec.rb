@@ -31,6 +31,4 @@ RSpec.feature 'Users', type: :feature do
 
     expect(page).to have_content 'You have signed up successfully.'
   end
-
-
 end

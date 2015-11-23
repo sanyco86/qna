@@ -23,6 +23,9 @@ RSpec.feature 'Votes', type: :feature, js: true do
           click_on 'Upvote'
           expect(page).to have_selector 'span.upvotes_count', text: 1
           expect(page).to have_selector 'span.votes_count', text: 1
+          expect(page).to_not have_link 'Upvote'
+          expect(page).to_not have_link 'Downvote'
+          expect(page).to have_link 'Unvote'
         end
       end
 
@@ -31,6 +34,9 @@ RSpec.feature 'Votes', type: :feature, js: true do
           click_on 'Upvote'
           expect(page).to have_selector 'span.upvotes_count', text: 1
           expect(page).to have_selector 'span.votes_count', text: 1
+          expect(page).to_not have_link 'Upvote'
+          expect(page).to_not have_link 'Downvote'
+          expect(page).to have_link 'Unvote'
         end
       end
     end
@@ -45,6 +51,9 @@ RSpec.feature 'Votes', type: :feature, js: true do
           click_on 'Downvote'
           expect(page).to have_selector 'span.downvotes_count', text: 1
           expect(page).to have_selector 'span.votes_count', text: -1
+          expect(page).to_not have_link 'Upvote'
+          expect(page).to_not have_link 'Downvote'
+          expect(page).to have_link 'Unvote'
         end
       end
 
@@ -53,6 +62,9 @@ RSpec.feature 'Votes', type: :feature, js: true do
           click_on 'Downvote'
           expect(page).to have_selector 'span.downvotes_count', text: 1
           expect(page).to have_selector 'span.votes_count', text: -1
+          expect(page).to_not have_link 'Upvote'
+          expect(page).to_not have_link 'Downvote'
+          expect(page).to have_link 'Unvote'
         end
       end
     end
@@ -71,6 +83,9 @@ RSpec.feature 'Votes', type: :feature, js: true do
           expect(page).to have_selector 'span.upvotes_count', text: 0
           expect(page).to have_selector 'span.downvotes_count', text: 0
           expect(page).to have_selector 'span.votes_count', text: 0
+          expect(page).to have_link 'Upvote'
+          expect(page).to have_link 'Downvote'
+          expect(page).to_not have_link 'Unvote'
         end
       end
 
@@ -80,6 +95,9 @@ RSpec.feature 'Votes', type: :feature, js: true do
           expect(page).to have_selector 'span.upvotes_count', text: 0
           expect(page).to have_selector 'span.downvotes_count', text: 0
           expect(page).to have_selector 'span.votes_count', text: 0
+          expect(page).to have_link 'Upvote'
+          expect(page).to have_link 'Downvote'
+          expect(page).to_not have_link 'Unvote'
         end
       end
     end
