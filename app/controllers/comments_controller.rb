@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :assign_commentable
+  before_action :load_commentable, only: :create
 
   def create
     @comment = @commentable.comments.new(comment_params)
@@ -15,21 +15,12 @@ class CommentsController < ApplicationController
 
   private
 
-  def assign_commentable
-    @commentable_parent, @commentable_child = find_commentable
-    @commentable = @commentable_child || @commentable_parent
+  def load_commentable
+    @commentable = commentable_name.classify.constantize.find(params[:id])
   end
 
-  def find_commentable
-    commentable = []
-    params.each do |name, value|
-      if name =~ /(.+)_id$/
-        commentable.push($1.classify.constantize.find(value))
-      end
-    end
-    return commentable[0], commentable[1] if commentable.length > 1
-    return commentable[0], nil if commentable.length == 1
-    nil
+  def commentable_name
+    params[:commentable]
   end
 
   def comment_params
