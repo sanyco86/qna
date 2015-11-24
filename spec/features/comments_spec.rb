@@ -25,9 +25,15 @@ RSpec.feature 'Comments', type: :feature do
 
       scenario 'posts comment for answer', js: true do
         within "#answer_#{answer.id}" do
-          fill_in 'comment_body', with: 'dats my comment'
+          fill_in 'comment_body', with: 'first comment'
           click_on 'Create Comment'
-          expect(page).to have_content "dats my comment by #{user.email}"
+          expect(page).to have_content "first comment by #{user.email}"
+          expect(page).to_not have_content "next comment by #{user.email}"
+
+          fill_in 'comment_body', with: 'next comment'
+          click_on 'Create Comment'
+          expect(page).to have_content "first comment by #{user.email}"
+          expect(page).to have_content "next comment by #{user.email}"
         end
       end
     end

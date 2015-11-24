@@ -11,6 +11,7 @@ RSpec.describe CommentsController, type: :controller do
       let(:create_params) {{ comment: attributes_for(:comment),
                              commentable: 'questions',
                              question_id: question,
+                             user_id: author,
                              format: :json }}
 
       describe 'Authenticated user' do
@@ -32,6 +33,7 @@ RSpec.describe CommentsController, type: :controller do
           let(:wrong_params){{ comment: attributes_for(:comment, :with_wrong_attributes),
                                commentable: 'questions',
                                question_id: question,
+                               user_id: author,
                                format: :json }}
 
           it 'does not save a new answer to the database' do
@@ -58,6 +60,7 @@ RSpec.describe CommentsController, type: :controller do
       let(:create_params) {{ comment: attributes_for(:comment),
                              commentable: 'answers',
                              answer_id: answer,
+                             user_id: author,
                              format: :json }}
 
       describe 'Authenticated user' do
@@ -79,6 +82,7 @@ RSpec.describe CommentsController, type: :controller do
           let(:wrong_params){{ comment: attributes_for(:comment, :with_wrong_attributes),
                                commentable: 'answers',
                                answer_id: answer,
+                               user_id: author,
                                format: :json }}
 
           it 'does not save a new answer to the database' do
