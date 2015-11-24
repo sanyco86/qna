@@ -18,6 +18,13 @@
     p
       ' Rating:
       span.votes_count= @answer.rating
+    p
+      - if user_signed_in? && !(current_user.id == @answer.user_id)
+        - if current_user.voted_for? @answer
+          a.vote-btn href=@answer.unvote_url data-method="patch" data-remote="true" Unvote
+        - else
+          a> class="vote-btn" href=@answer.upvote_url data-method="patch" data-remote="true" Upvote
+          a.vote-btn href=@answer.downvote_url data-method="patch" data-remote="true" Downvote
   - if @current_user_id == @answer.question_user_id && !@answer.best
     p
       a data-remote="true" rel="nofollow" data-method="patch" href=@answer.make_best_url Best answer
