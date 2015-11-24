@@ -1,7 +1,10 @@
 FactoryGirl.define do
   factory :comment do
-    association :commentable, factory: :question
     body 'MyString'
     user
+
+    trait :with_wrong_attributes do
+      body nil
+    end
   end
 end

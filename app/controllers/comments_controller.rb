@@ -16,11 +16,15 @@ class CommentsController < ApplicationController
   private
 
   def load_commentable
-    @commentable = commentable_name.classify.constantize.find(params[:id])
+    @commentable = commentable_name.find(params[commentable_id])
+  end
+
+  def commentable_id
+    (params[:commentable].singularize + '_id').to_sym
   end
 
   def commentable_name
-    params[:commentable]
+    params[:commentable].classify.constantize
   end
 
   def comment_params
