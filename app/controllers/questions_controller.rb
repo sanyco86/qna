@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_own_question, only: [:update, :edit, :destroy]
   before_action :load_question, only: [:show]
+  after_action :publish_question, only: :create
   include Voted
 
   respond_to :json, :js
@@ -23,14 +24,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = current_user.questions.new(question_params)
-    if @question.save
-      flash[:success] =  'Question was successfully created.'
-      redirect_to @question
-      PrivatePub.publish_to "/questions", question: render_to_string(template: 'questions/show.json.jbuilder')
-    else
-      render :new
-    end
+    respond_with(@question = current_user.questions.create(question_params))
   end
 
   def update
@@ -43,6 +37,10 @@ class QuestionsController < ApplicationController
   end
 
   private
+
+  def publish_question
+    PrivatePub.publish_to "/questions", question: render_to_string(template: 'questions/show.json.jbuilder') if @question.valid?
+  end
 
   def load_question
     @question = Question.find(params[:id])

@@ -1,3 +1,3 @@
-= form_for [commentable, comment], remote: true do |f|
+= form_for [commentable, comment], remote: true, date: { type: :json } do |f|
   = f.text_field :body
   = f.submit
