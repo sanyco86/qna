@@ -20,6 +20,13 @@ RSpec.feature 'Comments', type: :feature do
           expect(page).to have_content "dats my comment by #{user.email}"
         end
       end
+      scenario 'can view list of comments', js: true do
+        comment_list = create_list(:comment, 2, commentable: question)
+        visit question_path(question)
+        within '.question_wrapper' do
+          comment_list.each { |comment| expect(page).to have_content comment.body }
+        end
+      end
     end
 
     context 'answer' do
@@ -29,6 +36,14 @@ RSpec.feature 'Comments', type: :feature do
           click_on 'Create Comment'
 
           expect(page).to have_content comment_params.body
+        end
+      end
+
+      scenario 'can view list of comments', js: true do
+        comment_list = create_list(:comment, 2, commentable: answer)
+        visit question_path(question)
+        within "#answer_#{answer.id}" do
+          comment_list.each { |comment| expect(page).to have_content comment.body }
         end
       end
     end

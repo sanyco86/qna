@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :comment do
-    body 'MyString'
+    sequence(:body) { |n| "Comment_#{n}" }
     user
 
     trait :with_wrong_attributes do
