@@ -26,7 +26,7 @@
   .answers_list
     = render @question.answers
 .row
-  = render 'answers/form', question: @question, answer: @answer if user_signed_in?
+  = render 'answers/form', question: @question, answer: Answer.new if user_signed_in?
 
 = subscribe_to "/questions/#{@question.id}/answers"
 = subscribe_to "/questions/#{@question.id}/comments"

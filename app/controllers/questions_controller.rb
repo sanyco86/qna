@@ -5,16 +5,18 @@ class QuestionsController < ApplicationController
   before_action :load_question, only: [:show]
   include Voted
 
+  respond_to :json, :js
+
   def index
-    @questions = Question.all
+    respond_with @questions = Question.all
   end
 
   def show
-    @answer = Answer.new
+    respond_with @question
   end
 
   def new
-    @question = Question.new
+    respond_with @question = Question.new
   end
 
   def edit
@@ -32,24 +34,12 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.js
-      else
-        format.html { render :edit }
-        format.js
-      end
-    end
+    @question.update(question_params)
+    respond_with @question
   end
 
   def destroy
-    if @question.destroy
-      respond_to do |format|
-        format.html { redirect_to questions_path, notice: 'Answer was successfully destroyed.' }
-        format.js
-      end
-    end
+    respond_with @question.destroy
   end
 
   private

@@ -22,6 +22,7 @@ gem 'carrierwave'
 gem 'remotipart'
 gem 'nested_form'
 gem 'private_pub'
+gem 'responders'
 
 group :development, :test do
   gem 'rspec-rails'

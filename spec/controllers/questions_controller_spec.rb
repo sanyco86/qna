@@ -28,10 +28,6 @@ describe QuestionsController do
     it 'renders questions#show view' do
       expect(response).to render_template :show
     end
-
-    it 'assigns new answer to @answer' do
-      expect(assigns(:answer)).to be_a_new(Answer)
-    end
   end
 
   describe 'GET #new' do
