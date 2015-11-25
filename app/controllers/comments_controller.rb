@@ -1,19 +1,19 @@
 class CommentsController < ApplicationController
-  respond_to :js, :json
-
   before_action :authenticate_user!
-  before_action :load_commentable
-  after_action :publish_comment
+  before_action :load_commentable, only: :create
 
   def create
-    respond_with(@comment = @commentable.comments.create(comment_params.merge(user: current_user)), template: 'comments/show')
+    @comment = @commentable.comments.new(comment_params)
+    @comment.user = current_user
+    if @comment.save
+      PrivatePub.publish_to "/questions/#{@commentable.try(:question).try(:id) || @commentable.id}/comments", comment: render_to_string(template: 'comments/show')
+      render nothing: true
+    else
+      render json: @comment.errors.full_messages, status: :unprocessable_entity
+    end
   end
 
   private
-
-  def publish_comment
-    PrivatePub.publish_to "/questions/#{@commentable.try(:question).try(:id) || @commentable.id}/comments", comment: render_to_string(template: 'comments/show') if @comment.valid?
-  end
 
   def load_commentable
     @commentable = commentable_name.find(params[commentable_id])

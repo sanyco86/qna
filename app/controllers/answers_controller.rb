@@ -30,7 +30,11 @@ class AnswersController < ApplicationController
   private
 
   def publish_answer
-    PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: render_to_string(template: 'answers/show') if @answer.valid?
+    PrivatePub.publish_to chanel, answer: render_to_string(template: 'answers/show') if @answer.valid?
+  end
+
+  def chanel
+    "/questions/#{@question.id}/answers"
   end
 
   def load_answer
