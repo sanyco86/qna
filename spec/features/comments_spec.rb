@@ -4,6 +4,7 @@ RSpec.feature 'Comments', type: :feature do
   let(:user) { create(:user) }
   let(:question) { create(:question) }
   let!(:answer) { create(:answer, question: question) }
+  let(:comment_params) { build(:comment, body: 'Random text') }
 
   describe 'authenticated user' do
     before do
@@ -22,18 +23,12 @@ RSpec.feature 'Comments', type: :feature do
     end
 
     context 'answer' do
-
       scenario 'posts comment for answer', js: true do
         within "#answer_#{answer.id}" do
-          fill_in 'comment_body', with: 'first comment'
+          fill_in 'comment_body', with: comment_params.body
           click_on 'Create Comment'
-          expect(page).to have_content "first comment by #{user.email}"
-          expect(page).to_not have_content "next comment by #{user.email}"
 
-          fill_in 'comment_body', with: 'next comment'
-          click_on 'Create Comment'
-          expect(page).to have_content "first comment by #{user.email}"
-          expect(page).to have_content "next comment by #{user.email}"
+          expect(page).to have_content comment_params.body
         end
       end
     end
