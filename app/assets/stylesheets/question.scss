@@ -1,0 +1,33 @@
+.questions-index_title{
+  margin-bottom: 30px;
+}
+.question_title{
+  margin: 0;
+}
+.question_title-show{
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+.question_body{
+  padding-bottom: 10px;
+}
+.question_answers-count, .question_votes-count{
+  text-align: center;
+}
+.question_container{
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #cecece;
+  &:last-child{
+    border-bottom: 1px solid #cecece;
+  }
+}
+.question_attachments-wrapper{
+  padding: 10px 0;
+  margin: 10px 0;
+  border-top: 1px solid #cecece;
+  border-bottom: 1px solid #cecece;
+}
+.border-bottom-grey{
+  border-bottom: 1px solid #cecece;
+}

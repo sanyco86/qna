@@ -1,0 +1,4 @@
+li
+  => comment.body
+  ' by
+  = link_to comment.user.try(:email), '#'

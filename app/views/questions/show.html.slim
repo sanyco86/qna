@@ -1,20 +1,32 @@
 .row
-  .col-md-6.question_wrapper id="#{dom_id(@question)}"
-    h2 = @question.title
-    p = @question.body
+  .col-md-8.question_wrapper id="#{dom_id(@question)}"
+    h3.question_title.question_title-show.border-bottom-grey
+      = @question.title
+    p.question_body
+      = @question.body
     - if @question.attachments.any?
-      p Attachments
-      ul
-        - @question.attachments.each do |a|
-          li = link_to a.file.identifier, a.file.url
+      .question_attachments-wrapper
+        p Attachments:
+        ul
+          - @question.attachments.each do |attachment|
+            li = link_to attachment.file.identifier, attachment.file.url
     .question_votes
       = render 'shared/votes_bar', object: @question
     - if user_authorized_for @question
-      p = link_to 'Edit', edit_question_path(@question), class: 'question_edit-link'
-      p = link_to 'Destroy', @question, method: :delete
-hr
-.row#answers
-  = render @question.answers
-hr
+      p
+        => link_to 'Edit', edit_question_path(@question), class: 'question_edit-link'
+        = link_to 'Destroy', @question, method: :delete
+    ul.question_comments.list-unstyled
+      = render @question.comments
+    - if user_signed_in?
+      = render 'comments/form', comment: @question.comments.new, commentable: @question
+.row#answers class="#{'hidden' unless @question.answers.any?}" data-question-id=@question.id
+  .col-md-12
+    h3.border-bottom-grey.answers_title Answers
+  .answers_list
+    = render @question.answers
 .row
   = render 'answers/form', question: @question, answer: @answer if user_signed_in?
+
+= subscribe_to "/questions/#{@question.id}/answers"
+= subscribe_to "/questions/#{@question.id}/comments"

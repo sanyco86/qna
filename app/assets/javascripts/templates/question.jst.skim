@@ -1,0 +1,12 @@
+.row.question_container id="question_#{@question.id}"
+  .col-md-1.question_votes-count
+    = @question.votes_count
+    br
+    ' votes
+  .col-md-1.question_answers-count
+    = @question.answers_count
+    br
+    ' answers
+  .col-md-8
+    h3.question_title
+      a href="/questions/#{@question.id}"= @question.title

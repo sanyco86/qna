@@ -49,7 +49,7 @@ RSpec.feature 'Answers', type: :feature do
     scenario 'choose best answer', js: true do
       within "#answer_#{answer.id}" do
         click_on 'Best answer'
-        expect(page).to have_content 'The Best Answer'
+        expect(page).to have_content 'best answer'
       end
     end
   end

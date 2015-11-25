@@ -25,24 +25,30 @@ class QuestionsController < ApplicationController
     if @question.save
       flash[:success] =  'Question was successfully created.'
       redirect_to @question
+      PrivatePub.publish_to "/questions", question: render_to_string(template: 'questions/show.json.jbuilder')
     else
       render :new
     end
   end
 
   def update
-    if @question.update(question_params)
-      flash[:success] = 'Question was successfully updated.'
-      redirect_to @question
-    else
-      render :edit
+    respond_to do |format|
+      if @question.update(question_params)
+        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        format.js
+      else
+        format.html { render :edit }
+        format.js
+      end
     end
   end
 
   def destroy
     if @question.destroy
-      flash[:success] = 'Answer was successfully destroyed.'
-      redirect_to questions_path
+      respond_to do |format|
+        format.html { redirect_to questions_path, notice: 'Answer was successfully destroyed.' }
+        format.js
+      end
     end
   end
 

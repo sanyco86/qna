@@ -1,3 +1,6 @@
-h1.text-center Index page
-- @questions.each do |question|
-  h3 = link_to question.title, question_path(question)
+.row
+  h3.text-left.questions-index__title Latest questions
+#questions
+  = render @questions
+
+= subscribe_to "/questions"
