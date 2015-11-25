@@ -11,15 +11,11 @@ Rails.application.routes.draw do
     end
   end
 
-  concern :commentable do |options|
-    resources :comments, options
-  end
-
   resources :questions, concerns: :votable do
-    concerns :commentable, only: :create, defaults: {commentable: 'questions'}
+    resources :comments, only: :create, defaults: {commentable: 'questions'}
 
     resources :answers, shallow: true, concerns: :votable do
-      concerns :commentable, only: :create, defaults: {commentable: 'answers'}
+      resources :comments, only: :create, defaults: {commentable: 'answers'}
       patch :make_best, on: :member
     end
   end
