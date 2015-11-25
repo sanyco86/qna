@@ -3,30 +3,19 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_own_answer, only: [:update, :destroy]
   before_action :load_answer, only: [:show, :make_best]
+  after_action :publish_answer, only: :create
   include Voted
 
-  def show
-  end
+  respond_to :js, :json
 
   def create
     @question = Question.find(params[:question_id])
-    @answer = @question.answers.new(answer_params)
-    @answer.user = current_user
-    if @answer.save
-      PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: render_to_string(template: 'answers/show')
-      render nothing: true
-    else
-      render json: @answer.errors.full_messages, status: :unprocessable_entity
-    end
+    respond_with @answer = @question.answers.create(answer_params.merge(user: current_user))
   end
 
   def update
-    @question = @answer.question
-    if @answer.update(answer_params)
-      render :show
-    else
-      render json: @answer.errors.full_messages, status: :unprocessable_entity
-    end
+    @answer.update(answer_params)
+    respond_with @answer
   end
 
   def make_best
@@ -40,8 +29,13 @@ class AnswersController < ApplicationController
 
   private
 
+  def publish_answer
+    PrivatePub.publish_to "/questions/#{@question.id}/answers", answer: render_to_string(template: 'answers/show') if @answer.valid?
+  end
+
   def load_answer
     @answer = Answer.find params[:id]
+    @question = @answer.question
   end
 
   def load_own_answer
