@@ -23,6 +23,8 @@ gem 'remotipart'
 gem 'nested_form'
 gem 'private_pub'
 gem 'responders'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :development, :test do
   gem 'rspec-rails'
