@@ -58,11 +58,6 @@ describe AnswersController do
       answer.reload
       expect(answer.body).to eq 'updated'
     end
-
-    it 'renders show template' do
-      patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :json
-      expect(response).to render_template :show
-    end
   end
 
   describe 'DELETE #destroy' do
