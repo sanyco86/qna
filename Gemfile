@@ -25,7 +25,6 @@ gem 'private_pub'
 gem 'responders'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'omniauth-twitter'
 
 group :development, :test do
   gem 'rspec-rails'
