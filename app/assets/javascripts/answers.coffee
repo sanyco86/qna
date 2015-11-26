@@ -14,7 +14,7 @@ $ ->
   $('form.answer_edit-form').bind 'ajax:success', (e, data, status, xhr) ->
     answer = $.parseJSON(xhr.responseText)
     $('.answer_edit-form').hide()
-    $('#answer_' + answer.id).replaceWith(JST["templates/answer"]({answer: answer}))
+    $('#answer_' + answer.id).replaceWith(JST["templates/answer"]({answer: answer, current_user_id: currentUserId}))
     $('.answer_edit-link').show()
   .bind 'ajax:error', (e, xhr, status, error) ->
     errors = $.parseJSON(xhr.responseText)

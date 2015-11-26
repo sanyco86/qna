@@ -1,6 +1,6 @@
 .col-lg-4
   h1 New answer
-  = nested_form_for [question, answer], remote: true do |f|
+  = nested_form_for [question, answer], remote: true, data: { type: :json } do |f|
     .answer-errors
     .form-group
       = f.label :body, 'Answer'

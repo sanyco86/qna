@@ -3,5 +3,5 @@
         $('.edit-errors').html('<%= j message %>');
     <% end %>
 <% else %>
-    $('div#<%= dom_id(@answer) %>').html('<%= j render partial: 'answer', locals: { answer: @answer } %>');
+    $("#<%= dom_id @answer %>").replaceWith('<%= j render @answer %>');
 <% end %>
