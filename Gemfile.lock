@@ -157,6 +157,10 @@ GEM
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
+    omniauth-vkontakte (1.3.6)
+      multi_json
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     orm_adapter (0.5.0)
     pg (0.18.4)
     private_pub (1.0.3)
@@ -292,6 +296,7 @@ DEPENDENCIES
   nested_form
   omniauth
   omniauth-facebook
+  omniauth-vkontakte
   pg
   private_pub
   quiet_assets

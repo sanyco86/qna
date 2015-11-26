@@ -5,14 +5,26 @@ module Omniauthable
       authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
       return authorization.user if authorization
 
-      email = auth.info[:email]
+      if auth.info.try(:email)
+        email = auth.info[:email]
+      else
+        return false
+      end
+
       user = User.where(email: email).first
       if user
         user.create_authorization(auth)
       else
-        password = Devise.friendly_token
-        user = User.create!(email: email, password: password)
-        user.create_authorization(auth)
+        password = Devise.friendly_token[0, 20]
+        user = User.new(email: email,
+                        password: password,
+                        password_confirmation: password)
+        if user.valid?
+          user.save!
+          user.create_authorization(auth)
+        else
+          return false
+        end
       end
       user
     end
