@@ -1,7 +1,8 @@
 require_relative 'feature_helper'
 
-RSpec.feature "OAuth", type: :feature do
+RSpec.feature 'OAuth', type: :feature do
   let!(:user) { create(:user) }
+  let(:question_params) { build(:question, title: 'MyString', body: 'MyText') }
 
   before do
     OmniAuth.config.test_mode = true
@@ -22,6 +23,20 @@ RSpec.feature "OAuth", type: :feature do
         fill_in 'auth_info_email', with: 'test@test.com'
         click_on 'Submit'
         expect(page).to have_content 'Successfully authenticated from Vkontakte account'
+
+        click_on 'Sign out'
+        click_on 'Sign in'
+        click_on 'Sign in with Vkontakte'
+
+        click_on 'Ask question'
+        fill_in 'Title', with: question_params.title
+        fill_in 'Body', with: question_params.body
+
+        click_on 'Create'
+
+        expect(page).to have_content 'Question was successfully created.'
+        expect(page).to have_content question_params.title
+        expect(page).to have_content question_params.body
       end
 
       scenario 'when it has not been updated' do
@@ -45,6 +60,16 @@ RSpec.feature "OAuth", type: :feature do
       click_on 'Sign in'
       click_on 'Sign in with Facebook'
       expect(page).to have_content 'Successfully authenticated from Facebook account.'
+
+      click_on 'Ask question'
+      fill_in 'Title', with: question_params.title
+      fill_in 'Body', with: question_params.body
+
+      click_on 'Create'
+
+      expect(page).to have_content 'Question was successfully created.'
+      expect(page).to have_content question_params.title
+      expect(page).to have_content question_params.body
     end
 
     it 'with invalid credentials' do
