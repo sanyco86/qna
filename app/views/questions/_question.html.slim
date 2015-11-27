@@ -10,7 +10,7 @@
   .col-md-8
     h3.question_title
       = link_to question.title, question
-    - if user_authorized_for question
+    - if policy(question).update? && policy(question).destroy?
       small
         = link_to 'Edit', edit_question_path(question), class: 'question_edit-link', remote: true
         '

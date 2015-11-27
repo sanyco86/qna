@@ -1,8 +1,7 @@
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_own_question, only: [:update, :edit, :destroy]
-  before_action :load_question, only: [:show]
+  before_action :load_question, only: [:show, :update, :edit, :destroy]
   after_action :publish_question, only: :create
   include Voted
 
@@ -21,6 +20,7 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    authorize @question
   end
 
   def create
@@ -28,11 +28,13 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    authorize @question
     @question.update(question_params)
     respond_with @question
   end
 
   def destroy
+    authorize @question
     respond_with @question.destroy
   end
 
@@ -48,12 +50,5 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, attachments_attributes: [:file, :id, :_destroy])
-  end
-
-  def load_own_question
-    load_question
-    unless @question.user == current_user
-      render text: 'You do not have permission to modify this question.', status: 403
-    end
   end
 end

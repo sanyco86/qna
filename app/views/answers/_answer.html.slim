@@ -12,9 +12,9 @@
         li = link_to attachment.file.identifier, attachment.file.url
   .answer_votes
     = render 'shared/votes_bar', object: answer
-  - if user_signed_in? && current_user.id == answer.question.user_id && !answer.best
+  - if policy(answer).make_best?
     p = link_to 'Best answer', make_best_answer_path(answer), method: :patch, remote: true
-  - if user_authorized_for(answer)
+  - if policy(answer).update? && policy(answer).destroy?
     p
       => link_to 'Edit', '#', class: 'answer_edit-link', data: { answer_id: answer.id }
       = link_to 'Destroy', answer_path(answer), method: :delete, remote: true
