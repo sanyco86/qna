@@ -40,7 +40,7 @@
       .form-group
         a.add_nested_fields data-association="attachments" data-blueprint-id="attachments_fields_blueprint" href="javascript:void(0)"  Add attachment
   ul.answer_comments.list-unstyled
-  form#new_comment.new_comment accept-charset="UTF-8" action="/answers/#{@answer.id}/comments" data-remote="true" method="post"
+  form#new_comment.new_comment accept-charset="UTF-8" data-type="json" action="/answers/#{@answer.id}/comments" data-remote="true" method="post"
     input name="utf8" type="hidden" value="✓" /
     input#comment_body name="comment[body]" type="text" /
     input name="commit" type="submit" value=("Create Comment") /
