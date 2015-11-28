@@ -1,7 +1,8 @@
 class AnswersController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :load_answer, only: [:update, :destroy, :make_best]
+  before_action :load_answer, only: [:make_best]
+  before_action :authorize_answer, only: [:update, :destroy]
   after_action :publish_answer, only: :create
   include Voted
 
@@ -13,7 +14,6 @@ class AnswersController < ApplicationController
   end
 
   def update
-    authorize @answer
     @answer.update(answer_params)
     respond_with @answer
   end
@@ -24,11 +24,15 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    authorize @answer
     respond_with @answer.destroy
   end
 
   private
+
+  def authorize_answer
+    load_answer
+    authorize @answer
+  end
 
   def publish_answer
     PrivatePub.publish_to chanel, answer: render_to_string(template: 'answers/show') if @answer.valid?
