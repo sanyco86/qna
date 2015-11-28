@@ -1,14 +1,14 @@
 class AnswerPolicy < ApplicationPolicy
 
   def update?
-    user == record.user
+    user && user.id == record.user_id
   end
 
   def destroy?
-    user == record.user
+    user && user.id == record.user_id
   end
 
   def make_best?
-    user == record.question.user and not record.best
+    user && user.id == record.question.user_id and not record.best
   end
 end

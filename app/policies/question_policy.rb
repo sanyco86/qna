@@ -3,10 +3,10 @@ class QuestionPolicy < ApplicationPolicy
   alias_method :update?, :edit?
 
   def update?
-    user == record.user
+    user && user.id == record.user_id
   end
 
   def destroy?
-    user == record.user
+    user && user.id == record.user_id
   end
 end
