@@ -1,16 +1,21 @@
-.topbar
-  .topbar-wrapper
-    .topbar-logo
-      = link_to 'QnA', root_path, class: 'topbar-icon'
-    .topbar-links
-      .links-container
-        span.topbar-menu-links
-          - if user_signed_in?
-            = link_to 'Ask question', new_question_path, class: 'login-link'
+nav.navbar.navbar-default
+  .container
+    .navbar-header
+      button.navbar-toggle.collapsed data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      = link_to 'QnA', root_path, class: 'navbar-brand'
+    #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        - if user_signed_in?
+          li
+            = link_to 'Ask question', new_question_path
+          li
             = link_to 'Sign out', destroy_user_session_path, method: :delete
-          - else
+        - else
+          li
             = link_to 'Sign in', new_user_session_path
+          li
             = link_to 'Sign up', new_user_registration_path
-      .search-container
-        form#search
-          input

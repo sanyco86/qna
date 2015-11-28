@@ -1,9 +1,4 @@
 class QuestionPolicy < ApplicationPolicy
-  class Scope < Scope
-    def resolve
-      scope
-    end
-  end
 
   alias_method :update?, :edit?
 

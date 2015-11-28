@@ -14,9 +14,11 @@
     = render 'shared/votes_bar', object: answer
   - if policy(answer).make_best?
     p = link_to 'Best answer', make_best_answer_path(answer), method: :patch, remote: true
-  - if policy(answer).update? && policy(answer).destroy?
+  - if policy(answer).update?
     p
-      => link_to 'Edit', '#', class: 'answer_edit-link', data: { answer_id: answer.id }
+      = link_to 'Edit', '#', class: 'answer_edit-link', data: { answer_id: answer.id }
+  - if policy(answer).destroy?
+    p
       = link_to 'Destroy', answer_path(answer), method: :delete, remote: true
     = nested_form_for answer, remote: true, html: { class: 'answer_edit-form', id: "edit-#{dom_id(answer)}" } do |f|
       = f.text_area :body
