@@ -1,8 +1,7 @@
 class AnswersController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :load_answer, only: [:make_best]
-  before_action :authorize_answer, only: [:update, :destroy]
+  before_action :load_answer, only: [:update, :destroy, :make_best]
   after_action :publish_answer, only: :create
   include Voted
 
@@ -29,11 +28,6 @@ class AnswersController < ApplicationController
 
   private
 
-  def authorize_answer
-    load_answer
-    authorize @answer
-  end
-
   def publish_answer
     PrivatePub.publish_to chanel, answer: render_to_string(template: 'answers/show') if @answer.valid?
   end
@@ -45,6 +39,7 @@ class AnswersController < ApplicationController
   def load_answer
     @answer = Answer.find params[:id]
     @question = @answer.question
+    authorize @answer
   end
 
   def answer_params

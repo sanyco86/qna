@@ -1,8 +1,7 @@
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_question, only: [:show]
-  before_action :authorize_question, only: [:update, :edit, :destroy]
+  before_action :load_question, only: [:show, :update, :edit, :destroy]
   after_action :publish_question, only: :create
   include Voted
 
@@ -38,17 +37,13 @@ class QuestionsController < ApplicationController
 
   private
 
-  def authorize_question
-    load_question
-    authorize @question
-  end
-
   def publish_question
     PrivatePub.publish_to "/questions", question: render_to_string(template: 'questions/show.json.jbuilder') if @question.valid?
   end
 
   def load_question
     @question = Question.find(params[:id])
+    authorize @question
   end
 
   def question_params

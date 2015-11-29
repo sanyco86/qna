@@ -114,7 +114,7 @@ describe AnswersController do
 
       it 'doesnt change #best' do
         expect{
-          patch :make_best, id: answer, question_id: question, format: :js
+          patch :make_best, id: answer, question_id: question, format: :json
           answer.reload
         }.to_not change(answer, :best)
       end
