@@ -28,6 +28,9 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'doorkeeper'
+gem 'active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
 
 group :development, :test do
   gem 'rspec-rails'
