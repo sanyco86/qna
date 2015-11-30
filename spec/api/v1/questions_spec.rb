@@ -125,7 +125,7 @@ describe 'Questions API' do
         expect(response.status).to eq 422
       end
 
-      it 'doesnt create new answer' do
+      it 'doesnt create new question' do
         expect{
           subject
         }.to_not change(Question, :count)

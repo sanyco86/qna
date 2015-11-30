@@ -83,4 +83,46 @@ describe 'Answers API' do
       end
     end
   end
+  describe 'POST /create' do
+    let(:access_token) { create(:access_token) }
+    let(:user) { User.find(access_token.resource_owner_id) }
+    let(:question) { create(:question, user: user) }
+
+    context 'with valid attributes' do
+      subject { post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token, answer: attributes_for(:answer) }
+
+      it 'reponses with 201' do
+        subject
+        expect(response.status).to eq 201
+      end
+
+      it 'creates new answer' do
+        expect{
+          subject
+        }.to change(user.answers, :count).by 1
+      end
+
+      it 'creates new answer' do
+        expect{
+          subject
+        }.to change(question.answers, :count).by 1
+      end
+    end
+
+    context 'with invalid attributes' do
+      subject { post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token, answer: { body: nil } }
+
+      it 'responses with 422' do
+        subject
+        expect(response.status).to eq 422
+      end
+
+      it 'doesnt create new answer' do
+        expect{
+          subject
+        }.to_not change(Answer, :count)
+      end
+    end
+  end
 end
+
