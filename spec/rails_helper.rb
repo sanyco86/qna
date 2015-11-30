@@ -29,10 +29,7 @@ RSpec.configure do |config|
   config.include FeatureMacros, type: :feature
   config.include OmniauthMacros
 
-
-  config.fixture_path = "#{::Rails.root}/spec/features"
-
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
-
-
 end
