@@ -66,7 +66,7 @@ describe 'Answers API' do
         expect(response.body).to have_json_size(1).at_path('answer/comments')
       end
 
-      %w(id body commentable_id commentable_type created_at updated_at).each do |attr|
+      %w(id body created_at updated_at).each do |attr|
         it "comment object contains #{attr}" do
           expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("answer/comments/0/#{attr}")
         end

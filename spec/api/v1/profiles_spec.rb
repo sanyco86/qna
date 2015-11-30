@@ -21,7 +21,7 @@ describe 'Profiles API' do
       end
 
       it 'contains array of users' do
-        expect(response.body).to be_json_eql(users.to_json)
+        expect(response.body).to be_json_eql(users.to_json).at_path('profiles')
       end
 
       it 'doesnt contain current user' do
