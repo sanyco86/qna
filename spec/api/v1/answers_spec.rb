@@ -28,13 +28,58 @@ describe 'Answers API' do
       end
 
       it 'returns list of answers' do
-        expect(response.body).to have_json_size(3).at_path("answers")
+        expect(response.body).to have_json_size(3).at_path('answers')
       end
 
       %w(id body created_at updated_at question_id).each do |attr|
         it "answer object contains #{attr}" do
           expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answers/0/#{attr}")
         end
+      end
+    end
+  end
+
+  describe 'GET /show' do
+    let(:answer) { create(:answer) }
+    let(:access_token) { create(:access_token) }
+    let!(:comment) { create(:comment, commentable: answer) }
+    let!(:attachment) { create(:attachment, attachmentable: answer) }
+
+    before { get "/api/v1/answers/#{answer.id}", format: :json, access_token: access_token.token }
+
+    it 'returns 200 status' do
+      expect(response).to be_success
+    end
+
+    it 'return answer object' do
+      expect(response.body).to have_json_size(1)
+    end
+
+    %w(id body created_at updated_at question_id).each do |attr|
+      it "answer object contains #{attr}" do
+        expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("answer/#{attr}")
+      end
+    end
+
+    context 'comments' do
+      it 'includes comments list' do
+        expect(response.body).to have_json_size(1).at_path('answer/comments')
+      end
+
+      %w(id body commentable_id commentable_type created_at updated_at).each do |attr|
+        it "comment object contains #{attr}" do
+          expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("answer/comments/0/#{attr}")
+        end
+      end
+    end
+
+    context 'attachments' do
+      it 'includes attachments list' do
+        expect(response.body).to have_json_size(1).at_path('answer/attachments')
+      end
+
+      it 'attachment object contains url' do
+        expect(response.body).to be_json_eql(attachment.url.to_json).at_path('answer/attachments/0/url')
       end
     end
   end
