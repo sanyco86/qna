@@ -13,6 +13,8 @@ class AnswerPolicy < ApplicationPolicy
   end
 
   def make_best?
-    user && user.id == record.question.user_id and not record.best
+    unless record.best
+      user && !record.best && user.id == record.question.user_id
+    end
   end
 end
