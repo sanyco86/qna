@@ -27,7 +27,7 @@ describe 'Questions API' do
       end
 
       it 'returns list of questions' do
-        expect(response.body).to have_json_size(3).at_path("questions")
+        expect(response.body).to have_json_size(3).at_path('questions')
       end
 
       %w(id title body created_at updated_at).each do |attr|
@@ -37,12 +37,12 @@ describe 'Questions API' do
       end
 
       it 'questions object contains short title' do
-        expect(response.body).to be_json_eql(question.title.truncate(10).to_json).at_path("questions/0/short_title")
+        expect(response.body).to be_json_eql(question.title.truncate(10).to_json).at_path('questions/0/short_title')
       end
 
       context 'answers' do
         it 'includes answers list' do
-          expect(response.body).to have_json_size(1).at_path("questions/0/answers")
+          expect(response.body).to have_json_size(1).at_path('questions/0/answers')
         end
 
         %w(id body created_at updated_at).each do |attr|
@@ -78,7 +78,7 @@ describe 'Questions API' do
 
     context 'comments' do
       it 'includes comments list' do
-        expect(response.body).to have_json_size(1).at_path("question/comments")
+        expect(response.body).to have_json_size(1).at_path('question/comments')
       end
 
       %w(id body created_at updated_at).each do |attr|
@@ -90,11 +90,45 @@ describe 'Questions API' do
 
     context 'attachments' do
       it 'includes attachments list' do
-        expect(response.body).to have_json_size(1).at_path("question/attachments")
+        expect(response.body).to have_json_size(1).at_path('question/attachments')
       end
 
       it 'attachment object contains url' do
-        expect(response.body).to be_json_eql(attachment.url.to_json).at_path("question/attachments/0/url")
+        expect(response.body).to be_json_eql(attachment.url.to_json).at_path('question/attachments/0/url')
+      end
+    end
+  end
+  describe 'POST /create' do
+    let(:access_token) { create(:access_token) }
+    let(:user) { User.find(access_token.resource_owner_id) }
+
+    context 'with valid attributes' do
+      subject { post '/api/v1/questions', format: :json, access_token: access_token.token, question: attributes_for(:question) }
+
+      it 'reponses with 201' do
+        subject
+        expect(response.status).to eq 201
+      end
+
+      it 'creates new question' do
+        expect{
+          subject
+        }.to change(user.questions, :count).by 1
+      end
+    end
+
+    context 'with invalid attributes' do
+      subject { post '/api/v1/questions', format: :json, access_token: access_token.token, question: { body: nil } }
+
+      it 'responses with 422' do
+        subject
+        expect(response.status).to eq 422
+      end
+
+      it 'doesnt create new answer' do
+        expect{
+          subject
+        }.to_not change(Question, :count)
       end
     end
   end
