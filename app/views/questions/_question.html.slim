@@ -10,8 +10,9 @@
   .col-md-8
     h3.question_title
       = link_to question.title, question
-    - if user_authorized_for question
+    - if policy(question).update?
       small
-        = link_to 'Edit', edit_question_path(question), class: 'question_edit-link', remote: true
-        '
+        => link_to 'Edit', edit_question_path(question), class: 'question_edit-link', remote: true
+    - if policy(question).destroy?
+      small
         = link_to 'Destroy', question, method: :delete, remote: true

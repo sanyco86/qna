@@ -12,11 +12,13 @@
         li = link_to attachment.file.identifier, attachment.file.url
   .answer_votes
     = render 'shared/votes_bar', object: answer
-  - if user_signed_in? && current_user.id == answer.question.user_id && !answer.best
+  - if policy(answer).make_best?
     p = link_to 'Best answer', make_best_answer_path(answer), method: :patch, remote: true
-  - if user_authorized_for(answer)
+  - if policy(answer).update?
     p
-      => link_to 'Edit', '#', class: 'answer_edit-link', data: { answer_id: answer.id }
+      = link_to 'Edit', '#', class: 'answer_edit-link', data: { answer_id: answer.id }
+  - if policy(answer).destroy?
+    p
       = link_to 'Destroy', answer_path(answer), method: :delete, remote: true
     = nested_form_for answer, remote: true, html: { class: 'answer_edit-form', id: "edit-#{dom_id(answer)}" } do |f|
       = f.text_area :body

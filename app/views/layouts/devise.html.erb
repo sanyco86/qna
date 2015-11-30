@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MyStack</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body data-current-user-id="<%= current_user.id if user_signed_in? %>">
+<%= render 'layouts/header' %>
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>" role="alert">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong><%= value %></strong>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <%= yield %>
+</div>
+</body>
+</html>

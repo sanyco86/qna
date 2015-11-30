@@ -12,9 +12,11 @@
             li = link_to attachment.file.identifier, attachment.file.url
     .question_votes
       = render 'shared/votes_bar', object: @question
-    - if user_authorized_for @question
+    - if policy(@question).update?
       p
-        => link_to 'Edit', edit_question_path(@question), class: 'question_edit-link'
+        = link_to 'Edit', edit_question_path(@question), class: 'question_edit-link'
+    - if policy(@question).destroy?
+      p
         = link_to 'Destroy', @question, method: :delete
     ul.question_comments.list-unstyled
       = render @question.comments

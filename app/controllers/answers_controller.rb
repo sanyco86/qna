@@ -1,8 +1,7 @@
 class AnswersController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :load_own_answer, only: [:update, :destroy]
-  before_action :load_answer, only: [:show, :make_best]
+  before_action :load_answer, only: [:update, :destroy, :make_best]
   after_action :publish_answer, only: :create
   include Voted
 
@@ -11,6 +10,7 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
     respond_with @answer = @question.answers.create(answer_params.merge(user: current_user))
+    authorize @answer
   end
 
   def update
@@ -40,13 +40,7 @@ class AnswersController < ApplicationController
   def load_answer
     @answer = Answer.find params[:id]
     @question = @answer.question
-  end
-
-  def load_own_answer
-    load_answer
-    unless @answer.user == current_user
-      render text: 'You do not have permission to modify this answer.', status: 403
-    end
+    authorize @answer
   end
 
   def answer_params
