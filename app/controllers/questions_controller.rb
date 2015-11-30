@@ -17,6 +17,7 @@ class QuestionsController < ApplicationController
 
   def new
     respond_with @question = Question.new
+    authorize @question
   end
 
   def edit
@@ -24,6 +25,7 @@ class QuestionsController < ApplicationController
 
   def create
     respond_with(@question = current_user.questions.create(question_params))
+    authorize @question
   end
 
   def update

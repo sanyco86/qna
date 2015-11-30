@@ -1,4 +1,8 @@
 class AnswerPolicy < ApplicationPolicy
+  include VotedPolicy
+  def create?
+    user == user
+  end
 
   def update?
     user && user.id == record.user_id

@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
 
   def load_commentable
     @commentable = commentable_name.find(params[commentable_id])
+    authorize @commentable
   end
 
   def commentable_id

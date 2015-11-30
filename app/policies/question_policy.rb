@@ -1,6 +1,8 @@
 class QuestionPolicy < ApplicationPolicy
-
-  alias_method :update?, :edit?
+  include VotedPolicy
+  def create?
+    user == user
+  end
 
   def update?
     user && user.id == record.user_id

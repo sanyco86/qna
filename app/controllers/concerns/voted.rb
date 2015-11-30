@@ -29,5 +29,6 @@ module Voted
   def set_vote
     @votable = model_klass.find(params[:id])
     instance_variable_set("@#{controller_name.singularize}", @votable)
+    authorize @votable
   end
 end
