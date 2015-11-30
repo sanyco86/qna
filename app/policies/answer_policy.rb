@@ -1,7 +1,7 @@
 class AnswerPolicy < ApplicationPolicy
   include VotedPolicy
   def create?
-    user == user
+    user
   end
 
   def update?

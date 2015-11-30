@@ -1,6 +1,6 @@
 class CommentPolicy < ApplicationPolicy
 
   def create?
-    user == user
+    user
   end
 end
