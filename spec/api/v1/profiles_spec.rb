@@ -10,7 +10,7 @@ describe 'Profiles API' do
     end
 
     context 'authorized' do
-      let!(:me) { create(:user) }
+      let(:me) { create(:user) }
       let!(:users) { create_list(:user, 4) }
       let(:access_token) { create(:access_token, resource_owner_id: me.id) }
 
@@ -20,9 +20,11 @@ describe 'Profiles API' do
         expect(response).to be_success
       end
 
-      it 'list of users without me' do
-        save_and_open_page
+      it 'contains array of users' do
         expect(response.body).to be_json_eql(users.to_json)
+      end
+
+      it 'doesnt contain current user' do
         expect(response.body).to_not include_json(me.to_json)
       end
     end
