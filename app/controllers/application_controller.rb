@@ -11,6 +11,11 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   after_action :verify_authorized, except: :index
+
+  def doorkeeper_unauthorized_render_options(error: nil)
+    { json: { error: 'Not authorized'} }
+  end
+
   private
 
   def user_not_authorized

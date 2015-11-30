@@ -27,6 +27,7 @@ gem 'responders'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
+gem 'doorkeeper'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -42,4 +43,5 @@ group :test do
   gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'launchy'
+  gem 'json_spec'
 end
