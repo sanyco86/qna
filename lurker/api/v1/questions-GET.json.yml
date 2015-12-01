@@ -10,9 +10,9 @@ requestParameters:
     access_token:
       description: ''
       type: string
-      example: '1234'
+      example: 99e0dc34d3c05fac7351a91e1b059c394addb29397a1e0077e122f37256e4548
 responseCodes:
-- status: 401
+- status: 200
   successful: true
   description: ''
 responseParameters:
@@ -21,10 +21,82 @@ responseParameters:
   additionalProperties: false
   required: []
   properties:
-    error:
-      description: ''
-      type: string
-      example: Not authorized
+    questions:
+      type: array
+      items:
+        description: ''
+        type: object
+        additionalProperties: false
+        required: []
+        properties:
+          id:
+            description: ''
+            type: integer
+            example: 1733
+          title:
+            description: ''
+            type: string
+            example: MyString
+          short_title:
+            description: ''
+            type: string
+            example: MyString
+          body:
+            description: ''
+            type: string
+            example: MyText
+          created_at:
+            description: ''
+            type: string
+            example: '2015-12-01T14:42:18.771Z'
+            format: date-time
+          updated_at:
+            description: ''
+            type: string
+            example: '2015-12-01T14:42:18.771Z'
+            format: date-time
+          answers:
+            type: array
+            items:
+              description: ''
+              type: object
+              additionalProperties: false
+              required: []
+              properties:
+                id:
+                  description: ''
+                  type: integer
+                  example: 1144
+                body:
+                  description: ''
+                  type: string
+                  example: Answer body
+                created_at:
+                  description: ''
+                  type: string
+                  example: '2015-12-01T14:42:18.807Z'
+                  format: date-time
+                updated_at:
+                  description: ''
+                  type: string
+                  example: '2015-12-01T14:42:18.807Z'
+                  format: date-time
+                question_id:
+                  description: ''
+                  type: integer
+                  example: 1733
+                comments:
+                  type: array
+                  items: []
+                attachments:
+                  type: array
+                  items: []
+          comments:
+            type: array
+            items: []
+          attachments:
+            type: array
+            items: []
 extensions:
   method: GET
   path_info: "/api/v1/questions"
@@ -33,3 +105,4 @@ extensions:
     action: index
   query_params:
     format: json
+    access_token: 99e0dc34d3c05fac7351a91e1b059c394addb29397a1e0077e122f37256e4548

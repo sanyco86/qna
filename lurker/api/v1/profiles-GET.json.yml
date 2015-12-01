@@ -10,7 +10,7 @@ requestParameters:
     access_token:
       description: ''
       type: string
-      example: fe4d8dc3b3fbe30da53b84994642395ba557a36b6083454ff51c01fc2cae2538
+      example: bde10951b104a4296bdb8b7d2db3faf0d2cb32be4098f7c09ef7a1ffef168fb5
 responseCodes:
 - status: 200
   successful: true
@@ -32,11 +32,11 @@ responseParameters:
           id:
             description: ''
             type: integer
-            example: 2918
+            example: 4901
           email:
             description: ''
             type: string
-            example: user205@test.com
+            example: user103@test.com
 extensions:
   method: GET
   path_info: "/api/v1/profiles"
@@ -45,4 +45,4 @@ extensions:
     action: index
   query_params:
     format: json
-    access_token: fe4d8dc3b3fbe30da53b84994642395ba557a36b6083454ff51c01fc2cae2538
+    access_token: bde10951b104a4296bdb8b7d2db3faf0d2cb32be4098f7c09ef7a1ffef168fb5

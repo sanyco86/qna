@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Answers API' do
+describe Api::V1::AnswersController do
   describe 'GET /index' do
     let(:question) { create(:question) }
 
@@ -16,7 +16,7 @@ describe 'Answers API' do
       end
     end
 
-    context 'authorized' do
+    context 'authorized', :lurker do
       let(:access_token) { create(:access_token) }
       let!(:answers) { create_list(:answer, 3, question: question) }
       let(:answer) { answers.first }
@@ -39,7 +39,7 @@ describe 'Answers API' do
     end
   end
 
-  describe 'GET /show' do
+  describe 'GET /show', :lurker do
     let(:answer) { create(:answer) }
     let(:access_token) { create(:access_token) }
     let!(:comment) { create(:comment, commentable: answer) }
@@ -92,7 +92,7 @@ describe 'Answers API' do
     let(:user) { User.find(access_token.resource_owner_id) }
     let(:question) { create(:question, user: user) }
 
-    context 'with valid attributes' do
+    context 'with valid attributes', :lurker do
       subject { post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token, answer: attributes_for(:answer) }
 
       it 'reponses with 201' do

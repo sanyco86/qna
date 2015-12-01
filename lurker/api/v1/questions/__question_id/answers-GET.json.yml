@@ -10,9 +10,9 @@ requestParameters:
     access_token:
       description: ''
       type: string
-      example: '1234'
+      example: fae65ad2794ddd6720736190081589ee0964b0367cfcef343584ea73523a617d
 responseCodes:
-- status: 401
+- status: 200
   successful: true
   description: ''
 responseParameters:
@@ -21,16 +21,49 @@ responseParameters:
   additionalProperties: false
   required: []
   properties:
-    error:
-      description: ''
-      type: string
-      example: Not authorized
+    answers:
+      type: array
+      items:
+        description: ''
+        type: object
+        additionalProperties: false
+        required: []
+        properties:
+          id:
+            description: ''
+            type: integer
+            example: 1105
+          body:
+            description: ''
+            type: string
+            example: Answer body
+          created_at:
+            description: ''
+            type: string
+            example: '2015-12-01T14:42:14.951Z'
+            format: date-time
+          updated_at:
+            description: ''
+            type: string
+            example: '2015-12-01T14:42:14.951Z'
+            format: date-time
+          question_id:
+            description: ''
+            type: integer
+            example: 1706
+          comments:
+            type: array
+            items: []
+          attachments:
+            type: array
+            items: []
 extensions:
   method: GET
-  path_info: "/api/v1/questions/985/answers"
+  path_info: "/api/v1/questions/1706/answers"
   path_params:
     controller: api/v1/answers
     action: index
-    question_id: '985'
+    question_id: '1706'
   query_params:
     format: json
+    access_token: fae65ad2794ddd6720736190081589ee0964b0367cfcef343584ea73523a617d

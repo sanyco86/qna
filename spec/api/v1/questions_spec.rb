@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Questions API' do
+describe Api::V1::QuestionsController do
   describe 'GET /index' do
     context 'unauthorized' do
       it 'returns 401 status if there is no access_token' do
@@ -14,7 +14,7 @@ describe 'Questions API' do
       end
     end
 
-    context 'authorized' do
+    context 'authorized', :lurker do
       let(:access_token) { create(:access_token) }
       let!(:questions) { create_list(:question, 3) }
       let(:question) { questions.first }
@@ -54,7 +54,7 @@ describe 'Questions API' do
     end
   end
 
-  describe 'GET /show' do
+  describe 'GET /show', :lurker do
     let(:access_token) { create(:access_token) }
     let(:question) { create(:question) }
     let!(:comment) { create(:comment, commentable: question) }
@@ -102,7 +102,7 @@ describe 'Questions API' do
     let(:access_token) { create(:access_token) }
     let(:user) { User.find(access_token.resource_owner_id) }
 
-    context 'with valid attributes' do
+    context 'with valid attributes', :lurker do
       subject { post '/api/v1/questions', format: :json, access_token: access_token.token, question: attributes_for(:question) }
 
       it 'reponses with 201' do

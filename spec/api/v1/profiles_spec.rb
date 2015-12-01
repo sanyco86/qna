@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Profiles API' do
+describe Api::V1::ProfilesController do
   describe 'GET /' do
     context 'unauthorized' do
       it 'returns 401' do
@@ -9,7 +9,7 @@ describe 'Profiles API' do
       end
     end
 
-    context 'authorized' do
+    context 'authorized', :lurker do
       let(:me) { create(:user) }
       let!(:users) { create_list(:user, 4) }
       let(:access_token) { create(:access_token, resource_owner_id: me.id) }
@@ -43,7 +43,7 @@ describe 'Profiles API' do
       end
     end
 
-    context 'authorized' do
+    context 'authorized', :lurker do
       let(:me) { create(:user) }
       let(:access_token) { create(:access_token, resource_owner_id: me.id) }
 
