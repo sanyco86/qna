@@ -1,5 +1,5 @@
 class Api::V1::BaseController < ApplicationController
-  skip_after_action :verify_authorized
+  #skip_after_action :verify_authorized
   before_action :doorkeeper_authorize!
 
   respond_to :json

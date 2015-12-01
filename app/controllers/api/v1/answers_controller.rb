@@ -1,5 +1,6 @@
 class Api::V1::AnswersController < Api::V1::BaseController
   before_action :load_question, except: :show
+  after_action :load_authorize, except: :index
 
   def index
     respond_with @answers = @question.answers
@@ -17,6 +18,10 @@ class Api::V1::AnswersController < Api::V1::BaseController
 
   def answer_params
     params.require(:answer).permit(:body)
+  end
+
+  def load_authorize
+    authorize @answer
   end
 
   def load_question
