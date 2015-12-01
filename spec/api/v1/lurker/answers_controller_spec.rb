@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Answers API' do
+describe Api::V1::AnswersController, :lurker do
   describe 'GET /index' do
     let(:question) { create(:question) }
 

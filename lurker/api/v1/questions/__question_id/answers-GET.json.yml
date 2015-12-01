@@ -1,0 +1,36 @@
+---
+description: answer listing
+prefix: answers management
+requestParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    access_token:
+      description: ''
+      type: string
+      example: '1234'
+responseCodes:
+- status: 401
+  successful: true
+  description: ''
+responseParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    error:
+      description: ''
+      type: string
+      example: Not authorized
+extensions:
+  method: GET
+  path_info: "/api/v1/questions/985/answers"
+  path_params:
+    controller: api/v1/answers
+    action: index
+    question_id: '985'
+  query_params:
+    format: json

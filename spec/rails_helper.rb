@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'shoulda/matchers'
 require 'capybara/rspec'
 require 'pundit/rspec'
+require 'lurker/spec_helper'
 
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }

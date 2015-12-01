@@ -1,0 +1,44 @@
+---
+description: answer creation
+prefix: answers management
+requestParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    access_token:
+      description: ''
+      type: string
+      example: 8f8a5bfb6a7049046ddeb6d62f3dc1f0adab45ba4953a83077416c28244c2699
+    answer:
+      description: ''
+      type: object
+      additionalProperties: false
+      required: []
+      properties:
+        body:
+          description: ''
+          type: string
+          example: Answer body
+responseCodes:
+- status: 201
+  successful: true
+  description: ''
+responseParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    error:
+      description: ''
+      type: string
+      example: You are not authorized to perform this action.
+extensions:
+  method: POST
+  path_info: "/api/v1/questions/1009/answers"
+  path_params:
+    controller: api/v1/answers
+    action: create
+    question_id: '1009'

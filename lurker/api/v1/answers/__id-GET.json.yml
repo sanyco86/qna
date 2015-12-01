@@ -1,0 +1,99 @@
+---
+description: answer
+prefix: answers management
+requestParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    access_token:
+      description: ''
+      type: string
+      example: 181be1b80d6f109d8c8b230af413d4c105654de61018428ff2db3374bd369333
+responseCodes:
+- status: 200
+  successful: true
+  description: ''
+responseParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    answer:
+      description: ''
+      type: object
+      additionalProperties: false
+      required: []
+      properties:
+        id:
+          description: ''
+          type: integer
+          example: 697
+        body:
+          description: ''
+          type: string
+          example: Answer body
+        created_at:
+          description: ''
+          type: string
+          example: '2015-12-01T13:53:45.540Z'
+          format: date-time
+        updated_at:
+          description: ''
+          type: string
+          example: '2015-12-01T13:53:45.540Z'
+          format: date-time
+        question_id:
+          description: ''
+          type: integer
+          example: 994
+        comments:
+          type: array
+          items:
+            description: ''
+            type: object
+            additionalProperties: false
+            required: []
+            properties:
+              id:
+                description: ''
+                type: integer
+                example: 335
+              body:
+                description: ''
+                type: string
+                example: Comment_16
+              created_at:
+                description: ''
+                type: string
+                example: '2015-12-01T13:53:45.551Z'
+                format: date-time
+              updated_at:
+                description: ''
+                type: string
+                example: '2015-12-01T13:53:45.551Z'
+                format: date-time
+        attachments:
+          type: array
+          items:
+            description: ''
+            type: object
+            additionalProperties: false
+            required: []
+            properties:
+              url:
+                description: ''
+                type: string
+                example: "/uploads/attachment/file/335/spec_helper.rb"
+extensions:
+  method: GET
+  path_info: "/api/v1/answers/697"
+  path_params:
+    controller: api/v1/answers
+    action: show
+    id: '697'
+  query_params:
+    format: json
+    access_token: 181be1b80d6f109d8c8b230af413d4c105654de61018428ff2db3374bd369333
