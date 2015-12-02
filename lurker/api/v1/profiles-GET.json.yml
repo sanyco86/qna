@@ -10,7 +10,7 @@ requestParameters:
     access_token:
       description: ''
       type: string
-      example: bde10951b104a4296bdb8b7d2db3faf0d2cb32be4098f7c09ef7a1ffef168fb5
+      example: 022235d682a350a736b5b334b3e0bf99d22bac9a023e6737e9af3e0ff1be5391
 responseCodes:
 - status: 200
   successful: true
@@ -32,7 +32,7 @@ responseParameters:
           id:
             description: ''
             type: integer
-            example: 4901
+            example: 5134
           email:
             description: ''
             type: string
@@ -45,4 +45,4 @@ extensions:
     action: index
   query_params:
     format: json
-    access_token: bde10951b104a4296bdb8b7d2db3faf0d2cb32be4098f7c09ef7a1ffef168fb5
+    access_token: 022235d682a350a736b5b334b3e0bf99d22bac9a023e6737e9af3e0ff1be5391

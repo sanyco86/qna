@@ -10,7 +10,7 @@ requestParameters:
     access_token:
       description: ''
       type: string
-      example: 586c818b03dc6f2ede2d73d025dc21e745454745e33dae59b42ab9bc710205bf
+      example: 1c4742fbeb68ae9864ac01015af4cd838dce482d878922d5da21a99ae685c26d
     question:
       description: ''
       type: object

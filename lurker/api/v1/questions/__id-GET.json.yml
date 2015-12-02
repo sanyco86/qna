@@ -10,7 +10,7 @@ requestParameters:
     access_token:
       description: ''
       type: string
-      example: 43d282db7fbbaa48b6d86d86b0d4e11cec4f7a14257151ea2223067668344d78
+      example: 0f388bb35f2184464c75c7b3b791478f479a197bfa9759fa2f4a3c604a06b292
 responseCodes:
 - status: 200
   successful: true
@@ -30,7 +30,7 @@ responseParameters:
         id:
           description: ''
           type: integer
-          example: 1772
+          example: 1856
         title:
           description: ''
           type: string
@@ -46,12 +46,12 @@ responseParameters:
         created_at:
           description: ''
           type: string
-          example: '2015-12-01T14:42:20.748Z'
+          example: '2015-12-02T06:47:44.271Z'
           format: date-time
         updated_at:
           description: ''
           type: string
-          example: '2015-12-01T14:42:20.748Z'
+          example: '2015-12-02T06:47:44.271Z'
           format: date-time
         answers:
           type: array
@@ -67,7 +67,7 @@ responseParameters:
               id:
                 description: ''
                 type: integer
-                example: 596
+                example: 625
               body:
                 description: ''
                 type: string
@@ -75,12 +75,12 @@ responseParameters:
               created_at:
                 description: ''
                 type: string
-                example: '2015-12-01T14:42:20.758Z'
+                example: '2015-12-02T06:47:44.280Z'
                 format: date-time
               updated_at:
                 description: ''
                 type: string
-                example: '2015-12-01T14:42:20.758Z'
+                example: '2015-12-02T06:47:44.280Z'
                 format: date-time
         attachments:
           type: array
@@ -93,14 +93,14 @@ responseParameters:
               url:
                 description: ''
                 type: string
-                example: "/uploads/attachment/file/596/spec_helper.rb"
+                example: "/uploads/attachment/file/625/spec_helper.rb"
 extensions:
   method: GET
-  path_info: "/api/v1/questions/1772"
+  path_info: "/api/v1/questions/1856"
   path_params:
     controller: api/v1/questions
     action: show
-    id: '1772'
+    id: '1856'
   query_params:
     format: json
-    access_token: 43d282db7fbbaa48b6d86d86b0d4e11cec4f7a14257151ea2223067668344d78
+    access_token: 0f388bb35f2184464c75c7b3b791478f479a197bfa9759fa2f4a3c604a06b292

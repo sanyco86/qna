@@ -10,7 +10,7 @@ requestParameters:
     access_token:
       description: ''
       type: string
-      example: fae65ad2794ddd6720736190081589ee0964b0367cfcef343584ea73523a617d
+      example: de07f82cf907602c5b33912fa7db55c5f5240a48f69d0aed11a213fe78b6f610
 responseCodes:
 - status: 200
   successful: true
@@ -32,7 +32,7 @@ responseParameters:
           id:
             description: ''
             type: integer
-            example: 1105
+            example: 1157
           body:
             description: ''
             type: string
@@ -40,17 +40,17 @@ responseParameters:
           created_at:
             description: ''
             type: string
-            example: '2015-12-01T14:42:14.951Z'
+            example: '2015-12-02T06:47:37.977Z'
             format: date-time
           updated_at:
             description: ''
             type: string
-            example: '2015-12-01T14:42:14.951Z'
+            example: '2015-12-02T06:47:37.977Z'
             format: date-time
           question_id:
             description: ''
             type: integer
-            example: 1706
+            example: 1790
           comments:
             type: array
             items: []
@@ -59,11 +59,11 @@ responseParameters:
             items: []
 extensions:
   method: GET
-  path_info: "/api/v1/questions/1706/answers"
+  path_info: "/api/v1/questions/1790/answers"
   path_params:
     controller: api/v1/answers
     action: index
-    question_id: '1706'
+    question_id: '1790'
   query_params:
     format: json
-    access_token: fae65ad2794ddd6720736190081589ee0964b0367cfcef343584ea73523a617d
+    access_token: de07f82cf907602c5b33912fa7db55c5f5240a48f69d0aed11a213fe78b6f610
