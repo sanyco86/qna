@@ -5,7 +5,9 @@ requestParameters:
   description: ''
   type: object
   additionalProperties: false
-  required: []
+  required:
+  - id
+  - email
   properties:
     access_token:
       description: ''

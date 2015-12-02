@@ -61,10 +61,6 @@ describe Api::V1::AnswersController do
       end
     end
 
-    it 'return correct order fields on answer' do
-      expect(JSON.parse(response.body)['answer'].keys).to contain_exactly('id', 'body', 'created_at', 'updated_at', 'question_id', 'attachments', 'comments')
-    end
-
     context 'comments' do
       it 'includes comments list' do
         expect(response.body).to have_json_size(1).at_path('answer/comments')

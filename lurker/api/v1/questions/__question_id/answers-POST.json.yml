@@ -5,7 +5,11 @@ requestParameters:
   description: ''
   type: object
   additionalProperties: false
-  required: []
+  required:
+  - id
+  - body
+  - question_id
+  - user_id
   properties:
     access_token:
       description: ''

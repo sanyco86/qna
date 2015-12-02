@@ -5,7 +5,11 @@ requestParameters:
   description: ''
   type: object
   additionalProperties: false
-  required: []
+  required:
+  - id
+  - body
+  - question_id
+  - user_id
   properties:
     access_token:
       description: ''
@@ -55,7 +59,9 @@ responseParameters:
             description: ''
             type: object
             additionalProperties: false
-            required: []
+            required:
+            - id
+            - body
             properties:
               id:
                 description: ''
@@ -81,7 +87,8 @@ responseParameters:
             description: ''
             type: object
             additionalProperties: false
-            required: []
+            required:
+            - url
             properties:
               url:
                 description: ''
