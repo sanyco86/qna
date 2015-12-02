@@ -59,19 +59,23 @@ describe QuestionsController do
   end
 
   describe 'POST #create' do
+    let(:subject) { post :create, question: attributes_for(:question) }
+    let(:publish_url) { '/questions' }
     sign_in_user
 
     context 'with valid attributes' do
       it 'creates a new question' do
         expect {
-          post :create, question: attributes_for(:question)
+          subject
         }.to change(@user.questions, :count).by 1
       end
 
       it 'redirects to question#show' do
-        post :create, question: attributes_for(:question)
+        subject
         expect(response).to redirect_to question_path(assigns(:question))
       end
+
+      it_behaves_like 'publishable'
     end
 
     context 'with invalid attributes' do
