@@ -1,0 +1,42 @@
+---
+description: profile
+prefix: profiles management
+requestParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required:
+  - id
+  - email
+  properties:
+    access_token:
+      description: ''
+      type: string
+      example: d4f5b54922448e6bfbba02e12d2f14893dc2e2aa52fde581d128b5c5d90e1d57
+responseCodes:
+- status: 200
+  successful: true
+  description: ''
+responseParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    id:
+      description: ''
+      type: integer
+      example: 5149
+    email:
+      description: ''
+      type: string
+      example: user118@test.com
+extensions:
+  method: GET
+  path_info: "/api/v1/profiles/me"
+  path_params:
+    controller: api/v1/profiles
+    action: me
+  query_params:
+    format: json
+    access_token: d4f5b54922448e6bfbba02e12d2f14893dc2e2aa52fde581d128b5c5d90e1d57

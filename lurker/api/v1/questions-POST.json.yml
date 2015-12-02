@@ -1,0 +1,52 @@
+---
+description: question creation
+prefix: questions management
+requestParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required:
+  - id
+  - title
+  - short_title
+  - body
+  - user_id
+  properties:
+    access_token:
+      description: ''
+      type: string
+      example: 1c4742fbeb68ae9864ac01015af4cd838dce482d878922d5da21a99ae685c26d
+    question:
+      description: ''
+      type: object
+      additionalProperties: false
+      required: []
+      properties:
+        title:
+          description: ''
+          type: string
+          example: MyString
+        body:
+          description: ''
+          type: string
+          example: MyText
+responseCodes:
+- status: 201
+  successful: true
+  description: ''
+responseParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    error:
+      description: ''
+      type: string
+      example: You are not authorized to perform this action.
+extensions:
+  method: POST
+  path_info: "/api/v1/questions"
+  path_params:
+    controller: api/v1/questions
+    action: create

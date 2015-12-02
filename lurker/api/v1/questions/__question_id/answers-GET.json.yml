@@ -1,0 +1,73 @@
+---
+description: answer listing
+prefix: answers management
+requestParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required:
+  - id
+  - body
+  - question_id
+  - user_id
+  properties:
+    access_token:
+      description: ''
+      type: string
+      example: de07f82cf907602c5b33912fa7db55c5f5240a48f69d0aed11a213fe78b6f610
+responseCodes:
+- status: 200
+  successful: true
+  description: ''
+responseParameters:
+  description: ''
+  type: object
+  additionalProperties: false
+  required: []
+  properties:
+    answers:
+      type: array
+      items:
+        description: ''
+        type: object
+        additionalProperties: false
+        required: []
+        properties:
+          id:
+            description: ''
+            type: integer
+            example: 1157
+          body:
+            description: ''
+            type: string
+            example: Answer body
+          created_at:
+            description: ''
+            type: string
+            example: '2015-12-02T06:47:37.977Z'
+            format: date-time
+          updated_at:
+            description: ''
+            type: string
+            example: '2015-12-02T06:47:37.977Z'
+            format: date-time
+          question_id:
+            description: ''
+            type: integer
+            example: 1790
+          comments:
+            type: array
+            items: []
+          attachments:
+            type: array
+            items: []
+extensions:
+  method: GET
+  path_info: "/api/v1/questions/1790/answers"
+  path_params:
+    controller: api/v1/answers
+    action: index
+    question_id: '1790'
+  query_params:
+    format: json
+    access_token: de07f82cf907602c5b33912fa7db55c5f5240a48f69d0aed11a213fe78b6f610
