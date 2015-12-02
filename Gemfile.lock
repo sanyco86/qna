@@ -142,7 +142,7 @@ GEM
       addressable (~> 2.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    lurker (0.6.10)
+    lurker (0.6.11)
       activesupport (>= 3.2, < 4.3)
       hashie (>= 3.0)
       json (~> 1.7)
