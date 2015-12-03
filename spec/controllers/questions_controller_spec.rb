@@ -75,7 +75,7 @@ describe QuestionsController do
         expect(response).to redirect_to question_path(assigns(:question))
       end
 
-      it_behaves_like 'publishable'
+      it_behaves_like 'publishable', '/questions'
     end
 
     context 'with invalid attributes' do

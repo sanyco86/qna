@@ -15,7 +15,6 @@ RSpec.describe CommentsController, type: :controller do
 
       describe 'Authenticated user' do
         let(:subject) { post :create, create_params }
-        let(:publish_url) { "/questions/#{question.id}/comments" }
 
         before { sign_in(user) }
 
@@ -36,7 +35,7 @@ RSpec.describe CommentsController, type: :controller do
             expect(response).to render_template 'comments/show'
           end
 
-          it_behaves_like 'publishable'
+          it_behaves_like 'publishable', /^\/questions\/\d+\/comments$/
         end
 
         context 'when invalid attributes' do

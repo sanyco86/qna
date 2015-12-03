@@ -8,7 +8,6 @@ describe AnswersController do
   describe 'POST #create' do
     context 'with valid attributes' do
       let(:subject) { post :create, question_id: question, answer: attributes_for(:answer), format: :json }
-      let(:publish_url) { "/questions/#{question.id}/answers" }
 
       sign_in_user
 
@@ -29,7 +28,7 @@ describe AnswersController do
         expect(response).to render_template :show
       end
 
-      it_behaves_like 'publishable'
+      it_behaves_like "publishable", /^\/questions\/\d+\/answers$/
     end
 
     context 'with invalid attributes' do
