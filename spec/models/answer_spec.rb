@@ -44,5 +44,14 @@ describe Answer do
       end
     end
   end
+
+  describe '#report_to_subscribers', :focus do
+    subject { build(:answer) }
+
+    it 'send email to question subscribers' do
+      subject.question.subscribers.each { |user| expect(ReportMailer).to receive(:report).twice.with(user, subject).and_call_original }
+      subject.save!
+    end
+  end
 end
 

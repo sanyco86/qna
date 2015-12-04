@@ -8,12 +8,22 @@ class Answer < ActiveRecord::Base
   has_many :comments, as: :commentable, dependent: :destroy
   validates :body, :question_id, presence: true
 
+  after_create :report_to_subscribers
+
   default_scope -> { order(best: :desc).order(created_at: :asc) }
 
   def make_best
     ActiveRecord::Base.transaction do
       self.question.answers.update_all(best: false)
       update!(best: true)
+    end
+  end
+
+  private
+
+  def report_to_subscribers
+    question.subscribers.find_each do |subscriber|
+      ReportMailer.report(subscriber, self).deliver_later
     end
   end
 end

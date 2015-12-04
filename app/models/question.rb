@@ -12,7 +12,7 @@ class Question < ActiveRecord::Base
 
   scope :for_today, -> { where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
 
-  after_save :subscribe_author
+  after_create :subscribe_author
 
   def subscribe(user)
     self.subscribers << user unless subscribers.include? user
