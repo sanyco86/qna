@@ -14,24 +14,28 @@ RSpec.describe CommentsController, type: :controller do
                              format: :json }}
 
       describe 'Authenticated user' do
+        let(:subject) { post :create, create_params }
+
         before { sign_in(user) }
 
         context 'when valid attributes' do
           it 'saves a new answer to the database' do
-            expect{ post :create, create_params }
+            expect{ subject }
                 .to change(question.comments, :count).by(1)
           end
 
           it 'author question comment' do
             expect {
-              post :create, create_params
+              subject
             }.to change(user.comments, :count).by 1
           end
 
           it 'renders show template' do
-            post :create, create_params
+            subject
             expect(response).to render_template 'comments/show'
           end
+
+          it_behaves_like 'publishable', /^\/questions\/\d+\/comments$/
         end
 
         context 'when invalid attributes' do

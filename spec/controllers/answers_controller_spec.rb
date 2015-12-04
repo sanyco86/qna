@@ -7,24 +7,28 @@ describe AnswersController do
 
   describe 'POST #create' do
     context 'with valid attributes' do
+      let(:subject) { post :create, question_id: question, answer: attributes_for(:answer), format: :json }
+
       sign_in_user
 
       it 'creates new answer' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:answer), format: :json
+          subject
         }.to change(question.answers, :count).by 1
       end
 
       it 'correctly assigns user' do
         expect {
-          post :create, question_id: question, answer: attributes_for(:answer), format: :json
+          subject
         }.to change(@user.answers, :count).by 1
       end
 
       it 'renders show template' do
-        post :create, question_id: question, answer: attributes_for(:answer), format: :json
+        subject
         expect(response).to render_template :show
       end
+
+      it_behaves_like "publishable", /^\/questions\/\d+\/answers$/
     end
 
     context 'with invalid attributes' do
