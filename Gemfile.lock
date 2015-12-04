@@ -140,6 +140,8 @@ GEM
     kramdown (1.9.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lurker (0.6.11)
@@ -336,6 +338,7 @@ DEPENDENCIES
   json_spec
   kramdown
   launchy
+  letter_opener
   lurker
   nested_form
   oj
@@ -349,7 +352,6 @@ DEPENDENCIES
   pundit
   quiet_assets
   rails (= 4.2.4)
-  redis
   remotipart
   responders
   rspec-rails

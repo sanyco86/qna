@@ -32,7 +32,8 @@ gem 'oj_mimic_json'
 gem 'whenever', require: false
 gem 'sidekiq'
 gem 'sinatra', require: false
-gem 'redis'
+
+gem 'letter_opener', :group => :development
 
 group :development, :test do
   gem 'rspec-rails'

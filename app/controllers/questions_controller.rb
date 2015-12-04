@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_question, only: [:show, :update, :edit, :destroy]
+  before_action :load_question, only: [:show, :update, :edit, :destroy, :subscribe, :unsubscribe]
   after_action :publish_question, only: :create
   include Voted
 
@@ -35,6 +35,16 @@ class QuestionsController < ApplicationController
 
   def destroy
     respond_with @question.destroy
+  end
+
+  def subscribe
+    @question.subscribe(current_user)
+    redirect_to @question, notice: 'Subscribed successfully!'
+  end
+
+   def unsubscribe
+    @question.unsubscribe(current_user)
+    redirect_to @question, notice: 'Unsubscribed successfully!'
   end
 
   private
