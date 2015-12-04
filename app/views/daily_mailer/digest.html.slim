@@ -1,0 +1,6 @@
+h1= @greeting
+- if @questions.any?
+  - @questions.each do |question|
+    p= question_url(question)
+- else
+  | There are no any questions for today.

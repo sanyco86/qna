@@ -12,4 +12,11 @@ class User < ActiveRecord::Base
 
   include Votable
   include Omniauthable
+
+  def self.send_daily_digest
+    question_ids = Question.for_today.pluck(:id)
+    find_each do |user|
+      DailyMailer.digest(user, question_ids).deliver_later
+    end
+  end
 end
