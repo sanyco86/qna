@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> | profile listing</title>
+  <link href="/lurker/application-ad104fafca32012a24491dd90fa88ee5571eecb1.css" media="all" rel="stylesheet">
+  <style type="text/css">
+    @font-face {
+      font-family: 'FontAwesome';
+      src: url("/lurker//fonts/fontawesome-webfont.eot?v=4.0.3");
+      src: url("/lurker//fonts/fontawesome-webfont.eot?#iefix&amp;v=4.0.3") format("embedded-opentype"),
+      url("/lurker//fonts/fontawesome-webfont.woff?v=4.0.3") format("woff"),
+      url("/lurker//fonts/fontawesome-webfont.ttf?v=4.0.3") format("truetype"),
+      url("/lurker//fonts/fontawesome-webfont.svg?v=4.0.3#fontawesomeregular") format("svg");
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+</head>
+<body>
+
+<header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/lurker">Qna</a>
+    </div>
+  </div>
+</header>
+
+<div class="container bs-docs-container">
+  <div class="row">
+    <div class="col-md-9" role="main">
+      <div class="bs-docs-section">
+        <h1 class="page-header endpoint">profile listing</h1>
+
+<pre>GET /api/v1/profiles</pre>
+
+<p>profile listing</p>
+
+
+<h3>Request Form</h3>
+<script type="text/jsx">
+  /** @jsx React.DOM */
+  var SubmitForm = React.createClass({
+    mixins: [ReactCatalyst.LinkedStateMixin],
+
+    runsOnLocalhost: function() {
+      return window.location.hostname == '127.0.0.1' || window.location.hostname == 'localhost'
+    },
+
+    getInitialState: function() {
+      var state = {
+        payload: JSON.parse('{"access_token":"022235d682a350a736b5b334b3e0bf99d22bac9a023e6737e9af3e0ff1be5391"}'),
+        values: JSON.parse('[]'),
+        hosts: JSON.parse('{"/":"Local"}'),
+        template: '/api/v1/profiles',
+        method: 'GET',
+        host: '/',
+        requestMediaTypes: JSON.parse('["application/x-www-form-urlencoded"]'),
+        requestMediaType: 'application/x-www-form-urlencoded'
+      };
+      if (state.method === 'GET') {
+        state.requestMediaType = 'application/x-www-form-urlencoded';
+        state.requestMediaTypes = [state.requestMediaType];
+      }
+      return this.autodetectLocalhost(state);
+    },
+
+    autodetectLocalhost: function (state) {
+      var hosts = state.hosts;
+
+      var includesLocalhost = false;
+      for (var name in hosts) {
+        if (hosts.hasOwnProperty(name)) {
+          if (hosts[name] === '/') {
+            includesLocalhost = true;
+            if (this.runsOnLocalhost()) {
+              hosts[name] = window.location.origin;
+            }
+          } else {
+            hosts[name] = hosts[name].replace(/\$/, '');
+          }
+
+          if (hosts[name] === window.location.origin) {
+            state.host = hosts[name];
+          }
+        }
+      }
+
+      if (!includesLocalhost && this.runsOnLocalhost()) {
+        state.host = hosts['Local'] = window.location.origin;
+      }
+      return state;
+    },
+
+    renderHostOptions: function() {
+      var hostOptions = [];
+      for (var name in this.state.hosts) {
+        hostOptions.push(<option key={name} value={this.state.hosts[name]}>{name}</option>);
+      }
+      return hostOptions;
+    },
+
+    renderRequestMediaTypeOptions: function () {
+      var mediaTypes = this.state.requestMediaTypes;
+      var requestMediaTypeOptions = [];
+      for (var i = 0; i < mediaTypes.length; i++) {
+        requestMediaTypeOptions.push(<option key={i}>{mediaTypes[i]}</option>)
+      }
+      return requestMediaTypeOptions;
+    },
+
+    handleSubmit: function() {
+      var s = this.state;
+      Lurker.performRequest(s.host, s.method, s.template, s.values, s.payload, s.requestMediaType);
+      return false;
+    },
+
+    render: function() {
+      var actionUrl = Lurker.buildActionUrl(this.state.host, this.state.template, this.state.values);
+      var curl = Lurker.generateCurlCommand(actionUrl, this.state.method, this.state.payload, this.state.requestMediaType);
+      return (
+        <form accept-charset="UTF-8" action={actionUrl} onSubmit={this.handleSubmit} id="payload" className="bs-example hidden-print form-horizontal" method="GET">
+          <input name="_method" value="GET" type="hidden" />
+          <div className="form-group">
+            <label className="control-label col-sm-3" forHtml="hostname">Target Host</label>
+            <div className="col-sm-9">
+              <select id="hostname" className="form-control" valueLink={this.linkState('host')}>
+                {this.renderHostOptions()}
+              </select>
+            </div>
+          </div>
+
+          <div id="curl" className="form-group">
+            <p className="control-label col-sm-3">cURL</p>
+            <div className="col-sm-9">
+              <pre>{curl}</pre>
+            </div>
+          </div>
+
+
+            <div className="bs-example post-params" id="post-payload">
+              <fieldset ref="post-params">
+                <div className="form-group">
+  <label className="control-label col-sm-3" htmlFor="access_token">access_token</label>
+  <div className="col-sm-9">
+        <input type="text" name="access_token" defaultValue="022235d682a350a736b5b334b3e0bf99d22bac9a023e6737e9af3e0ff1be5391" valueLink={this.linkState('payload.access_token')} className="form-control"></input>
+  </div>
+</div>
+
+              </fieldset>
+            </div>
+
+          <div className="form-group row">
+            <div className="col-sm-offset-3 col-sm-9">
+              <input id="submit-api" type="submit" className="btn btn-primary pull-right"></input>
+            </div>
+          </div>
+        </form>
+      );
+    }
+  });
+
+  var submitForm = <SubmitForm template="/api/v1/profiles" />;
+  // FIXME: see multidomain feature - cannot select node in phantomjs
+  window.submitForm = submitForm;
+  React.renderComponent(submitForm, document.getElementById('submit-form'));
+</script>
+<div id="submit-form"></div>
+
+
+<h3>Response Example</h3>
+<div id="show-api-response-div" class="highlight">
+  <table class="small table table-condensed" ref="response-info" style="display: none;">
+    <tr class="status">
+      <th class="name">Status:</th>
+      <td class="value"></td>
+    </tr>
+    <tr class="time">
+      <th class="name">Time:</th>
+      <td class="value"></td>
+    </tr>
+    <tr class="headers">
+      <th class="name">Headers:</th>
+      <td>
+        <a href="javascript:void(0)" data-toggle="collapse" data-target="#headers">Toggle</a>
+        <div id="headers" class="collapse value"></div>
+      </td>
+    </tr>
+  </table>
+  <pre><code id="response" ref="response-example" class="hljs">{
+  "<span class="hljs-attribute">profiles</span>": <span class="hljs-value">[
+    {
+      "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">5134</span></span>,
+      "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"user103@test.com"</span>
+    </span>}
+  ]
+</span>}</code></pre>
+  <pre><code ref="response-raw" style="display: none;"></code></pre>
+</div> <!-- ./#show-api-response-div -->
+
+<h3>Request Schema</h3>
+<div class="schema"><ul><li>additionalProperties: false</li><li>    <span id="access_token-0-471341029">
+      <a href="#access_token-0-471341029" class="anchor">
+        <tt>access_token</tt>
+      </a>
+    </span>
+<div class="schema"><ul><li>Required: no</li><li>Type: string</li><li>Example: <tt>&quot;022235d682a350a736b5b334b3e0bf99d22bac9a023e6737e9af3e0ff1be5391&quot;</tt></li></ul></div></li></ul></div>
+
+<h3>Response Schema</h3>
+<div class="schema"><ul><li>additionalProperties: false</li><li>    <span id="profiles-0-220135275">
+      <a href="#profiles-0-220135275" class="anchor">
+        <tt>profiles</tt>
+      </a>
+    </span>
+<div class="schema"><ul><li>Required: no</li><li>Type: array</li><li>Items<div class="schema"><ul><li>Required: no</li><li>additionalProperties: false</li><li>    <span id="id-2-609471687">
+      <a href="#id-2-609471687" class="anchor">
+        <tt>id</tt>
+      </a>
+    </span>
+<div class="schema"><ul><li>Required: no</li><li>Type: integer</li><li>Example: <tt>5134</tt></li></ul></div></li><li>    <span id="email-2-507259355">
+      <a href="#email-2-507259355" class="anchor">
+        <tt>email</tt>
+      </a>
+    </span>
+<div class="schema"><ul><li>Required: no</li><li>Type: string</li><li>Example: <tt>&quot;user103@test.com&quot;</tt></li></ul></div></li></ul></div></li></ul></div></li></ul></div>
+
+
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="bs-docs-sidebar hidden-print" role="complementary">
+        <ul class="nav bs-docs-sidenav">
+            <li class="endpoint-group false">
+      <a href="#">answers management</a>
+      <ul class="nav">
+            <li class="false">
+                <a href="/lurker/api/v1/answers/__id-GET.html">
+                  <span>answer</span>
+                  <br>
+                  <span class="btn btn-success btn-xs">GET&nbsp;/api/v1/answers/:id</span>
+                </a>
+            </li>
+            <li class="false">
+                <a href="/lurker/api/v1/questions/__question_id/answers-GET.html">
+                  <span>answer listing</span>
+                  <br>
+                  <span class="btn btn-success btn-xs">GET&nbsp;/api/v1/questions/:question_id/answers</span>
+                </a>
+            </li>
+            <li class="false">
+                <a href="/lurker/api/v1/questions/__question_id/answers-POST.html">
+                  <span>answer creation</span>
+                  <br>
+                  <span class="btn btn-primary btn-xs">POST&nbsp;/api/v1/questions/:question_id/answers</span>
+                </a>
+            </li>
+      </ul>
+  </li>
+  <li class="endpoint-group active">
+      <a href="#">profiles management</a>
+      <ul class="nav">
+            <li class="active">
+                <a href="/lurker/api/v1/profiles-GET.html">
+                  <span>profile listing</span>
+                  <br>
+                  <span class="btn btn-success btn-xs">GET&nbsp;/api/v1/profiles</span>
+                </a>
+            </li>
+            <li class="false">
+                <a href="/lurker/api/v1/profiles/me-GET.html">
+                  <span>profile</span>
+                  <br>
+                  <span class="btn btn-success btn-xs">GET&nbsp;/api/v1/profiles/me</span>
+                </a>
+            </li>
+      </ul>
+  </li>
+  <li class="endpoint-group false">
+      <a href="#">questions management</a>
+      <ul class="nav">
+            <li class="false">
+                <a href="/lurker/api/v1/questions-GET.html">
+                  <span>question listing</span>
+                  <br>
+                  <span class="btn btn-success btn-xs">GET&nbsp;/api/v1/questions</span>
+                </a>
+            </li>
+            <li class="false">
+                <a href="/lurker/api/v1/questions-POST.html">
+                  <span>question creation</span>
+                  <br>
+                  <span class="btn btn-primary btn-xs">POST&nbsp;/api/v1/questions</span>
+                </a>
+            </li>
+            <li class="false">
+                <a href="/lurker/api/v1/questions/__id-GET.html">
+                  <span>question</span>
+                  <br>
+                  <span class="btn btn-success btn-xs">GET&nbsp;/api/v1/questions/:id</span>
+                </a>
+            </li>
+      </ul>
+  </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="bs-docs-footer" role="contentinfo">
+  <div class="container">
+    <ul class="bs-docs-footer-links muted">
+      <li>·</li>
+        <li>Revision&nbsp;a62d218</li>
+        <li>·</li>
+        <li>lurker (0.6.11)</li>
+        <li>·</li>
+    </ul>
+  </div>
+</footer>
+
+<script src="/lurker/application-227676fcd3c9d8e61b4042fefbb68288484c019b.js"></script>
+
+</body>
+</html>
