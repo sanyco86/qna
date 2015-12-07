@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   def self.send_daily_digest
     question_ids = Question.for_today.pluck(:id)
     find_each do |user|
-      DailyMailer.digest(user, question_ids).deliver_later
+      DailyWorker.perform_async(user.id, question_ids)
     end
   end
 end

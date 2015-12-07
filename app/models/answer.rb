@@ -23,7 +23,7 @@ class Answer < ActiveRecord::Base
 
   def report_to_subscribers
     question.subscribers.find_each do |subscriber|
-      ReportMailer.report(subscriber, self).deliver_later
+      ReportWorker.perform_async(subscriber.id, self.id)
     end
   end
 end
