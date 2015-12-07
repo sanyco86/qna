@@ -29,8 +29,8 @@ gem 'doorkeeper'
 gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
-gem 'whenever', require: false
 gem 'sidekiq'
+gem 'sidetiq'
 gem 'sinatra', require: false
 
 gem 'letter_opener', :group => :development

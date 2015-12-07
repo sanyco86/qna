@@ -14,7 +14,7 @@
       = render 'shared/votes_bar', object: @question
     p
       - if user_signed_in?
-        - if @question.has_subscribed?(current_user)
+        - if @question.subscribed?(current_user)
           = link_to 'Unsubscribe', unsubscribe_question_path(@question), method: :post
         - else
           = link_to 'Subscribe', subscribe_question_path(@question), method: :post

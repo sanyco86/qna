@@ -111,15 +111,15 @@ ActiveRecord::Schema.define(version: 20151204120403) do
 
   add_index "questions", ["user_id"], name: "index_questions_on_user_id", using: :btree
 
-  create_table "subscribe_lists", force: :cascade do |t|
+  create_table "subscriptions", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "question_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  add_index "subscribe_lists", ["question_id"], name: "index_subscribe_lists_on_question_id", using: :btree
-  add_index "subscribe_lists", ["user_id"], name: "index_subscribe_lists_on_user_id", using: :btree
+  add_index "subscriptions", ["question_id"], name: "index_subscriptions_on_question_id", using: :btree
+  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20151204120403) do
   add_index "votes", ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id", using: :btree
 
   add_foreign_key "authorizations", "users"
-  add_foreign_key "subscribe_lists", "questions"
-  add_foreign_key "subscribe_lists", "users"
+  add_foreign_key "subscriptions", "questions"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "votes", "users"
 end
