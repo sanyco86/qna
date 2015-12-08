@@ -13,7 +13,18 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  config.action_mailer.delivery_method = :letter_opener
+  #config.action_mailer.delivery_method = :letter_opener
+
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+      :address              => 'smtp.gmail.com',
+      :port                 => 587,
+      :domain               => 'gmail.com',
+      :authentication       => 'plain',
+      :enable_starttls_auto => true,
+      :user_name            => Rails.application.secrets[:email][:user_name],
+      :password             => Rails.application.secrets[:email][:password]
+  }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
