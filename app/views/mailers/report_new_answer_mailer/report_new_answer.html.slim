@@ -1,0 +1,6 @@
+h1 There is a new answer to the question
+- if @questions.any?
+  - @questions.each do |question|
+    li= link_to question.title, question_url(question)
+- else
+  | There are no any questions for today.

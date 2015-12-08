@@ -30,8 +30,8 @@ gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
 gem 'sidekiq'
-gem 'sidetiq'
 gem 'sinatra', require: false
+gem 'whenever'
 
 gem 'letter_opener', :group => :development
 

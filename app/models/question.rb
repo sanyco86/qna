@@ -10,7 +10,7 @@ class Question < ActiveRecord::Base
   has_many :subscribers, class_name: 'User', through: :subscriptions
   validates :title, :body, presence: true
 
-  scope :for_today, -> { where(created_at: Date.today.beginning_of_day..Date.today.end_of_day) }
+  scope :for_today, -> { where(created_at: Time.zone.yesterday.all_day) }
 
   after_create :subscribe_author
 
