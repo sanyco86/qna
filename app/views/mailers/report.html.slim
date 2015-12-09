@@ -1,0 +1,6 @@
+h1 There is a new answer to the question
+= link_to @question.title, question_url(@question)
+- @answers.find_each do |a|
+  ul
+    li
+      = a.body
