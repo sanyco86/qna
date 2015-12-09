@@ -46,11 +46,16 @@ describe Answer do
   end
 
   describe '#report_to_subscribers', :focus do
-    subject { build(:answer) }
+    let(:q2a) { Answer.for_notification.group_by(&:question_id) }
+    let(:qsn) {Question.where(id: q2a.keys).includes(:subscribers)}
 
     it 'send email to question subscribers' do
-      subject.question.subscribers.each { |user| expect(ReportMailer).to receive(:report).twice.with(user, subject).and_call_original }
-      subject.save!
+      qsn.find_each do |q|
+        q.subscribers.find_each do |user|
+          expect(SubscriptionMailer).to receive(:report).twice.with(user, q, q2a[q.id]).and_call_original
+        end
+      end
+      Answer.notify_new_answers
     end
   end
 end

@@ -164,7 +164,9 @@ describe User do
     let(:question_ids) { Question.for_today.pluck(:id) }
 
     it 'send daily email digest' do
-      users.each { |u| expect(DailyMailer).to receive(:digest).twice.with(u, question_ids).and_call_original }
+      users.each do |user|
+        expect(DailyMailer).to receive(:digest).twice.with(user, question_ids).and_call_original
+      end
       User.send_daily_digest
     end
   end

@@ -24,7 +24,7 @@ class Answer < ActiveRecord::Base
 
     Question.where(id: q2a.keys).includes(:subscribers).find_each do |q|
       q.subscribers.find_each do |user|
-        SubscriptionMailer.delay.report(q, user, q2a[q.id])
+        SubscriptionMailer.report(q, user, q2a[q.id]).deliver_now
       end
     end
   end
