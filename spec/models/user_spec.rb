@@ -165,7 +165,7 @@ describe User do
 
     it 'send daily email digest' do
       users.each do |user|
-        expect(DailyMailer).to receive(:digest).twice.with(user, question_ids).and_call_original
+        expect(DailyMailer).to receive(:digest).twice.with(user.id, question_ids).and_call_original
       end
       User.send_daily_digest
     end

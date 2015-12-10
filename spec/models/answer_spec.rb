@@ -17,6 +17,7 @@ describe Answer do
   describe 'Validations' do
     it { should validate_presence_of :body }
     it { should validate_presence_of :question_id }
+    it { should validate_presence_of :user_id }
   end
 
   describe 'default_scope' do

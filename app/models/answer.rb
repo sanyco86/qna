@@ -6,7 +6,7 @@ class Answer < ActiveRecord::Base
 
   belongs_to :question
   has_many :comments, as: :commentable, dependent: :destroy
-  validates :body, :question_id, presence: true
+  validates :body, :question_id, :user_id, presence: true
 
   default_scope -> { order(best: :desc).order(created_at: :asc) }
 

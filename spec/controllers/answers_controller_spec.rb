@@ -1,15 +1,16 @@
 require 'rails_helper'
 
 describe AnswersController do
+  let(:user) { create :user }
   let(:question) { create(:question) }
-  let(:answer) { create(:answer, question: question, user: @user) }
+  let(:answer) { create(:answer, question: question, user: user) }
   let(:anothers_answer) { create(:answer, question: question) }
 
   describe 'POST #create' do
     context 'with valid attributes' do
       let(:subject) { post :create, question_id: question, answer: attributes_for(:answer), format: :json }
 
-      sign_in_user
+      before { sign_in(user) }
 
       it 'creates new answer' do
         expect {
@@ -20,7 +21,7 @@ describe AnswersController do
       it 'correctly assigns user' do
         expect {
           subject
-        }.to change(@user.answers, :count).by 1
+        }.to change(user.answers, :count).by 1
       end
 
       it 'renders show template' do
@@ -32,7 +33,7 @@ describe AnswersController do
     end
 
     context 'with invalid attributes' do
-      sign_in_user
+      before { sign_in(user) }
 
       it 'does not create new answer' do
         expect {
@@ -50,7 +51,7 @@ describe AnswersController do
   end
 
   describe 'PATCH #update' do
-    sign_in_user
+    before { sign_in(user) }
 
     it 'assigns requested answer to @answer' do
       patch :update, id: answer, question_id: question, answer: attributes_for(:answer), format: :json
@@ -65,9 +66,9 @@ describe AnswersController do
   end
 
   describe 'DELETE #destroy' do
-    sign_in_user
 
     before do
+      sign_in(user)
       answer
       anothers_answer
     end
@@ -96,10 +97,10 @@ describe AnswersController do
 
   describe 'PATCH #make_best' do
     context 'correct user' do
-      sign_in_user
 
       before do
-        question.update(user: @user)
+        sign_in(user)
+        question.update(user: user)
         patch :make_best, id: answer, question_id: question, format: :js
       end
 
@@ -114,7 +115,7 @@ describe AnswersController do
     end
 
     context 'incorrect user' do
-      sign_in_user
+      before { sign_in(user) }
 
       it 'doesnt change #best' do
         expect{
@@ -126,7 +127,7 @@ describe AnswersController do
   end
 
   describe 'PATCH #upvote' do
-    sign_in_user
+    before { sign_in(user) }
 
     it 'renders answer/vote.json.jbuilder' do
       patch :upvote, id: answer, format: :json
@@ -144,7 +145,7 @@ describe AnswersController do
   end
 
   describe 'PATCH #downvote' do
-    sign_in_user
+    before { sign_in(user) }
 
     it 'renders answer/vote.json.jbuilder' do
       patch :downvote, id: answer, format: :json
@@ -162,7 +163,7 @@ describe AnswersController do
   end
 
   describe 'PATCH #unvote' do
-    sign_in_user
+    before { sign_in(user) }
 
     it 'renders answer/vote' do
       patch :unvote, id: answer, format: :json
