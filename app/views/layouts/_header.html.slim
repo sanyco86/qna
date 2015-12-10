@@ -8,6 +8,7 @@ nav.navbar.navbar-default
         span.icon-bar
       = link_to 'QnA', root_path, class: 'navbar-brand'
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
+      = render 'shared/search_form'
       ul.nav.navbar-nav.navbar-right
         - if user_signed_in?
           li

@@ -1,0 +1,6 @@
+= form_for :search, url: search_path, method: :get, html: { class: 'navbar-form navbar-left' } do |f|
+  .form-group
+    = f.text_field :query, class: 'form-control', placeholder: 'Search'
+    ' Search in:
+    = f.select :conditions, [:everywhere, :answers, :comments, :users]
+  = f.submit 'Go!', class: 'btn btn-default'

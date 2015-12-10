@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'search', to: 'search#search'
+
   resources :questions, concerns: :votable do
     resources :comments, defaults: {commentable: 'questions'}
     post :subscribe, on: :member
