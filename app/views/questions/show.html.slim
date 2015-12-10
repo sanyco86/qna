@@ -12,6 +12,12 @@
             li = link_to attachment.file.identifier, attachment.file.url
     .question_votes
       = render 'shared/votes_bar', object: @question
+    p
+      - if user_signed_in?
+        - if @question.subscribed?(current_user)
+          = link_to 'Unsubscribe', unsubscribe_question_path(@question), method: :post
+        - else
+          = link_to 'Subscribe', subscribe_question_path(@question), method: :post
     - if policy(@question).update?
       p
         = link_to 'Edit', edit_question_path(@question), class: 'question_edit-link'

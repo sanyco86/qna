@@ -157,4 +157,17 @@ describe User do
       end
     end
   end
+
+  describe '.send_daily_digest' do
+    let(:users) { create_list(:user, 2) }
+    let!(:questions) { create_list(:question, 2, user: users.first) }
+    let(:question_ids) { Question.for_today.pluck(:id) }
+
+    it 'send daily email digest' do
+      users.each do |user|
+        expect(DailyMailer).to receive(:digest).twice.with(user.id, question_ids).and_call_original
+      end
+      User.send_daily_digest
+    end
+  end
 end

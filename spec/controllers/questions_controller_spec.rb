@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 describe QuestionsController do
-  let(:question) { create(:question, user: @user) }
+  let(:user) { create :user }
+  let(:question) { create(:question, user: user) }
   let(:anothers_question) { create(:question) }
 
   describe 'GET #index' do
@@ -31,9 +32,11 @@ describe QuestionsController do
   end
 
   describe 'GET #new' do
-    sign_in_user
 
-    before { get :new }
+    before do
+      sign_in(user)
+      get :new
+    end
 
     it 'assigns new question to @question' do
       expect(assigns(:question)).to be_a_new(Question)
@@ -45,9 +48,11 @@ describe QuestionsController do
   end
 
   describe 'GET #edit' do
-    sign_in_user
 
-    before { get :edit, id: question }
+    before do
+      sign_in(user)
+      get :edit, id: question
+    end
 
     it 'assigns requsted question to @question' do
       expect(assigns(:question)).to eq question
@@ -61,13 +66,13 @@ describe QuestionsController do
   describe 'POST #create' do
     let(:subject) { post :create, question: attributes_for(:question) }
     let(:publish_url) { '/questions' }
-    sign_in_user
+    before { sign_in(user) }
 
     context 'with valid attributes' do
       it 'creates a new question' do
         expect {
           subject
-        }.to change(@user.questions, :count).by 1
+        }.to change(user.questions, :count).by 1
       end
 
       it 'redirects to question#show' do
@@ -93,10 +98,12 @@ describe QuestionsController do
   end
 
   describe 'PATCH #update' do
-    sign_in_user
 
     context 'with valid attributes' do
-      before { patch :update, id: question, question: { title: 'new title', body: 'new body' } }
+      before do
+        sign_in(user)
+        patch :update, id: question, question: {title: 'new title', body: 'new body'}
+      end
 
       it 'assigns requsted question to @question' do
         expect(assigns(:question)).to eq question
@@ -114,7 +121,10 @@ describe QuestionsController do
     end
 
     context 'with invalid attributes' do
-      before { patch :update, id: question, question: { title: 'new title', body: nil} }
+      before do
+        sign_in(user)
+        patch :update, id: question, question: {title: 'new title', body: nil}
+      end
 
       it 'does not update question attributes' do
         question.reload
@@ -129,9 +139,9 @@ describe QuestionsController do
   end
 
   describe 'DELETE #destroy' do
-    sign_in_user
 
     before do
+      sign_in(user)
       question
       anothers_question
     end
@@ -160,7 +170,7 @@ describe QuestionsController do
   end
 
   describe 'PATCH #upvote' do
-    sign_in_user
+    before { sign_in(user) }
 
     it 'renders question/vote.json.jbuilder' do
       patch :upvote, id: question, format: :json
@@ -178,7 +188,7 @@ describe QuestionsController do
   end
 
   describe 'PATCH #downvote' do
-    sign_in_user
+    before { sign_in(user) }
 
     it 'renders question/vote.json.jbuilder' do
       patch :downvote, id: question, format: :json
@@ -196,7 +206,7 @@ describe QuestionsController do
   end
 
   describe 'PATCH #unvote' do
-    sign_in_user
+    before { sign_in(user) }
 
     it 'renders question/vote.json.jbuilder' do
       patch :unvote, id: question, format: :json

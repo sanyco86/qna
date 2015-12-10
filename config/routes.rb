@@ -1,5 +1,7 @@
+require 'sidekiq/web'
 Rails.application.routes.draw do
 
+  mount Sidekiq::Web, at: '/statusjobs'
   use_doorkeeper
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
@@ -28,6 +30,8 @@ Rails.application.routes.draw do
 
   resources :questions, concerns: :votable do
     resources :comments, defaults: {commentable: 'questions'}
+    post :subscribe, on: :member
+    post :unsubscribe, on: :member
 
     resources :answers, shallow: true, concerns: :votable do
       resources :comments, defaults: {commentable: 'answers'}

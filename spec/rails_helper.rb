@@ -9,6 +9,9 @@ require 'shoulda/matchers'
 require 'capybara/rspec'
 require 'pundit/rspec'
 require 'lurker/spec_helper'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
 
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }

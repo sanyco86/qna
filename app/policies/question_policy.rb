@@ -1,5 +1,6 @@
 class QuestionPolicy < ApplicationPolicy
   include VotedPolicy
+  include SubscribedPolicy
   def create?
     user
   end
