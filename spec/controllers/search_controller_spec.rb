@@ -1,30 +1,17 @@
 require 'rails_helper'
 
-RSpec.describe SearchController, :type => :controller do
+RSpec.describe SearchController, type: :controller do
   describe 'GET #search' do
-    it 'receives #search method with everywhere condition' do
-      expect(Question).to receive(:search).with('nothing')
-      get :search, search: { query: 'nothing', conditions: 'everywhere' }
+    it 'receives #search method without condition' do
+      expect(ThinkingSphinx).to receive(:search).with('test_query')
+      get :search, query: 'test_query'
     end
 
-    it 'receives #search method with questions condition' do
-      expect(Question).to receive(:search).with({conditions: { title: 'nothing', body: 'nothing' } })
-      get :search, search: { query: 'nothing', conditions: 'questions' }
-    end
-
-    it 'receives #search method with answers condition' do
-      expect(Question).to receive(:search).with({conditions: { 'answers' => 'nothing' } })
-      get :search, search: { query: 'nothing', conditions: 'answers' }
-    end
-
-    it 'receives #search method with comments condition' do
-      expect(Question).to receive(:search).with({conditions: { 'comments' => 'nothing' } })
-      get :search, search: { query: 'nothing', conditions: 'comments' }
-    end
-
-    it 'receives #search method with users condition' do
-      expect(Question).to receive(:search).with({conditions: { 'users' => 'nothing' } })
-      get :search, search: { query: 'nothing', conditions: 'users' }
+    %w(Question Answer Comment User).each do |attr|
+      it "receives #search method with #{ attr }s condition" do
+        expect(attr.constantize).to receive(:search).with('test_query')
+        get :search, query: 'test_query', condition: "#{ attr }s"
+      end
     end
   end
 end

@@ -1,6 +1,7 @@
-- if @questions.any?
-  h1 Search results:
-  #questions
-    = render @questions
-- else
-  h1 No results.
+.results
+  - if @results.any?
+    h4 Search results
+    - @results.each do |result|
+      = render partial: "#{result.class.name.downcase}", object: result
+  - else
+    h4 No results.

@@ -2,28 +2,12 @@ class SearchController < ApplicationController
   skip_after_action :verify_authorized
 
   def search
-    @questions = Question.search load_conditions
-    respond_with @questions
-  end
-
-  private
-
-  def load_conditions
-    case conditions
-      when 'everywhere'
-        query
-      when 'questions'
-        { conditions: { title: query, body: query } }
-      else
-        { conditions: { conditions => query } }
+    if params[:query].present?
+      @results = Search.filter(params[:query], condition: params[:condition])
+    else
+      @results = []
     end
-  end
-
-  def query
-    Riddle::Query.escape(params[:search][:query])
-  end
-
-  def conditions
-    params[:search][:conditions]
+    respond_with @results
   end
 end
+
