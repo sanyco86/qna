@@ -67,13 +67,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-      :address              => '192.168.2.3',
+      :address              => '',
       :openssl_verify_mode  => 'none',
       :port                 => 25,
-      :domain               => 'tis-ruda.com',
+      :domain               => '',
       :authentication       => :ntlm,
-      :user_name            => Rails.application.secrets[:email][:user_name],
-      :password             => Rails.application.secrets[:email][:password]
+      :user_name            => '',
+      :password             => ''
   }
 
   config.action_mailer.default_url_options = { host: 'qna.tis-ruda.com', port: 8080 }
