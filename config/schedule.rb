@@ -12,6 +12,6 @@ every 15.minutes do
   puts "#{Time.now} Done"
 end
 
-every 1.hour do
+every 60.minutes do
   rake 'ts:index'
 end
