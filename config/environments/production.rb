@@ -67,10 +67,10 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-      :address              => Rails.application.secrets[:email][:address],
+      :address              => '192.168.2.3',
       :openssl_verify_mode  => 'none',
       :port                 => 25,
-      :domain               => Rails.application.secrets[:email][:domain],
+      :domain               => 'tis-ruda.com',
       :authentication       => :ntlm,
       :user_name            => Rails.application.secrets[:email][:user_name],
       :password             => Rails.application.secrets[:email][:password]
