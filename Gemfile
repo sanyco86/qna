@@ -32,6 +32,8 @@ gem 'oj_mimic_json'
 gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'whenever'
+gem 'mysql2'
+gem 'thinking-sphinx'
 
 gem 'letter_opener', :group => :development
 

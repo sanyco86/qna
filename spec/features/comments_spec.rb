@@ -52,7 +52,7 @@ RSpec.feature 'Comments', type: :feature do
   describe 'non authenticated user' do
     scenario 'cannot create comment' do
       visit question_path(question)
-      expect(page).to_not have_selector 'form'
+      expect(page).to_not have_selector 'form#new_comment'
     end
   end
 end

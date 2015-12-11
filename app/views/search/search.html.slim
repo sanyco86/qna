@@ -1,0 +1,7 @@
+.results
+  - if @results.any?
+    h4 Search results
+    - @results.each do |result|
+      = render partial: "#{result.class.name.downcase}", object: result
+  - else
+    h4 No results.
