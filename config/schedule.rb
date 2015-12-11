@@ -11,3 +11,7 @@ every 15.minutes do
   runner 'Answer.notify_new_answers'
   puts "#{Time.now} Done"
 end
+
+every 1.hour do
+  rake 'ts:index'
+end

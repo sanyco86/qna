@@ -51,6 +51,22 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.2)
     byebug (8.2.1)
+    capistrano (3.4.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (~> 1.3)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
+    capistrano-rails (1.1.5)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rvm (0.1.2)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2)
+    capistrano-sidekiq (0.5.4)
+      capistrano
+      sidekiq (>= 3.4)
     capybara (2.5.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -79,7 +95,7 @@ GEM
     daemons (1.2.3)
     database_cleaner (1.5.1)
     debug_inspector (0.0.2)
-    devise (3.5.2)
+    devise (3.5.3)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -143,11 +159,9 @@ GEM
     kramdown (1.9.0)
     launchy (2.4.3)
       addressable (~> 2.3)
-    letter_opener (1.4.1)
-      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    lurker (0.6.11)
+    lurker (0.6.12)
       activesupport (>= 3.2, < 4.3)
       hashie (>= 3.0)
       json (~> 1.7)
@@ -165,6 +179,9 @@ GEM
     multipart-post (2.0.0)
     mysql2 (0.4.2)
     nested_form (0.3.2)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.0.1)
     nokogiri (1.6.7)
       mini_portile2 (~> 2.0.0.rc2)
     oauth2 (1.0.0)
@@ -173,7 +190,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
-    oj (2.13.1)
+    oj (2.14.0)
     oj_mimic_json (1.0.1)
     omniauth (1.2.2)
       hashie (>= 1.2, < 4)
@@ -254,7 +271,7 @@ GEM
       rspec-mocks (~> 3.4.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
-    sass (3.4.19)
+    sass (3.4.20)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -289,13 +306,16 @@ GEM
       activesupport (>= 3.1, < 5.0)
       railties (>= 3.1, < 5.0)
       slim (~> 3.0)
-    sprockets (3.5.0)
+    sprockets (3.5.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    sshkit (1.8.1)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
     temple (0.7.6)
     thin (1.6.4)
       daemons (~> 1.0, >= 1.0.9)
@@ -316,7 +336,7 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    warden (1.2.3)
+    warden (1.2.4)
       rack (>= 1.0)
     web-console (2.2.1)
       activemodel (>= 4.0)
@@ -338,6 +358,11 @@ DEPENDENCIES
   active_model_serializers
   bootstrap-sass
   byebug
+  capistrano
+  capistrano-bundler
+  capistrano-rails
+  capistrano-rvm
+  capistrano-sidekiq
   capybara
   capybara-webkit
   carrierwave
@@ -351,7 +376,6 @@ DEPENDENCIES
   json_spec
   kramdown
   launchy
-  letter_opener
   lurker
   mysql2
   nested_form
