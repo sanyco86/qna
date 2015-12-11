@@ -16,12 +16,13 @@ Rails.application.configure do
   #config.action_mailer.delivery_method = :letter_opener
 
   config.action_mailer.delivery_method = :smtp
-  ActionMailer::Base.smtp_settings = {
-      :address              => 'smtp.gmail.com',
-      :port                 => 587,
-      :domain               => 'gmail.com',
-      :authentication       => 'plain',
-      :enable_starttls_auto => true,
+
+  config.action_mailer.smtp_settings = {
+      :address              => Rails.application.secrets[:email][:address],
+      :openssl_verify_mode  => 'none',
+      :port                 => 25,
+      :domain               => Rails.application.secrets[:email][:domain],
+      :authentication       => :ntlm,
       :user_name            => Rails.application.secrets[:email][:user_name],
       :password             => Rails.application.secrets[:email][:password]
   }

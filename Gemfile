@@ -35,7 +35,13 @@ gem 'whenever'
 gem 'mysql2'
 gem 'thinking-sphinx'
 
-gem 'letter_opener', :group => :development
+group :development do
+  gem 'capistrano', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-sidekiq', require: false
+end
 
 group :development, :test do
   gem 'rspec-rails'
