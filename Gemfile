@@ -34,6 +34,7 @@ gem 'sinatra', require: false
 gem 'whenever'
 gem 'mysql2'
 gem 'thinking-sphinx'
+gem 'therubyracer'
 
 group :development do
   gem 'capistrano', require: false
