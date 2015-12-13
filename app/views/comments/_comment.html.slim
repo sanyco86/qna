@@ -1,4 +1,5 @@
-li
-  => comment.body
-  ' by
-  = link_to comment.user.try(:email), '#'
+- cache comment do
+  li
+    => comment.body
+    ' by
+    = link_to comment.user.try(:email), '#'

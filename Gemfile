@@ -38,6 +38,7 @@ gem 'therubyracer'
 gem 'dotenv'
 gem 'dotenv-deployment', require: 'dotenv/deployment'
 gem 'unicorn'
+gem 'redis-rails'
 
 group :development do
   gem 'capistrano', require: false

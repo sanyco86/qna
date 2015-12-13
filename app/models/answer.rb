@@ -4,7 +4,7 @@ class Answer < ActiveRecord::Base
   include HasUser
   include HasVotable
 
-  belongs_to :question
+  belongs_to :question, touch: true
   has_many :comments, as: :commentable, dependent: :destroy
   validates :body, :question_id, :user_id, presence: true
 

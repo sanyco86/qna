@@ -3,6 +3,7 @@
 .row
   h3.text-left.questions-index_title Latest questions
 #questions
-  = render @questions
+  - cache collection_cache_key_for(Question) do
+    = render @questions
 
 = subscribe_to "/questions"
