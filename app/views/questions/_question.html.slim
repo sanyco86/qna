@@ -1,15 +1,18 @@
 .row.question_container id="#{dom_id(question)}"
   .col-md-1.question_votes-count
-    = question.votes.count
-    br
-    ' votes
+    - cache question.votes do
+      = question.votes.count
+      br
+      ' votes
   .col-md-1.question_answers-count
-    = question.answers.count
-    br
-    ' answers
+    - cache question.answers do
+      = question.answers.count
+      br
+      ' answers
   .col-md-8
     h3.question_title
-      = link_to question.title, question
+      - cache question do
+        = link_to question.title, question
     - if policy(question).update?
       small
         => link_to 'Edit', edit_question_path(question), class: 'question_edit-link', remote: true
