@@ -1,12 +1,11 @@
-- cache object.votes do
-  p
-    ' Votes:
-    span.upvotes_count=> object.votes.upvotes.count
-    ' |
-    span.downvotes_count= object.votes.downvotes.count
-  p
-    ' Rating:
-    span.votes_count= object.votes.rating
+p
+  ' Votes:
+  span.upvotes_count=> object.votes.upvotes.count
+  ' |
+  span.downvotes_count= object.votes.downvotes.count
+p
+  ' Rating:
+  span.votes_count= object.votes.rating
 p
   - if user_signed_in? && !(current_user.id == object.user_id)
     - if current_user.voted_for? object

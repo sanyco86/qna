@@ -3,6 +3,7 @@
 .row
   h3.text-left.questions-index_title Latest questions
 #questions
-  = render @questions
+  - cache_unless user_signed_in? @question do
+    = render @questions
 
 = subscribe_to '/questions'
