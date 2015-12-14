@@ -1,4 +1,4 @@
-- cache_unless user_signed_in? @question do
+- cache_unless user_signed_in?, @question do
   .row
     .col-md-8.question_wrapper id="#{dom_id(@question)}"
       h3.question_title.question_title-show.border-bottom-grey

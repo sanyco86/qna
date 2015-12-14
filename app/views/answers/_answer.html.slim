@@ -1,4 +1,4 @@
-- cache_unless user_signed_in? answer do
+- cache_unless user_signed_in?, answer do
   .col-md-12.answer_wrapper.border-bottom-grey id=dom_id(answer) class="#{'answer_best' if answer.best}"
     p = link_to answer.user.try(:email), '#!'
     - if answer.best
