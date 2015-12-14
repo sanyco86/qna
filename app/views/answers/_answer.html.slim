@@ -1,31 +1,32 @@
-.col-md-12.answer_wrapper.border-bottom-grey id=dom_id(answer) class="#{'answer_best' if answer.best}"
-  p = link_to answer.user.try(:email), '#!'
-  - if answer.best
-    p
-      span.best_answer
-        ' best answer
-  p.answer_body = answer.body
-  - if answer.attachments.any?
-    p Attachments
-    ul
-      - answer.attachments.each do |attachment|
-        li = link_to attachment.file.identifier, attachment.file.url
-  .answer_votes
-    = render 'shared/votes_bar', object: answer
-  - if policy(answer).make_best?
-    p = link_to 'Best answer', make_best_answer_path(answer), method: :patch, remote: true
-  - if policy(answer).update?
-    p
-      = link_to 'Edit', '#', class: 'answer_edit-link', data: { answer_id: answer.id }
-  - if policy(answer).destroy?
-    p
-      = link_to 'Destroy', answer_path(answer), method: :delete, remote: true
-    = nested_form_for answer, remote: true, html: { class: 'answer_edit-form', id: "edit-#{dom_id(answer)}" } do |f|
-      = f.text_area :body
-      = f.submit 'Save'
-      .form-group
-        = render 'shared/attachment_fields', f: f
-  ul.answer_comments.list-unstyled
-    = render answer.comments
+- cache_unless user_signed_in?, answer do
+  .col-md-12.answer_wrapper.border-bottom-grey id=dom_id(answer) class="#{'answer_best' if answer.best}"
+    p = link_to answer.user.try(:email), '#!'
+    - if answer.best
+      p
+        span.best_answer
+          ' best answer
+    p.answer_body = answer.body
+    - if answer.attachments.any?
+      p Attachments
+      ul
+        - answer.attachments.each do |attachment|
+          li = link_to attachment.file.identifier, attachment.file.url
+    .answer_votes
+      = render 'shared/votes_bar', object: answer
+    - if policy(answer).make_best?
+      p = link_to 'Best answer', make_best_answer_path(answer), method: :patch, remote: true
+    - if policy(answer).update?
+      p
+        = link_to 'Edit', '#', class: 'answer_edit-link', data: { answer_id: answer.id }
+      = nested_form_for answer, remote: true, html: {class: 'answer_edit-form', id: "edit-#{dom_id(answer)}"} do |f|
+        = f.text_area :body
+        = f.submit 'Save'
+        .form-group
+          = render 'shared/attachment_fields', f: f
+    - if policy(answer).destroy?
+      p
+        = link_to 'Destroy', answer_path(answer), method: :delete, remote: true
+    ul.answer_comments.list-unstyled
+      = render answer.comments
     - if user_signed_in?
       = render 'comments/form', comment: answer.comments.new, commentable: answer
