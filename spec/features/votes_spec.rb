@@ -104,13 +104,15 @@ RSpec.feature 'Votes', type: :feature, js: true do
 
     context 'unvotes' do
       before do
-        user.vote_for(question, :upvote)
-        user.vote_for(answer, :upvote)
         visit question_path(question)
       end
 
       scenario 'a question' do
         within "#question_#{question.id}" do
+          click_on 'Upvote'
+          expect(page).to have_selector 'span.upvotes_count', text: 1
+          expect(page).to_not have_link 'Upvote'
+          expect(page).to_not have_link 'Downvote'
           click_on 'Unvote'
           expect(page).to have_selector 'span.upvotes_count', text: 0
           expect(page).to have_selector 'span.downvotes_count', text: 0
@@ -123,6 +125,10 @@ RSpec.feature 'Votes', type: :feature, js: true do
 
       scenario 'an answer' do
         within "#answer_#{answer.id}" do
+          click_on 'Upvote'
+          expect(page).to have_selector 'span.upvotes_count', text: 1
+          expect(page).to_not have_link 'Upvote'
+          expect(page).to_not have_link 'Downvote'
           click_on 'Unvote'
           expect(page).to have_selector 'span.upvotes_count', text: 0
           expect(page).to have_selector 'span.downvotes_count', text: 0
