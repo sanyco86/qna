@@ -1,3 +1,4 @@
+language: ruby
 rvm:
   - 2.1.2
   - 2.2.3
@@ -5,6 +6,10 @@ script:
   - bundle exec rake db:schema:load RAILS_ENV=test
   - bundle exec rspec
 before_script:
-  - psql -c 'create database so_test;' -U postgres
+  - psql -c 'create database qna_test;' -U postgres
+  - cp config/database.travis.yml config/database.yml
   - bundle exec rackup private_pub.ru -s thin -E production &
   - sleep 3
+addons:
+  code_climate:
+    repo_token: cb844b097433937f5cd96de2a5b479c2b95c5a05e886e3aebb490f5065df3b2c

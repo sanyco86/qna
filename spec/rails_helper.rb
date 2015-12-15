@@ -10,9 +10,11 @@ require 'capybara/rspec'
 require 'pundit/rspec'
 require 'lurker/spec_helper'
 require 'sidekiq/testing'
+require 'codeclimate-test-reporter'
+
+CodeClimate::TestReporter.start
 
 Sidekiq::Testing.inline!
-
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
