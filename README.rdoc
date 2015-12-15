@@ -1,4 +1,5 @@
 {<img src="https://codeclimate.com/github/sanyco86/qna/badges/gpa.svg" />}[https://codeclimate.com/github/sanyco86/qna]
+{<img src="https://codeclimate.com/github/sanyco86/qna/badges/coverage.svg" />}[https://codeclimate.com/github/sanyco86/qna/coverage]
 {<img src="https://travis-ci.org/sanyco86/qna.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/sanyco86/qna]
 
 == Учебное приложение QnA
