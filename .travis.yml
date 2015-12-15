@@ -7,7 +7,9 @@ script:
   - bundle exec rspec
 before_script:
   - psql -c 'create database qna_test;' -U postgres
-  - cp config/database.travis.yml config/database.yml
+  - cp config/travis/database.travis.yml config/database.yml
+  - cp config/travis/secrets.travis.yml config/secrets.travis.yml
+  - cp config/travis/private_pub.travis.yml config/private_pub.yml
   - bundle exec rackup private_pub.ru -s thin -E production &
   - sleep 3
 addons:
