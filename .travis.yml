@@ -16,5 +16,3 @@ script:
   - bundle exec rspec
 addons:
   postgresql: 9.3
-  code_climate:
-    repo_token: cb844b097433937f5cd96de2a5b479c2b95c5a05e886e3aebb490f5065df3b2c
