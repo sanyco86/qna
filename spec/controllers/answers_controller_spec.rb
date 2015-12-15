@@ -13,15 +13,15 @@ describe AnswersController do
       before { sign_in(user) }
 
       it 'creates new answer' do
-        expect {
+        expect do
           subject
-        }.to change(question.answers, :count).by 1
+        end.to change(question.answers, :count).by 1
       end
 
       it 'correctly assigns user' do
-        expect {
+        expect do
           subject
-        }.to change(user.answers, :count).by 1
+        end.to change(user.answers, :count).by 1
       end
 
       it 'renders show template' do
@@ -29,16 +29,16 @@ describe AnswersController do
         expect(response).to render_template :show
       end
 
-      it_behaves_like "publishable", /^\/questions\/\d+\/answers$/
+      it_behaves_like 'publishable', %r{^\/questions\/\d+\/answers$}
     end
 
     context 'with invalid attributes' do
       before { sign_in(user) }
 
       it 'does not create new answer' do
-        expect {
+        expect do
           post :create, question_id: question, answer: attributes_for(:answer, :invalid), format: :json
-        }.to_not change(Answer, :count)
+        end.to_not change(Answer, :count)
       end
     end
 
@@ -66,7 +66,6 @@ describe AnswersController do
   end
 
   describe 'DELETE #destroy' do
-
     before do
       sign_in(user)
       answer
@@ -75,9 +74,9 @@ describe AnswersController do
 
     context 'own answer' do
       it 'deletes answer' do
-        expect {
+        expect do
           delete :destroy, id: answer, question_id: question, format: :js
-        }.to change(Answer, :count).by(-1)
+        end.to change(Answer, :count).by(-1)
       end
 
       it 'redirects to answer question path' do
@@ -88,16 +87,15 @@ describe AnswersController do
 
     context 'anothers answer' do
       it 'doesnt delete answer' do
-        expect {
+        expect do
           delete :destroy, id: anothers_answer, question_id: question
-        }.to_not change(Answer, :count)
+        end.to_not change(Answer, :count)
       end
     end
   end
 
   describe 'PATCH #make_best' do
     context 'correct user' do
-
       before do
         sign_in(user)
         question.update(user: user)
@@ -118,10 +116,10 @@ describe AnswersController do
       before { sign_in(user) }
 
       it 'doesnt change #best' do
-        expect{
+        expect do
           patch :make_best, id: answer, question_id: question, format: :json
           answer.reload
-        }.to_not change(answer, :best)
+        end.to_not change(answer, :best)
       end
     end
   end
@@ -135,12 +133,12 @@ describe AnswersController do
     end
 
     it 'save/delete upvote' do
-      expect {
+      expect do
         patch :upvote, id: answer, format: :json
-      }.to change(answer.votes.upvotes, :count).by 1
-      expect {
+      end.to change(answer.votes.upvotes, :count).by 1
+      expect do
         patch :unvote, id: answer, format: :json
-      }.to change(answer.votes.upvotes, :count).by -1
+      end.to change(answer.votes.upvotes, :count).by(-1)
     end
   end
 
@@ -153,12 +151,12 @@ describe AnswersController do
     end
 
     it 'save/delete  downvote' do
-      expect {
+      expect do
         patch :downvote, id: answer, format: :json
-      }.to change(answer.votes.downvotes, :count).by 1
-      expect {
+      end.to change(answer.votes.downvotes, :count).by 1
+      expect do
         patch :unvote, id: answer, format: :json
-      }.to change(answer.votes.downvotes, :count).by -1
+      end.to change(answer.votes.downvotes, :count).by(-1)
     end
   end
 

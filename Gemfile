@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.4'
 
 gem 'pg'
@@ -39,6 +38,7 @@ gem 'dotenv'
 gem 'dotenv-deployment', require: 'dotenv/deployment'
 gem 'unicorn'
 gem 'redis-rails'
+gem 'rubocop', require: false
 
 group :development do
   gem 'capistrano', require: false

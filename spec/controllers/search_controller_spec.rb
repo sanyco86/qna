@@ -8,9 +8,9 @@ RSpec.describe SearchController, type: :controller do
     end
 
     %w(Question Answer Comment User).each do |attr|
-      it "receives #search method with #{ attr }s condition" do
+      it "receives #search method with #{attr}s condition" do
         expect(attr.constantize).to receive(:search).with('test_query')
-        get :search, query: 'test_query', condition: "#{ attr }s"
+        get :search, query: 'test_query', condition: "#{attr}s"
       end
     end
   end

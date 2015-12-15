@@ -48,7 +48,7 @@ describe Answer do
 
   describe '#report_to_subscribers', :focus do
     let(:q2a) { Answer.for_notification.group_by(&:question_id) }
-    let(:qsn) {Question.where(id: q2a.keys).includes(:subscribers)}
+    let(:qsn) { Question.where(id: q2a.keys).includes(:subscribers) }
 
     it 'send email to question subscribers' do
       qsn.find_each do |q|
@@ -60,4 +60,3 @@ describe Answer do
     end
   end
 end
-

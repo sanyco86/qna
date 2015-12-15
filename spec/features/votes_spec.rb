@@ -101,7 +101,6 @@ RSpec.feature 'Votes', type: :feature, js: true do
       end
     end
 
-
     context 'unvotes' do
       before do
         visit question_path(question)

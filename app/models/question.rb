@@ -1,5 +1,4 @@
 class Question < ActiveRecord::Base
-
   include Attachmentable
   include HasUser
   include HasVotable
@@ -16,11 +15,11 @@ class Question < ActiveRecord::Base
   after_create :subscribe_author
 
   def subscribe(user)
-    self.subscribers << user unless subscribed? user
+    subscribers << user unless subscribed? user
   end
 
   def unsubscribe(user)
-    self.subscribers.delete(user) if subscribed? user
+    subscribers.delete(user) if subscribed? user
   end
 
   def subscribed?(user)

@@ -1,5 +1,4 @@
 class QuestionsController < ApplicationController
-
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:show, :update, :edit, :destroy, :subscribe, :unsubscribe]
   after_action :publish_question, only: :create
@@ -42,7 +41,7 @@ class QuestionsController < ApplicationController
     redirect_to @question, notice: 'Subscribed successfully!'
   end
 
-   def unsubscribe
+  def unsubscribe
     @question.unsubscribe(current_user)
     redirect_to @question, notice: 'Unsubscribed successfully!'
   end
@@ -50,7 +49,8 @@ class QuestionsController < ApplicationController
   private
 
   def publish_question
-    PrivatePub.publish_to "/questions", question: render_to_string(template: 'questions/show.json.jbuilder') if @question.valid?
+    PrivatePub.publish_to '/questions',
+                          question: render_to_string(template: 'questions/show.json.jbuilder') if @question.valid?
   end
 
   def load_question

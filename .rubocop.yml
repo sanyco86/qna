@@ -1,0 +1,25 @@
+AllCops:
+  Exclude:
+    - vendor/**/*
+    - public/**/*
+    - db/**/*
+    - config/**/*
+    - bin/**/*
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 23
+
+Metrics/PerceivedComplexity:
+  Max: 8
+
+Metrics/AbcSize:
+  Max: 21
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false

@@ -3,6 +3,6 @@ module OmniauthMacros
     OmniAuth.config.mock_auth[provider] = OmniAuth::AuthHash.new({
       provider: provider.to_s,
       uid: '123456'
-    }.merge(provider == :facebook ? { info: { email: 'test@email.com' }} : {}))
+    }.merge(provider == :facebook ? { info: { email: 'test@email.com' } } : {}))
   end
 end

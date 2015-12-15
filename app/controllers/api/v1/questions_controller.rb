@@ -15,6 +15,7 @@ class Api::V1::QuestionsController < Api::V1::BaseController
   end
 
   private
+
   def load_authorize
     authorize @question
   end

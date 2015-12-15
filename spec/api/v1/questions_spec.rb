@@ -35,7 +35,9 @@ describe 'Questions API' do
 
         %w(id body created_at updated_at).each do |attr|
           it "answer object contains #{attr}" do
-            expect(response.body).to be_json_eql(answer.send(attr.to_sym).to_json).at_path("questions/0/answers/0/#{attr}")
+            expect(response.body).to be_json_eql(
+              answer.send(attr.to_sym).to_json).at_path("questions/0/answers/0/#{attr}"
+                                                       )
           end
         end
       end
@@ -76,7 +78,9 @@ describe 'Questions API' do
 
         %w(id body created_at updated_at).each do |attr|
           it "comment object contains #{attr}" do
-            expect(response.body).to be_json_eql(comment.send(attr.to_sym).to_json).at_path("question/comments/0/#{attr}")
+            expect(response.body).to be_json_eql(
+              comment.send(attr.to_sym).to_json).at_path("question/comments/0/#{attr}"
+                                                        )
           end
         end
       end
@@ -105,7 +109,9 @@ describe 'Questions API' do
 
     context 'authorized' do
       context 'with valid attributes', :lurker do
-        subject { post '/api/v1/questions', format: :json, access_token: access_token.token, question: attributes_for(:question) }
+        subject do
+          post '/api/v1/questions', format: :json, access_token: access_token.token, question: attributes_for(:question)
+        end
 
         it 'reponses with 201' do
           subject
@@ -113,9 +119,9 @@ describe 'Questions API' do
         end
 
         it 'creates new question' do
-          expect{
+          expect do
             subject
-          }.to change(user.questions, :count).by 1
+          end.to change(user.questions, :count).by 1
         end
       end
 
@@ -128,9 +134,9 @@ describe 'Questions API' do
         end
 
         it 'doesnt create new question' do
-          expect{
+          expect do
             subject
-          }.to_not change(Question, :count)
+          end.to_not change(Question, :count)
         end
       end
     end

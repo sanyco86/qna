@@ -32,7 +32,6 @@ describe QuestionsController do
   end
 
   describe 'GET #new' do
-
     before do
       sign_in(user)
       get :new
@@ -48,7 +47,6 @@ describe QuestionsController do
   end
 
   describe 'GET #edit' do
-
     before do
       sign_in(user)
       get :edit, id: question
@@ -70,9 +68,9 @@ describe QuestionsController do
 
     context 'with valid attributes' do
       it 'creates a new question' do
-        expect {
+        expect do
           subject
-        }.to change(user.questions, :count).by 1
+        end.to change(user.questions, :count).by 1
       end
 
       it 'redirects to question#show' do
@@ -85,9 +83,9 @@ describe QuestionsController do
 
     context 'with invalid attributes' do
       it 'doesnt create a new question' do
-        expect {
+        expect do
           post :create, question: attributes_for(:question, :invalid)
-        }.to_not change(Question, :count)
+        end.to_not change(Question, :count)
       end
 
       it 'renders questions#new view' do
@@ -98,11 +96,10 @@ describe QuestionsController do
   end
 
   describe 'PATCH #update' do
-
     context 'with valid attributes' do
       before do
         sign_in(user)
-        patch :update, id: question, question: {title: 'new title', body: 'new body'}
+        patch :update, id: question, question: { title: 'new title', body: 'new body' }
       end
 
       it 'assigns requsted question to @question' do
@@ -123,7 +120,7 @@ describe QuestionsController do
     context 'with invalid attributes' do
       before do
         sign_in(user)
-        patch :update, id: question, question: {title: 'new title', body: nil}
+        patch :update, id: question, question: { title: 'new title', body: nil }
       end
 
       it 'does not update question attributes' do
@@ -139,7 +136,6 @@ describe QuestionsController do
   end
 
   describe 'DELETE #destroy' do
-
     before do
       sign_in(user)
       question
@@ -147,11 +143,10 @@ describe QuestionsController do
     end
 
     context 'own question' do
-
       it 'deletes question' do
-        expect {
+        expect do
           delete :destroy, id: question
-        }.to change(Question, :count).by(-1)
+        end.to change(Question, :count).by(-1)
       end
 
       it 'redirects to questions#index' do
@@ -162,9 +157,9 @@ describe QuestionsController do
 
     context 'anothers question' do
       it 'doesnt delete question' do
-        expect {
+        expect do
           delete :destroy, id: anothers_question
-        }.to_not change(Question, :count)
+        end.to_not change(Question, :count)
       end
     end
   end
@@ -178,12 +173,12 @@ describe QuestionsController do
     end
 
     it 'save/delete upvote' do
-      expect {
+      expect do
         patch :upvote, id: question, format: :json
-      }.to change(question.votes.upvotes, :count).by 1
-      expect {
+      end.to change(question.votes.upvotes, :count).by 1
+      expect do
         patch :unvote, id: question, format: :json
-      }.to change(question.votes.upvotes, :count).by -1
+      end.to change(question.votes.upvotes, :count).by(-1)
     end
   end
 
@@ -196,12 +191,12 @@ describe QuestionsController do
     end
 
     it 'save/delete  downvote' do
-      expect {
+      expect do
         patch :downvote, id: question, format: :json
-      }.to change(question.votes.downvotes, :count).by 1
-      expect {
+      end.to change(question.votes.downvotes, :count).by 1
+      expect do
         patch :unvote, id: question, format: :json
-      }.to change(question.votes.downvotes, :count).by -1
+      end.to change(question.votes.downvotes, :count).by(-1)
     end
   end
 

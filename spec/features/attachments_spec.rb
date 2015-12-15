@@ -1,7 +1,6 @@
 require_relative 'feature_helper'
 
 RSpec.feature 'Attachments', type: :feature do
-
   describe 'user' do
     let(:user) { create(:user) }
     let(:question) { create(:question) }

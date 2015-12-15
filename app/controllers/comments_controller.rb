@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
     if @comment.save
-      PrivatePub.publish_to "/questions/#{@commentable.try(:question).try(:id) || @commentable.id}/comments", comment: render_to_string(template: 'comments/show')
+      PrivatePub.publish_to chanel, comment: render_to_string(template: 'comments/show')
       render nothing: true
     else
       render json: @comment.errors.full_messages, status: :unprocessable_entity
@@ -14,6 +14,10 @@ class CommentsController < ApplicationController
   end
 
   private
+
+  def chanel
+    "/questions/#{@commentable.try(:question).try(:id) || @commentable.id}/comments"
+  end
 
   def load_commentable
     @commentable = commentable_name.find(params[commentable_id])

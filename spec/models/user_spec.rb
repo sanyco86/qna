@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe User do
-
   describe 'Associations' do
     it { should have_many(:questions).dependent(:destroy) }
     it { should have_many(:answers).dependent(:destroy) }
@@ -20,17 +19,17 @@ describe User do
   describe '#vote_for' do
     context 'upvote' do
       it 'increases object upvotes by 1' do
-        expect{
+        expect do
           user.vote_for(question, 1)
-        }.to change(question.votes.upvotes, :count).by(1)
+        end.to change(question.votes.upvotes, :count).by(1)
       end
     end
 
     context 'downvote' do
       it 'increases object downvotes by 1' do
-        expect{
+        expect do
           user.vote_for(question, -1)
-        }.to change(question.votes.downvotes, :count).by(1)
+        end.to change(question.votes.downvotes, :count).by(1)
       end
     end
 
@@ -40,15 +39,15 @@ describe User do
       end
 
       it 'doesnt change upvote count of object' do
-        expect{
+        expect do
           user.vote_for(question, 1)
-        }.to_not change(question.votes.upvotes, :count)
+        end.to_not change(question.votes.upvotes, :count)
       end
 
       it 'doesnt change downvote count of object' do
-        expect{
+        expect do
           user.vote_for(question, -1)
-        }.to_not change(question.votes.upvotes, :count)
+        end.to_not change(question.votes.upvotes, :count)
       end
     end
 
@@ -56,9 +55,9 @@ describe User do
       let(:own_question) { create(:question, user: user) }
 
       it 'doesnt change vote count' do
-        expect{
+        expect do
           user.vote_for(own_question, 1)
-        }.to_not change(question.votes.upvotes, :count)
+        end.to_not change(question.votes.upvotes, :count)
       end
     end
   end
@@ -70,17 +69,17 @@ describe User do
       end
 
       it 'removes user vote from object' do
-        expect{
+        expect do
           user.unvote_for(question)
-        }.to change(question.votes, :count).by(-1)
+        end.to change(question.votes, :count).by(-1)
       end
     end
 
     context 'not voted before' do
       it 'doesnt change vote count for object' do
-        expect{
+        expect do
           user.unvote_for(question)
-        }.to_not change(question.votes, :count)
+        end.to_not change(question.votes, :count)
       end
     end
   end
@@ -101,15 +100,15 @@ describe User do
         let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: user.email }) }
 
         it 'does not create new user' do
-          expect{
+          expect do
             User.find_for_oauth(auth)
-          }.to_not change(User, :count)
+          end.to_not change(User, :count)
         end
 
         it 'creates new authorization for user' do
-          expect{
+          expect do
             User.find_for_oauth(auth)
-          }.to change(user.authorizations, :count).by 1
+          end.to change(user.authorizations, :count).by 1
         end
 
         it 'creates authorization with provider and uid' do
@@ -129,9 +128,9 @@ describe User do
         let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: 'non@existent.com' }) }
 
         it 'creates new user' do
-          expect{
+          expect do
             User.find_for_oauth(auth)
-          }.to change(User, :count).by 1
+          end.to change(User, :count).by 1
         end
 
         it 'returns new user' do

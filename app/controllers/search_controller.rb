@@ -10,4 +10,3 @@ class SearchController < ApplicationController
     respond_with @results
   end
 end
-

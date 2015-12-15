@@ -1,5 +1,4 @@
 class Answer < ActiveRecord::Base
-
   include Attachmentable
   include HasUser
   include HasVotable
@@ -14,7 +13,7 @@ class Answer < ActiveRecord::Base
 
   def make_best
     ActiveRecord::Base.transaction do
-      self.question.answers.update_all(best: false)
+      question.answers.update_all(best: false)
       update!(best: true)
     end
   end

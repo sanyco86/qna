@@ -91,7 +91,11 @@ describe 'Answers API' do
 
     context 'authorized' do
       context 'with valid attributes', :lurker do
-        subject { post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token, answer: attributes_for(:answer) }
+        subject do
+          post "/api/v1/questions/#{question.id}/answers", format: :json,
+                                                           access_token: access_token.token,
+                                                           answer: attributes_for(:answer)
+        end
 
         it 'reponses with 201' do
           subject
@@ -99,20 +103,24 @@ describe 'Answers API' do
         end
 
         it 'creates new answer' do
-          expect{
+          expect do
             subject
-          }.to change(user.answers, :count).by 1
+          end.to change(user.answers, :count).by 1
         end
 
         it 'creates new answer' do
-          expect{
+          expect do
             subject
-          }.to change(question.answers, :count).by 1
+          end.to change(question.answers, :count).by 1
         end
       end
 
       context 'with invalid attributes' do
-        subject { post "/api/v1/questions/#{question.id}/answers", format: :json, access_token: access_token.token, answer: { body: nil } }
+        subject do
+          post "/api/v1/questions/#{question.id}/answers", format: :json,
+                                                           access_token: access_token.token,
+                                                           answer: { body: nil }
+        end
 
         it 'responses with 422' do
           subject
@@ -120,9 +128,9 @@ describe 'Answers API' do
         end
 
         it 'doesnt create new answer' do
-          expect{
+          expect do
             subject
-          }.to_not change(Answer, :count)
+          end.to_not change(Answer, :count)
         end
       end
     end

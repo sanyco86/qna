@@ -45,7 +45,6 @@ RSpec.feature 'OAuth', type: :feature do
       end
     end
 
-
     scenario 'with invalid credentials' do
       OmniAuth.config.mock_auth[:vkontakte] = :invalid_credentials
       click_on 'Sign in with Vkontakte'
@@ -54,7 +53,6 @@ RSpec.feature 'OAuth', type: :feature do
   end
 
   describe 'facebook Sign in' do
-
     it 'successfully' do
       mock_auth_hash(:facebook)
       click_on 'Sign in'

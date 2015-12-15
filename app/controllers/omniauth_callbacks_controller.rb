@@ -11,6 +11,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   private
+
   def provider_sign_in
     @user = User.find_for_oauth(auth)
     if @user && @user.persisted?

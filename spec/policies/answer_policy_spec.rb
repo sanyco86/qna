@@ -1,7 +1,6 @@
 require_relative '../features/feature_helper'
 
 describe AnswerPolicy do
-
   let(:user) { create(:user) }
   let(:question) { create(:question, user: user) }
   let(:answer) { create(:answer, user: user, question: question) }

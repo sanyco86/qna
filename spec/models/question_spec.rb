@@ -30,15 +30,15 @@ describe Question do
     let(:question) { create(:question) }
 
     it 'adds given user to subscribers' do
-      expect{
+      expect do
         question.subscribe(user)
-      }.to change(question.subscribers, :count).by 1
+      end.to change(question.subscribers, :count).by 1
     end
 
     it 'doesnt add user to subscribers if he is already there' do
-      expect{
+      expect do
         question.subscribe(question.user)
-      }.to_not change(question.subscribers, :count)
+      end.to_not change(question.subscribers, :count)
     end
   end
 
@@ -47,16 +47,15 @@ describe Question do
     let(:question) { create(:question) }
 
     it 'adds given user to subscribers' do
-      expect{
+      expect do
         question.unsubscribe(question.user)
-      }.to change(question.subscribers, :count).by(-1)
+      end.to change(question.subscribers, :count).by(-1)
     end
 
     it 'doesnt add user to subscribers if he is already there' do
-      expect{
+      expect do
         question.unsubscribe(user)
-      }.to_not change(question.subscribers, :count)
+      end.to_not change(question.subscribers, :count)
     end
   end
 end
-
