@@ -1,0 +1,20 @@
+language: ruby
+rvm:
+  - 2.1.2
+before_script:
+  - cp config/travis/database.travis.yml config/database.yml
+  - cp config/travis/secrets.travis.yml config/secrets.yml
+  - cp config/travis/private_pub.travis.yml config/private_pub.yml
+  - psql -c 'create database qna_test;' -U postgres
+  - bundle exec rackup private_pub.ru -s thin -E production &
+  - sleep 3
+script:
+  - bundle exec rake db:schema:load RAILS_ENV=test
+  - bundle exec rspec
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+addons:
+  postgresql: 9.3
+  code_climate:
+    repo_token: cb844b097433937f5cd96de2a5b479c2b95c5a05e886e3aebb490f5065df3b2c

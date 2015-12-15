@@ -1,0 +1,16 @@
+languages:
+   Ruby: true
+engines:
+  rubocop:
+    enabled: true
+  csslint:
+    enabled: true
+ratings:
+   paths:
+   - app/**
+   - lib/**
+   - "**.rb"
+exclude_paths:
+- spec/**/*
+- vendor/**/*
+- public/**/*

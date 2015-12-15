@@ -67,4 +67,5 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'json_spec'
+  gem 'codeclimate-test-reporter', require: nil
 end
