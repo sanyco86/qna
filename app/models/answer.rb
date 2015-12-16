@@ -21,10 +21,6 @@ class Answer < ActiveRecord::Base
   def self.notify_new_answers
     q2a = Answer.for_notification.group_by(&:question_id)
 
-    Question.where(id: q2a.keys).includes(:subscribers).find_each do |q|
-      q.subscribers.find_each do |user|
-        SubscriptionMailer.report(q, user, q2a[q.id]).deliver_now
-      end
-    end
+    Question.where(id: q2a.keys).includes(:subscribers).find_each { |q| q.subscribers.find_each { |user| SubscriptionMailer.report(q, user, q2a[q.id]).deliver_now } }
   end
 end
