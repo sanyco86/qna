@@ -11,20 +11,21 @@ module Omniauthable
         return false
       end
 
+      user = find_or_create_user(email)
+      return false unless user
+      user.create_authorization(auth)
+      user
+    end
+
+    def find_or_create_user(email)
       user = User.where(email: email).first
-      if user
-        user.create_authorization(auth)
-      else
+      unless user
         password = Devise.friendly_token[0, 20]
         user = User.new(email: email,
-                        password: password,
-                        password_confirmation: password)
-        if user.valid?
-          user.save!
-          user.create_authorization(auth)
-        else
-          return false
-        end
+          password: password,
+          password_confirmation: password
+        )
+        return false unless user.save 
       end
       user
     end
