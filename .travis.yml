@@ -1,6 +1,8 @@
 language: ruby
 rvm:
   - 2.1.2
+cache:
+  - bundler
 before_script:
   - cp config/travis/database.travis.yml config/database.yml
   - cp config/travis/secrets.travis.yml config/secrets.yml
