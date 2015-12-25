@@ -21,5 +21,6 @@ Metrics/AbcSize:
 Style/Documentation:
   Enabled: false
 #test
+#test
 Style/ClassAndModuleChildren:
   Enabled: false
