@@ -20,6 +20,6 @@ Metrics/AbcSize:
 
 Style/Documentation:
   Enabled: false
-
+#test
 Style/ClassAndModuleChildren:
   Enabled: false
