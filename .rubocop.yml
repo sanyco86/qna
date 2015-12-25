@@ -17,9 +17,10 @@ Metrics/PerceivedComplexity:
 
 Metrics/AbcSize:
   Max: 21
-
+#test
 Style/Documentation:
   Enabled: false
-
+#test
+#test
 Style/ClassAndModuleChildren:
   Enabled: false
